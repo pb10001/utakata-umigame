@@ -40,7 +40,7 @@
                 <p class="panel-text">問題文</p>
             </div>
             <div class="panel-body">
-                <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="primary-text chat-box" ng-bind="mondai"></p></a>
+                <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text chat-box" ng-bind="mondai"></p></a>
                 <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
                 <textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
                 <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
@@ -87,7 +87,7 @@
                 <p class="panel-text">解説</p>
             </div>
             <div class="panel-body">
-                <a class="clear-deco"><p id="trueAns-text" data-toggle="collapse" href="#trueAns-input" class="chat-box primary-text" ng-bind="trueAns"></p></a>
+                <a class="clear-deco"><p id="trueAns-text" data-toggle="collapse" href="#trueAns-input" class="pre-line chat-box primary-text" ng-bind="trueAns"></p></a>
                 <form class="collapse" id="trueAns-input" ng-submit="sendTrueAns()">
                   <textarea class="form-control" placeholder="True answer" ng-model="ans_content"></textarea><br>
                   <input class="btn warning-btn btn-danger" type="submit" value="Put the True Answer">

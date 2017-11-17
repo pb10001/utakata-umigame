@@ -8,6 +8,9 @@ body {
   font-size:16px;
   background:#FAFAFA;
 }
+.pre-line{
+    white-space:pre-line;
+}
 .btn.warning-btn{
     background:#FF9800;
 }
