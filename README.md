@@ -21,7 +21,7 @@ git clone https://github.com/pb10001/utakata-umigame.git
 - ローカルサーバーをスタートする
 ```
 node server.js
-#localhost:3000にアクセス
+#localhost:5000にアクセス
 ```
 ## 使用したフォント
 [Rounded Mgen+](http://jikasei.me/font/rounded-mgenplus/)(自家製フォント工房)
