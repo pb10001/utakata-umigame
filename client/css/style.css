@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css');
+html{
+  width:100%;
+}
+body {
+  width:100%;
+  font-family:'Rounded Mplus 1c', sans-serif;
+  font-size:16px;
+  background:#FAFAFA;
+}
+.btn.warning-btn{
+    background:#FF9800;
+}
+.primary-text{
+    color:#212121;
+}
+.secondary-text{
+    color:#757575;
+}
+.navbar{
+    background:#303F9F;
+}
+.caption-text{
+    color:#FFFFFC;
+    font-size:24px;
+}
+.chat-box{
+  background:#FFFFFF;
+  padding: 5px;
+  border-radius:1px;
+  box-shadow:#AAA 1px 1px 1px;
+}
+.chat-area{
+    padding:10px;
+    max-height:500px;
+    overflow:auto;
+}
+.chat-row{
+  max-width:1000px;
+  margin-bottom:10px;
+  margin: 0 auto 5px;
+}
+.message-text{
+    word-wrap:break-word;
+}
+.panel{
+    border:#BDBDBD;
+    margin: 0 auto;
+    width: 80%;
+}
+.panel-heading{
+    background:#3F51B5;
+    color:#FFF;
+}
+.panel-body{
+    background:#F0F0F0;
+}
+.fixed-area{
+  display:block;
+  position:fixed;
+}
+.form-control{
+    width:100%;
+}
+.btn{
+    border-radius:1px;
+}
+.input-append{
+    border-radius:1px;
+    margin-bottom:10px;
+}
+.nav.user-list{
+    background:#C5CAE9;
+    padding:10px 0px;
+    border:0;
+    box-shadow:#888 0px 5px 5px;
+}
+.icon-bar{
+    border:#FFF;
+    background:#FF9800;;
+}
+.controls{
+    max-width:1000px;
+    margin:0 auto;
+}
+#name-box{
+    margin-top:5px;
+    margin-left:10px;
+}
+#caption-box{
+    margin-left:10px;
+}
+#pageTop{
+  right:30px;
+  bottom:10px;
+  position:fixed;
+}
+#mondai-text{
+  word-wrap:break-word;
+}
+#trueAns-text{
+  word-wrap:break-word;
+}
+.clear-deco{
+  text-decoration:none;
+}
+#mondai-input{
+    margin-top:10px;
+}
+#trueAns-input{
+    margin-top:10px;
+}

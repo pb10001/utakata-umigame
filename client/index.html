@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja" ng-app>
+  <head>
+    <title>うたかたウミガメ</title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="/js/client.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid" ng-controller="ChatController">
+    <nav class="navbar">
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="caption-text navbar-text" href="#">
+                    うたかたウミガメ
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarEexample7">
+                <ul class="nav navbar-nav">
+                    <li><form class="navbar-form"><input id="name-box" type="text" class="navbar-right" ng-model="name" ng-change="setName()" placeholder="Your Name"></form></li>
+                </ul>
+            <form class="navbar-right navbar-form"ng-submit="clearAll()">
+                <input class="btn warning-btn btn-danger" type="submit" value="Clear All">
+            </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+	<div class="row">
+          <div class="panel">
+            <div class="panel-heading">
+                <p class="panel-text">問題文</p>
+            </div>
+            <div class="panel-body">
+                <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="primary-text chat-box" ng-bind="mondai"></p></a>
+                <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
+                <textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
+                <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
+            </form>
+            </div>
+          </div>
+      </div>
+        <div class="row">
+        <div>
+           <div id="scrollArea" class ="chat-area">
+            <div class= "row chat-row" ng-repeat="msg in messages">
+              <button class="btn chat-id-button span1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
+              <div class="chat-box span4">
+                <small class="secondary-text" ng-bind="msg.name"></small>
+                <span class="primary-text message-text" ng-bind="msg.text"></span>
+              </div>
+              <div class="chat-box span4">
+                <small class="secondary-text" ng-bind="msg.answerer"></small>
+                <span class="primary-text message-text" ng-bind="msg.answer"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="row">
+          <div class="controls">
+        <form ng-submit="send()">
+            <div class ="input-append">
+            <input type="text" class="span7" ng-model="text" placeholder="Question">
+            <input type="submit" class="btn" value="Send">
+          </div>
+        </form>
+        <form ng-submit="sendAnswer()" name="answerForm">
+          <div class="input-append">
+            <input type="number" min=1 id="id_input" class="span1" ng-model="id" placeholder="Id">
+            <input type="text" class="span6" ng-model="answer" placeholder="Answer" name="answerBox">
+            <input type="submit" class="btn" value="Send">
+          </div>
+        </form>
+      </div></div>
+      <div class="row">
+          <div class="panel" >
+            <div class="panel-heading">
+                <p class="panel-text">解説</p>
+            </div>
+            <div class="panel-body">
+                <a class="clear-deco"><p id="trueAns-text" data-toggle="collapse" href="#trueAns-input" class="chat-box primary-text" ng-bind="trueAns"></p></a>
+                <form class="collapse" id="trueAns-input" ng-submit="sendTrueAns()">
+                  <textarea class="form-control" placeholder="True answer" ng-model="ans_content"></textarea><br>
+                  <input class="btn warning-btn btn-danger" type="submit" value="Put the True Answer">
+                </form>
+            </div>
+          </div>      
+      </div>
+      <div class="row">
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="panel-text">
+                Users
+                </div>
+            </div>
+            <div class="panel-body">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="user in roster" ng-bind="user">
+            </li>
+          </ul>
+          </div>
+        </div>      
+      </div>
+      </div>
+    <div class="footer">
+      <p>© 2017 うたかたウミガメ</p>
+    </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+  </body>
+</html>
