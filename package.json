@@ -1,6 +1,6 @@
 {
   "name": "utakata-umigame",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Q&A-based web chat application by node.js",
   "main": "server.js",
   "repository": "https://github.com/pb10001/utakata-umigame.git",
