@@ -34,7 +34,6 @@ body {
   padding: 5px;
   border-radius:1px;
   border-right:#C5CAE9 solid 1px;
-  border-top:#C5CAE9 solid 1px;
   border-bottom:#C5CAE9 solid 1px;
 }
 .multiline-box{
@@ -42,7 +41,8 @@ body {
   background:#FFFFFF;
   padding: 5px;
   border-radius:1px;
-  border:#C5CAE9 solid 1px;
+  border-bottom:#C5CAE9 solid 1px;
+  border-right:#C5CAE9 solid 1px;
 }
 .chat-area{
     padding:10px;
