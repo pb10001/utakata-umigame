@@ -124,9 +124,11 @@ body {
 }
 #mondai-text{
   word-wrap:break-word;
+  font-family:"Noto Sans Japanese", sans-serif;
 }
 #trueAns-text{
   word-wrap:break-word;
+  font-family:"Noto Sans Japanese", sans-serif;
 }
 .clear-deco{
   text-decoration:none;
