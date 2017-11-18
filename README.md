@@ -24,4 +24,7 @@ node server.js
 #localhost:5000にアクセス
 ```
 ## 使用したフォント
-[Rounded Mgen+](http://jikasei.me/font/rounded-mgenplus/)(自家製フォント工房)
+[M+](https://mplus-fonts.osdn.jp/)
+[こころ明朝体](http://typingart.net/?p=46)
+
+[Google Fonts + 日本語早期アクセス](https://googlefonts.github.io/japanese/)
