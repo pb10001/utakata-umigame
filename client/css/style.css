@@ -111,12 +111,15 @@ body {
 .control-row{
     margin:0 auto;
 }
+.clear-all{
+    width:90%;
+    margin:0 auto;
+}
 .footer{
     margin-top:20px;
 }
 #name-box{
     margin-top:5px;
-    margin-left:10px;
 }
 #caption-box{
     margin-left:10px;

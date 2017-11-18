@@ -25,12 +25,11 @@
             </div>
             <div class="collapse navbar-collapse in" id="navbarEexample7" aria-expanded="true">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="https://github.com/pb10001/utakata-umigame">Contribute</a></li>
-                    <li><form class="navbar-form"><input id="name-box" type="text" class="navbar-right" ng-model="name" ng-change="setName()" placeholder="Your Name"></form></li>
+                    <li class="active"><a href="#">How to Play(工事中)</a></li>
                 </ul>
-            <form class="navbar-right navbar-form"ng-submit="clearAll()">
-                <input class="btn warning-btn btn-danger" type="submit" value="Clear All">
-            </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="https://github.com/pb10001/utakata-umigame">Contribute</a></li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -69,6 +68,9 @@
       <div class="row">
         <div class="controls">
         <div class="row control-row">
+            <input id="name-box" type="text" class="col-xs-12 col-md-12" ng-model="name" ng-change="setName()" placeholder="Your Name">
+        </div>
+        <div class="row control-row">
         <form ng-submit="send()">
             <div class ="input-append">
             <input type="text" class="col-xs-8 col-md-11" ng-model="text" placeholder="Question">
@@ -96,6 +98,11 @@
                 </form>
             </div>
           </div>      
+      </div>
+      <div class="row">
+            <form class="clear-all" ng-submit="clearAll()">
+                <input class="col-xs-12 col-md-12 btn warning-btn btn-danger" type="submit" value="Clear All">
+            </form>
       </div>
       <div class="row">
         <div class="panel">
