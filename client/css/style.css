@@ -114,6 +114,8 @@ body {
 .clear-all{
     width:90%;
     margin:0 auto;
+    margin-top: 10px;
+    margin-bottom:50px;
 }
 .footer{
     margin-top:20px;
@@ -151,4 +153,7 @@ body {
 }
 #trueAns-input textarea{
     border-radius:1px;
+}
+#sender-text{
+    text-align:right;
 }

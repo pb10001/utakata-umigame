@@ -13,7 +13,7 @@
     <nav class="navbar">
         <div>
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7" aria-expanded="true">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -23,7 +23,7 @@
                     うたかたウミガメ
                 </a>
             </div>
-            <div class="collapse navbar-collapse in" id="navbarEexample7" aria-expanded="true">
+            <div class="collapse navbar-collapse" id="navbarEexample7">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">How to Play(工事中)</a></li>
                 </ul>
@@ -41,6 +41,7 @@
             </div>
             <div class="panel-body">
                 <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box" ng-bind="mondai"></p></a>
+                <p data-toggle="collapse" id="sender-text" class="secondary-text" ng-bind="sender"></p>
                 <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
                 <textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
                 <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">

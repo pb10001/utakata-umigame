@@ -21,7 +21,10 @@ var server = http.createServer(router);
 var io = socketio.listen(server);
 
 router.use(express.static(path.resolve(__dirname, 'client')));
-var mondai = "クリックして問題文を入力";
+var mondai ={
+    sender:"",
+    content:"クリックして問題文を入力"
+}
 var trueAns="クリックして解説を入力";
 var messages = [];
 var sockets = [];
@@ -42,7 +45,10 @@ io.on('connection', function (socket) {
 
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
-        mondai = String(msg.content||"クリックして問題文を入力");
+        mondai ={
+            sender:String(msg.mondai.sender||"Anonymous"),
+            content:String(msg.mondai.content||"クリックして問題文を入力")
+        };
         broadcast("mondai", mondai);
       }
       else if(msg.type == "trueAns"){
@@ -75,7 +81,10 @@ io.on('connection', function (socket) {
 
     });
     socket.on('clear',function(){
-      mondai="クリックして問題文を入力";
+      mondai={
+          sender:"Anonymous",
+          content:"クリックして問題文を入力"
+      };
       trueAns="クリックして解説を入力";
       messages=[];
       broadcast("mondai",mondai);

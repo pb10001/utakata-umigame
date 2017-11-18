@@ -5,13 +5,15 @@ function ChatController($scope) {
   $scope.name = '';
   $scope.text = '';
   $scope.answer = '';
+  $scope.sender = '';
   $scope.mondai ='';
   $scope.trueAns='';
   socket.on('connect', function () {
     $scope.setName();
   });
   socket.on('mondai', function(msg){
-    $scope.mondai = msg;
+    $scope.sender = "出題者: "+msg.sender;
+    $scope.mondai = msg.content;
     $scope.$apply();
   });
   socket.on('trueAns', function(msg){
@@ -34,7 +36,10 @@ function ChatController($scope) {
     if(window.confirm('問題文が変更されます。続行しますか？')){
       var data = {
       type:"mondai",
-      content:$scope.content
+      mondai:{
+          sender:$scope.name,
+          content:$scope.content
+      }
     }
     socket.emit("message",data);
     }
