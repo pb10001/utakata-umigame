@@ -25,9 +25,13 @@ body {
 .navbar{
     background:#303F9F;
 }
-.caption-text{
-    color:#FFFFFC;
-    font-size:24px;
+.navbar a{
+    color:#FFF;
+}
+.navbar-text.caption-text{
+    margin:10px 5px;
+    font-size:1.5em;
+    color:#FFF;
     font-family:"Kokoro", serif;
 }
 .chat-box{
