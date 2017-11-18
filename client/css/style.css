@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/earlyaccess/mplus1p.css');
 @import url('https://fonts.googleapis.com/earlyaccess/kokoro.css');
+@import url('https://fonts.googleapis.com/earlyaccess/notosansjapanese.css');
 html{
   width:100%;
 }
@@ -68,6 +69,8 @@ body {
 .panel-heading{
     background:#C5CAE9;
     border-radius:1px;
+    font-weight:lighter;
+    font-family:"Noto Sans Japanese",sans-serif;
 }
 .panel-body{
     background:#F0F0F0;
