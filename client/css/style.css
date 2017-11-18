@@ -115,6 +115,7 @@ body {
     margin:0 auto;
 }
 .clear-all{
+    opacity:0.8;
     width:90%;
     margin:0 auto;
     margin-top: 10px;
