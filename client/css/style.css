@@ -9,6 +9,7 @@ body {
   font-family:'Mplus 1p', sans-serif;
   font-size:14px;
   background:#FAFAFA;
+  background-image:url("/img/circles.svg");
 }
 .pre-line{
     white-space:pre-line;
@@ -23,6 +24,7 @@ body {
     color:#757575;
 }
 .navbar{
+    opacity:0.9;
     background:#303F9F;
 }
 .navbar a{
@@ -69,6 +71,7 @@ body {
     border:#BDBDBD;
     margin: 0 auto;
     width: 90%;
+    opacity:0.8;
 }
 .panel-heading{
     background:#C5CAE9;
@@ -132,6 +135,7 @@ body {
   position:fixed;
 }
 #mondai-text{
+  opacity:1.0;
   word-wrap:break-word;
   font-family:"Noto Sans Japanese", sans-serif;
 }
