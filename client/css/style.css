@@ -5,7 +5,7 @@ html{
 body {
   width:100%;
   font-family:'Rounded Mplus 1c', sans-serif;
-  font-size:16px;
+  font-size:14px;
   background:#FAFAFA;
 }
 .pre-line{
@@ -32,6 +32,7 @@ body {
   padding: 5px;
   border-radius:1px;
   box-shadow:#AAA 1px 1px 1px;
+  margin:1px;
 }
 .chat-area{
     padding:10px;
@@ -39,7 +40,7 @@ body {
     overflow:auto;
 }
 .chat-row{
-  max-width:1000px;
+  width:90%;
   margin-bottom:10px;
   margin: 0 auto 5px;
 }
@@ -49,11 +50,11 @@ body {
 .panel{
     border:#BDBDBD;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
 }
 .panel-heading{
-    background:#3F51B5;
-    color:#FFF;
+    background:#C5CAE9;
+    border-radius:1px;
 }
 .panel-body{
     background:#F0F0F0;
@@ -67,6 +68,7 @@ body {
 }
 .btn{
     border-radius:1px;
+    font-size:1em;
 }
 .input-append{
     border-radius:1px;
@@ -83,7 +85,10 @@ body {
     background:#FF9800;;
 }
 .controls{
-    max-width:1000px;
+    width:90%;
+    margin:0 auto 30px;
+}
+.control-row{
     margin:0 auto;
 }
 #name-box{
@@ -110,6 +115,12 @@ body {
 #mondai-input{
     margin-top:10px;
 }
+#mondai-input textarea{
+    border-radius: 1px;
+}
 #trueAns-input{
     margin-top:10px;
+}
+#trueAns-input textarea{
+    border-radius:1px;
 }

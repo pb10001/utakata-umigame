@@ -13,7 +13,7 @@
     <nav class="navbar">
         <div>
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7" aria-expanded="true">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -23,7 +23,7 @@
                     うたかたウミガメ
                 </a>
             </div>
-            <div class="collapse navbar-collapse" id="navbarEexample7">
+            <div class="collapse navbar-collapse in" id="navbarEexample7" aria-expanded="true">
                 <ul class="nav navbar-nav">
                     <li><form class="navbar-form"><input id="name-box" type="text" class="navbar-right" ng-model="name" ng-change="setName()" placeholder="Your Name"></form></li>
                 </ul>
@@ -37,7 +37,7 @@
 	<div class="row">
           <div class="panel">
             <div class="panel-heading">
-                <p class="panel-text">問題文</p>
+                <div class="panel-text">問題文</div>
             </div>
             <div class="panel-body">
                 <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text chat-box" ng-bind="mondai"></p></a>
@@ -52,12 +52,12 @@
         <div>
            <div id="scrollArea" class ="chat-area">
             <div class= "row chat-row" ng-repeat="msg in messages">
-              <button class="btn chat-id-button span1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
-              <div class="chat-box span4">
+              <button class="btn chat-id-button col-xs-12 col-md-1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
+              <div class="chat-box col-xs-12 col-md-5">
                 <small class="secondary-text" ng-bind="msg.name"></small>
                 <span class="primary-text message-text" ng-bind="msg.text"></span>
               </div>
-              <div class="chat-box span4">
+              <div class="chat-box col-xs-12 col-md-5">
                 <small class="secondary-text" ng-bind="msg.answerer"></small>
                 <span class="primary-text message-text" ng-bind="msg.answer"></span>
               </div>
@@ -66,25 +66,26 @@
         </div>
       </div> 
       <div class="row">
-          <div class="controls">
+        <div class="controls">
+        <div class="row control-row">
         <form ng-submit="send()">
             <div class ="input-append">
-            <input type="text" class="span7" ng-model="text" placeholder="Question">
-            <input type="submit" class="btn" value="Send">
+            <input type="text" class="col-xs-8 col-md-11" ng-model="text" placeholder="Question">
+            <input type="submit" class="btn col-xs-4 col-md-1" value="Send">
           </div>
-        </form>
-        <form ng-submit="sendAnswer()" name="answerForm">
+        </form></div>
+        <div class="row control-row"><form ng-submit="sendAnswer()" name="answerForm">
           <div class="input-append">
-            <input type="number" min=1 id="id_input" class="span1" ng-model="id" placeholder="Id">
-            <input type="text" class="span6" ng-model="answer" placeholder="Answer" name="answerBox">
-            <input type="submit" class="btn" value="Send">
+            <input type="number" min=1 id="id_input" class="col-xs-3 col-md-1" ng-model="id" placeholder="Id">
+            <input type="text" class="col-xs-6 col-md-10" ng-model="answer" placeholder="Answer" name="answerBox">
+            <input type="submit" class="btn col-xs-3 col-md-1" value="Send">
           </div>
-        </form>
+        </form></div>
       </div></div>
       <div class="row">
           <div class="panel" >
             <div class="panel-heading">
-                <p class="panel-text">解説</p>
+                <div class="panel-text">解説</div>
             </div>
             <div class="panel-body">
                 <a class="clear-deco"><p id="trueAns-text" data-toggle="collapse" href="#trueAns-input" class="pre-line chat-box primary-text" ng-bind="trueAns"></p></a>
@@ -99,7 +100,7 @@
         <div class="panel">
             <div class="panel-heading">
                 <div class="panel-text">
-                Users
+                ユーザー一覧
                 </div>
             </div>
             <div class="panel-body">
