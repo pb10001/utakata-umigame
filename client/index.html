@@ -63,6 +63,14 @@
                 <span class="primary-text message-text" ng-bind="msg.answer"></span>
               </div>
             </div>
+            <div class="row chat-row" ng-repeat="msg in privateMessages">
+                <div class="chat-box private-chat col-xs-12 col-md-12">
+                    <small ng-bind="msg.sent_from"></small>
+                    <small>→</small>
+                    <small ng-bind="msg.sent_to"></small>
+                    <span ng-bind="msg.content"></span>
+                </div>
+            </div>
           </div>
         </div>
       </div> 
@@ -114,13 +122,34 @@
             </div>
             <div class="panel-body">
           <ul class="list-group">
-            <li class="list-group-item" ng-repeat="user in roster" ng-bind="user">
-            </li>
+            <li class="list-group-item" ng-repeat="user in roster"><button class="btn" ng-bind="user.id" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').textContent= this.textContent;">
+            </button><span ng-bind="user.name"></span></li>
           </ul>
           </div>
         </div>      
       </div>
       </div>
+        <div class="modal fade" id="sampleModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                        <h4 class="modal-title">プライベートメッセージ</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form ng-submit="sendPrivateMessage()">
+                            <p><span>To: </span><span id="toIdLabel" ng-model="toId"></span></p>
+                            <input type="text" ng-model="privateText">
+                            <input class="btn" type="submit" value ="送信">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                        <button type="button" class="btn btn-primary">送信</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="footer">
       <p>© 2017 うたかたウミガメ</p>
     </div>

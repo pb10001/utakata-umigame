@@ -1,6 +1,7 @@
 function ChatController($scope) {
   var socket = io.connect();
   $scope.messages = [];
+  $scope.privateMessages = [];
   $scope.roster = [];
   $scope.name = '';
   $scope.text = '';
@@ -8,6 +9,8 @@ function ChatController($scope) {
   $scope.sender = '';
   $scope.mondai ='';
   $scope.trueAns='';
+  $scope.privateText='';
+  $scope.toId=-1;
   socket.on('connect', function () {
     $scope.setName();
   });
@@ -32,6 +35,10 @@ function ChatController($scope) {
     $scope.$apply();
   });
 
+  socket.on('privateMessage', function(msg){
+    $scope.privateMessages.push(msg);
+    $scope.$apply();
+  });
   $scope.sendMondai = function sendMondai(){
     if(window.confirm('問題文が変更されます。続行しますか？')){
       var data = {
@@ -88,6 +95,15 @@ function ChatController($scope) {
     $scope.answer = '';
   };
   
+  $scope.sendPrivateMessage = function sendPrivateMessage(){
+    var data = {
+        type:"privateMessage",
+        to:document.getElementById("toIdLabel").textContent,
+        content:$scope.privateText
+    }
+    console.log('Sending message:',data);
+    socket.emit('message', data);
+  };
   $scope.setName = function setName() {
     socket.emit('identify', $scope.name);
   };

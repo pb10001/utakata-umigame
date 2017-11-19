@@ -28,8 +28,11 @@ var mondai ={
 var trueAns="クリックして解説を入力";
 var messages = [];
 var sockets = [];
+var user_id = 0;
 
 io.on('connection', function (socket) {
+    user_id+=1;
+    socket.user_id=user_id;
     socket.emit("mondai", mondai);
     socket.emit("trueAns", trueAns);
     messages.forEach(function (data) {
@@ -78,6 +81,28 @@ io.on('connection', function (socket) {
           broadcast('message',messages);
         }
       }
+      else if(msg.type=="privateMessage"){
+          console.log(msg.to);
+          var sendTo =sockets.filter(function(elem){
+                return elem.user_id==msg.to;
+          })[0]||null;
+          if(sendTo!=null){
+            if(socket.user_id!=sendTo.user_id){                
+              var sendData={
+                  sent_from:"You",
+                  sent_to:sendTo.name,
+                  content:msg.content
+              }
+              var receiveData={
+                  sent_from:socket.name,
+                  sent_to:"You",
+                  content:msg.content
+              }
+              socket.emit("privateMessage", sendData);
+              sendTo.emit("privateMessage", receiveData);
+            }
+          }
+      }
 
     });
     socket.on('clear',function(){
@@ -99,7 +124,7 @@ io.on('connection', function (socket) {
 function updateRoster() {
   async.map(
     sockets,function(socket,callback){
-      callback(null,socket.name);
+      callback(null,{id:socket.user_id,name:socket.name});
     },
     function (err, names) {
       broadcast('roster', names);
