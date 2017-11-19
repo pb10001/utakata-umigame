@@ -122,13 +122,14 @@
             </div>
             <div class="panel-body">
           <ul class="list-group">
-            <li class="list-group-item" ng-repeat="user in roster"><button class="btn" ng-bind="user.id" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').textContent= this.textContent;">
+            <li class="list-group-item" ng-repeat="user in roster"><button class="btn" ng-bind="user.id" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.textContent;">
             </button><span ng-bind="user.name"></span></li>
           </ul>
           </div>
         </div>      
       </div>
       </div>
+      <!--モーダルダイアログ-->
         <div class="modal fade" id="sampleModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -138,14 +139,10 @@
                     </div>
                     <div class="modal-body">
                         <form ng-submit="sendPrivateMessage()">
-                            <p><span>To: </span><span id="toIdLabel" ng-model="toId"></span></p>
+                            <p><span>To: </span><input type="number" id="toIdLabel" ng-model="toId"></input></p>
                             <input type="text" ng-model="privateText">
-                            <input class="btn" type="submit" value ="送信">
+                            <input class="btn btn-primary" type="submit" value ="送信">
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                        <button type="button" class="btn btn-primary">送信</button>
                     </div>
                 </div>
             </div>

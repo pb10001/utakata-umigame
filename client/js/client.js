@@ -98,7 +98,7 @@ function ChatController($scope) {
   $scope.sendPrivateMessage = function sendPrivateMessage(){
     var data = {
         type:"privateMessage",
-        to:document.getElementById("toIdLabel").textContent,
+        to:document.getElementById("toIdLabel").value,
         content:$scope.privateText
     }
     console.log('Sending message:',data);
