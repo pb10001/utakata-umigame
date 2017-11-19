@@ -43,6 +43,10 @@ body {
   border-right:#C5CAE9 solid 1px;
   border-bottom:#C5CAE9 solid 1px;
 }
+.chat-box.private-chat{
+  border-right:#FF9800 solid 1px;
+  border-bottom:#FF9800 solid 1px;
+}
 .multiline-box{
   font-size:1.2em;
   background:#FFFFFF;
@@ -123,6 +127,9 @@ body {
 }
 .footer{
     margin-top:20px;
+}
+.modal-content{
+    border-radius:1px;
 }
 #name-box{
     margin-top:5px;
