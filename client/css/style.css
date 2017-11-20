@@ -15,17 +15,19 @@ body {
     white-space:pre-line;
 }
 .btn.warning-btn{
-    background:#FF9800;
+ 	background:#FF9800;
+	border:0;
 }
 .primary-text{
-    color:#212121;
+  color:#212121;
 }
 .secondary-text{
-    color:#757575;
+  color:#757575;
 }
 .navbar{
-    opacity:0.9;
-    background:#303F9F;
+  opacity:0.9;
+  border-radius:1px;
+	background:#303F9F;
 }
 .navbar a{
     color:#FFF;
