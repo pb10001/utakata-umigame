@@ -65,10 +65,8 @@
             </div>
             <div class="row chat-row" ng-repeat="msg in privateMessages">
                 <div class="chat-box private-chat col-xs-12 col-md-12">
-                    <small class="secondary-text" ng-bind="msg.sent_from"></small>
-                    <small class="secondary-text">→</small>
-                    <small class="secondary-text" ng-bind="msg.sent_to"></small>
-                    <span ng-bind="msg.content"></span>
+			<small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
+                  <span ng-bind="msg.content"></span>
                 </div>
             </div>
           </div>

@@ -58,11 +58,10 @@ body {
   border-right:#C5CAE9 solid 1px;
 }
 .chat-area{
-    padding:10px;
-    max-height:500px;
-    overflow:auto;
-    
-  width:90%;
+  padding:10px;
+  max-height:500px;
+  overflow:auto; 
+  width:80%;
   margin: 0 auto;
 }
 .chat-row{
@@ -76,7 +75,7 @@ body {
 .panel{
     border:#BDBDBD;
     margin: 0 auto;
-    width: 90%;
+    width: 80%;
     opacity:0.8;
 }
 .panel-heading{
@@ -114,7 +113,7 @@ body {
     background:#FF9800;;
 }
 .controls{
-    width:90%;
+    width:80%;
     margin:0 auto 30px;
 }
 .control-row{
@@ -122,7 +121,7 @@ body {
 }
 .clear-all{
     opacity:0.8;
-    width:90%;
+    width:80%;
     margin:0 auto;
     margin-top: 10px;
     margin-bottom:50px;
