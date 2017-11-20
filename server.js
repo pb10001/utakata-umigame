@@ -49,8 +49,8 @@ io.on('connection', function (socket) {
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
         mondai ={
-            sender:String(msg.mondai.sender||"Anonymous"),
-            content:String(msg.mondai.content||"クリックして問題文を入力")
+            sender:socket.name,
+            content:String(msg.content||"クリックして問題文を入力")
         };
         broadcast("mondai", mondai);
       }

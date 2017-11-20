@@ -7,7 +7,10 @@ function ChatController($scope) {
   $scope.text = '';
   $scope.answer = '';
   $scope.sender = '';
-  $scope.mondai ='';
+  $scope.mondai ={
+      sender:'',
+      content:''
+  }
   $scope.trueAns='';
   $scope.privateText='';
   $scope.toId=-1;
@@ -15,8 +18,7 @@ function ChatController($scope) {
     $scope.setName();
   });
   socket.on('mondai', function(msg){
-    $scope.sender = "出題者: "+msg.sender;
-    $scope.mondai = msg.content;
+    $scope.mondai = msg;
     $scope.$apply();
   });
   socket.on('trueAns', function(msg){
@@ -43,11 +45,8 @@ function ChatController($scope) {
     if(window.confirm('問題文が変更されます。続行しますか？')){
       var data = {
       type:"mondai",
-      mondai:{
-          sender:$scope.name,
-          content:$scope.content
+      content:$scope.content
       }
-    }
     socket.emit("message",data);
     }
     else{

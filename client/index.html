@@ -40,8 +40,8 @@
                 <div class="panel-text">問題文</div>
             </div>
             <div class="panel-body">
-                <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box" ng-bind="mondai"></p></a>
-                <p data-toggle="collapse" id="sender-text" class="secondary-text" ng-bind="sender"></p>
+		    <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">{{mondai.content}}</p></a>
+		<p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
                 <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
                 <textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
                 <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
