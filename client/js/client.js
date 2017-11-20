@@ -28,7 +28,7 @@ function ChatController($scope) {
   socket.on('message', function (msg) {
     $scope.messages=msg;
     $scope.$apply();
-    var elem = $('#scrollArea')[0];
+    var elem = document.getElementById('question-area');
     elem.scrollTop = elem.scrollHeight;
   });
 
@@ -40,6 +40,8 @@ function ChatController($scope) {
   socket.on('privateMessage', function(msg){
     $scope.privateMessages.push(msg);
     $scope.$apply();
+    var elem = document.getElementById('private-chat-area');
+    elem.scrollTop = elem.scrollHeight;
   });
   $scope.sendMondai = function sendMondai(){
     if(window.confirm('問題文が変更されます。続行しますか？')){

@@ -11,6 +11,10 @@ body {
   background:#FAFAFA;
   background-image:url("/img/circles.svg");
 }
+.nav>li>a:focus,
+.nav>li>a:hover{
+    background:#FF9800;
+}
 .pre-line{
     white-space:pre-line;
 }
@@ -132,6 +136,10 @@ body {
 .modal-content{
     border-radius:1px;
 }
+.users-row{
+    width:80%;
+    margin:0 auto;
+}
 #name-box{
     margin-top:5px;
 }
@@ -169,4 +177,8 @@ body {
 }
 #sender-text{
     text-align:right;
+}
+#private-chat-area{
+    height:300px;
+    overflow:auto;
 }

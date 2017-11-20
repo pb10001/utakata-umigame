@@ -51,7 +51,7 @@
       </div>
         <div class="row">
         <div>
-           <div id="scrollArea" class ="chat-area">
+           <div id="question-area" class ="chat-area">
             <div class= "row chat-row" ng-repeat="msg in messages">
               <button class="btn chat-id-button col-xs-12 col-md-1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
               <div class="chat-box col-xs-12 col-md-5">
@@ -63,13 +63,7 @@
                 <span class="primary-text message-text" ng-bind="msg.answer"></span>
               </div>
             </div>
-            <div class="row chat-row" ng-repeat="msg in privateMessages">
-                <div class="chat-box private-chat col-xs-12 col-md-12">
-			<small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
-                  <span ng-bind="msg.content"></span>
-                </div>
             </div>
-          </div>
         </div>
       </div> 
       <div class="row">
@@ -112,7 +106,8 @@
             </form>
       </div>
       <div class="row">
-        <div class="panel">
+      <div class="users-row">
+        <div class="user-list col-xs-12 col-sm-4 col-md-3">
             <div class="panel-heading">
                 <div class="panel-text">
                 ユーザー一覧
@@ -124,7 +119,16 @@
             </button><span ng-bind="user.name"></span></li>
           </ul>
           </div>
-        </div>      
+        </div>  
+        <div id="private-chat-area" class="col-xs-12 col-sm-8 col-md-9">
+            <div class="row chat-row" ng-repeat="msg in privateMessages">
+                <div class="chat-box private-chat">
+                    <small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
+                  <span ng-bind="msg.content"></span>
+                </div>
+            </div>
+        </div>    
+      </div>
       </div>
       </div>
       <!--モーダルダイアログ-->
