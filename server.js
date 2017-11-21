@@ -35,17 +35,20 @@ io.on('connection', function (socket) {
     socket.user_id=user_id;
     socket.emit("mondai", mondai);
     socket.emit("trueAns", trueAns);
-    messages.forEach(function (data) {
-      socket.emit('message', messages);
-    });
-
+    socket.emit('message', messages);
+    updateRoster();
     sockets.push(socket);
 
     socket.on('disconnect', function () {
       sockets.splice(sockets.indexOf(socket), 1);
       updateRoster();
     });
-
+    socket.on('refresh',function(){
+      socket.emit("mondai", mondai);
+      socket.emit("trueAns", trueAns);
+      socket.emit('message', messages);
+      updateRoster();
+    });
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
         mondai ={

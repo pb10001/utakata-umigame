@@ -69,8 +69,6 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     else{
       window.alert('キャンセルしました。')
     }
-
-    
   };
   
   $scope.sendTrueAns = function sendTrueAns(){
@@ -123,6 +121,9 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.setName = function setName() {
     socket.emit('identify', $scope.name);
   };
+  $scope.fetchData = function fetchData(){
+    socket.emit('refresh',null);
+  };
   
   $scope.clearAll = function clearAll(){
     if(window.confirm('問題、質問、回答がすべて消えます。続行しますか？')){
@@ -131,5 +132,5 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     else{
       window.alert('キャンセルしました。')
     }
-  }
+  };
 });
