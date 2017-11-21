@@ -1,16 +1,19 @@
 <!doctype html>
-<html lang="ja" ng-app>
+<html lang="ja" ng-app="App">
   <head>
     <title>うたかたウミガメ</title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" src="/js/client.js"></script>
+    <!--<script src="/js/angular.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-route.min.js"></script>
+    <!--<script type="text/javascript" src="/js/client.js"></script>-->
+    <script type="text/javascript" src="controller.js"></script>
   </head>
   <body>
-    <div ng-controller="ChatController">
-    <nav class="navbar">
+      <nav class="navbar">
         <div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
@@ -33,129 +36,12 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
-	<div class="row">
-          <div class="panel">
-            <div class="panel-heading">
-                <div class="panel-text">問題文</div>
-            </div>
-            <div class="panel-body">
-		    <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">{{mondai.content}}</p></a>
-		<p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
-                <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
-                <textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
-                <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
-            </form>
-            </div>
-          </div>
-      </div>
-        <div class="row">
-        <div>
-           <div id="question-area" class ="chat-area">
-            <div class= "row chat-row" ng-repeat="msg in messages">
-              <button class="btn chat-id-button col-xs-12 col-md-1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
-              <div class="chat-box col-xs-12 col-md-5">
-                <small class="secondary-text" ng-bind="msg.name"></small>
-                <span class="primary-text message-text" ng-bind="msg.text"></span>
-              </div>
-              <div class="chat-box col-xs-12 col-md-5">
-                <small class="secondary-text" ng-bind="msg.answerer"></small>
-                <span class="primary-text message-text" ng-bind="msg.answer"></span>
-              </div>
-            </div>
-            </div>
-        </div>
-      </div> 
-      <div class="row">
-        <div class="controls">
-        <div class="row control-row">
-            <input id="name-box" type="text" class="col-xs-12 col-md-12" ng-model="name" ng-change="setName()" placeholder="Your Name">
-        </div>
-        <div class="row control-row">
-        <form ng-submit="send()">
-            <div class ="input-append">
-            <input type="text" class="col-xs-8 col-md-11" ng-model="text" placeholder="Question">
-            <input type="submit" class="btn col-xs-4 col-md-1" value="Send">
-          </div>
-        </form></div>
-        <div class="row control-row"><form ng-submit="sendAnswer()" name="answerForm">
-          <div class="input-append">
-            <input type="number" min=1 id="id_input" class="col-xs-3 col-md-1" ng-model="id" placeholder="Id">
-            <input type="text" class="col-xs-6 col-md-10" ng-model="answer" placeholder="Answer" name="answerBox">
-            <input type="submit" class="btn col-xs-3 col-md-1" value="Send">
-          </div>
-        </form></div>
-      </div></div>
-      <div class="row">
-          <div class="panel" >
-            <div class="panel-heading">
-                <div class="panel-text">解説</div>
-            </div>
-            <div class="panel-body">
-                <a class="clear-deco"><p id="trueAns-text" data-toggle="collapse" href="#trueAns-input" class="pre-line multiline-box primary-text" ng-bind="trueAns"></p></a>
-                <form class="collapse" id="trueAns-input" ng-submit="sendTrueAns()">
-                  <textarea class="form-control" placeholder="True answer" ng-model="ans_content"></textarea><br>
-                  <input class="btn warning-btn btn-danger" type="submit" value="Put the True Answer">
-                </form>
-            </div>
-          </div>      
-      </div>
-      <div class="row">
-            <form class="clear-all" ng-submit="clearAll()">
-                <input class="col-xs-12 col-md-12 btn warning-btn btn-danger" type="submit" value="Clear All">
-            </form>
-      </div>
-      <div class="row">
-      <div class="users-row">
-        <div class="user-list col-xs-12 col-sm-4 col-md-3">
-            <div class="panel-heading">
-                <div class="panel-text">
-                ユーザー一覧
-                </div>
-            </div>
-            <div class="panel-body">
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="user in roster"><button class="btn" ng-bind="user.id" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.textContent;">
-            </button><span ng-bind="user.name"></span></li>
-          </ul>
-          </div>
-        </div>  
-        <div id="private-chat-area" class="col-xs-12 col-sm-8 col-md-9">
-            <div class="row chat-row" ng-repeat="msg in privateMessages">
-                <div class="chat-box private-chat">
-                    <small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
-                  <span ng-bind="msg.content"></span>
-                </div>
-            </div>
-        </div>    
-      </div>
-      </div>
-      </div>
-      <!--モーダルダイアログ-->
-        <div class="modal fade" id="sampleModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                        <h4 class="modal-title">プライベートメッセージ</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form ng-submit="sendPrivateMessage()">
-                            <p><span>To: </span><input type="number" id="toIdLabel" ng-model="toId"></input></p>
-                            <input type="text" ng-model="privateText">
-                            <input class="btn btn-primary" type="submit" value ="送信">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div ng-view></div>
     <div class="footer">
       <p>© 2017 うたかたウミガメ</p>
-    </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/angular.min.js"></script>
   </body>
 </html>
