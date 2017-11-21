@@ -72,11 +72,6 @@
             </form>
       </div>
       <div class="row">
-            <form class="wide-button" ng-submit="fetchData()">
-                <input class="col-xs-12 col-md-12 btn" type="submit" value="Refresh">
-            </form>
-      </div>
-      <div class="row">
       <div class="users-row">
         <div class="user-list col-xs-12 col-sm-4 col-md-3">
             <div class="panel-heading">
@@ -90,6 +85,9 @@
             </button><span ng-bind="user.name"></span></li>
           </ul>
           </div>
+          <form ng-submit="fetchData()">
+            <input class="col-xs-12 col-md-12 btn" type="submit" value="ユーザー読み込み">
+          </form>
         </div>  
         <div id="private-chat-area" class="col-xs-12 col-sm-8 col-md-9">
             <div class="row chat-row" ng-repeat="msg in privateMessages">
