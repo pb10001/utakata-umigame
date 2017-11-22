@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/earlyaccess/kokoro.css');
 @import url('https://fonts.googleapis.com/earlyaccess/notosansjapanese.css');
 @import url('https://fonts.googleapis.com/earlyaccess/hannari.css');
+@import url('https://fonts.googleapis.com/earlyaccess/sawarabimincho.css');
 html{
   width:100%;
 }
@@ -23,8 +24,8 @@ body {
  	background:#FF9800;
 	border:0;
 }
-.han-nari{
-	font-family:"Hannari", serif;
+.serif{
+	font-family:"Hannari","Sawarabi Mincho", serif;
 }
 .primary-text{
   color:#212121;
