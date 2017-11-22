@@ -117,7 +117,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     console.log('Sending message:', data);
     socket.emit('message', data);
     $scope.publicText='';
-  }
+  };
   $scope.sendPrivateMessage = function sendPrivateMessage(){
     var data = {
         type:"privateMessage",
