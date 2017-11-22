@@ -90,6 +90,11 @@
           </form>
         </div>  
         <div id="private-chat-area" class="col-xs-12 col-sm-8 col-md-9">
+						<div class="row">
+							<form ng-submit="sendPublicMessage()">
+								<input type="text" ng-model="publicText" placeholder="Send message to all">
+								<input type="submit" class="btn" value="Send">
+							</form>
             <div class="row chat-row" ng-repeat="msg in privateMessages">
                 <div class="chat-box private-chat">
                     <small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
