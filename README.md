@@ -27,5 +27,7 @@ node server.js
 [M+](https://mplus-fonts.osdn.jp/)  
 [こころ明朝体](http://typingart.net/?p=46)  
 [Noto Sans Japanese](https://www.google.com/get/noto/)  
+[はんなり明朝](http://typingart.net/?p=44)  
+[さわらび明朝](http://mshio.b.osdn.me/)  
 
 [Google Fonts + 日本語早期アクセス](https://googlefonts.github.io/japanese/)
