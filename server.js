@@ -85,13 +85,13 @@ io.on('connection', function (socket) {
         }
       }
       else if(msg.type="publicMessage"){
-          var receiveData={
-              private:false,
+          var data={
+              private:"false",
               sent_from:socket.name,
               sent_to:"All",
               content:msg.content
           }
-          broadcast("chatMessage", receiveData);
+          broadcast("chatMessage", data);
       }
       else if(msg.type=="privateMessage"){
           console.log(msg.to);
@@ -101,13 +101,13 @@ io.on('connection', function (socket) {
           if(sendTo!=null){
             if(socket.user_id!=sendTo.user_id){                
               var sendData={
-                  private:true,
+                  private:"true",
                   sent_from:"You",
                   sent_to:sendTo.name,
                   content:msg.content
               }
               var receiveData={
-                  private:true,
+                  private:"true",
                   sent_from:socket.name,
                   sent_to:"You",
                   content:msg.content
