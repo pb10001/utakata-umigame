@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/earlyaccess/mplus1p.css');
 @import url('https://fonts.googleapis.com/earlyaccess/kokoro.css');
 @import url('https://fonts.googleapis.com/earlyaccess/notosansjapanese.css');
+@import url('https://fonts.googleapis.com/earlyaccess/hannari.css');
 html{
   width:100%;
 }
@@ -21,6 +22,9 @@ body {
 .btn.warning-btn{
  	background:#FF9800;
 	border:0;
+}
+.han-nari{
+	font-family:"Hannari", serif;
 }
 .primary-text{
   color:#212121;
