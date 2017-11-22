@@ -84,6 +84,22 @@ io.on('connection', function (socket) {
           broadcast('message',messages);
         }
       }
+      else if(msg.type="publicMessage"){
+          var sendData={
+              private:false,
+              sent_from:"You",
+              sent_to:"All",
+              content:msg.content
+          }
+          var receiveData={
+              private:false,
+              sent_from:socket.name,
+              sent_to:"All",
+              content:msg.content
+          }
+          socket.emit("chatMessage", sendData);
+          broadcast("chatMessage", receiveData);
+      }
       else if(msg.type=="privateMessage"){
           console.log(msg.to);
           var sendTo =sockets.filter(function(elem){
@@ -92,17 +108,19 @@ io.on('connection', function (socket) {
           if(sendTo!=null){
             if(socket.user_id!=sendTo.user_id){                
               var sendData={
+                  private:true,
                   sent_from:"You",
                   sent_to:sendTo.name,
                   content:msg.content
               }
               var receiveData={
+                  private:true,
                   sent_from:socket.name,
                   sent_to:"You",
                   content:msg.content
               }
-              socket.emit("privateMessage", sendData);
-              sendTo.emit("privateMessage", receiveData);
+              socket.emit("chatMessage", sendData);
+              sendTo.emit("chatMessage", receiveData);
             }
           }
       }
