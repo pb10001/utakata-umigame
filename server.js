@@ -85,19 +85,12 @@ io.on('connection', function (socket) {
         }
       }
       else if(msg.type="publicMessage"){
-          var sendData={
-              private:false,
-              sent_from:"You",
-              sent_to:"All",
-              content:msg.content
-          }
           var receiveData={
               private:false,
               sent_from:socket.name,
               sent_to:"All",
               content:msg.content
           }
-          socket.emit("chatMessage", sendData);
           broadcast("chatMessage", receiveData);
       }
       else if(msg.type=="privateMessage"){
