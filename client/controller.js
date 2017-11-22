@@ -27,6 +27,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
       content:''
   }
   $scope.trueAns='';
+  $scope.publicText='';
   $scope.privateText='';
   $scope.toId=-1;
   socket.on('connect', function () {
@@ -52,7 +53,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     $scope.$apply();
   });
 
-  socket.on('privateMessage', function(msg){
+  socket.on('chatMessage', function(msg){
     $scope.privateMessages.push(msg);
     $scope.$apply();
     var elem = document.getElementById('private-chat-area');
@@ -108,7 +109,15 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     socket.emit('message', data);
     $scope.answer = '';
   };
-  
+  $scope.sendPublicMessage = function sendPublicMessage(){
+    var data = {
+      type:"publicMessage",
+      content:$scope.publicText
+    }
+    console.log('Sending message:', data);
+    socket.emit('message', data);
+    $scope.publicText='';
+  }
   $scope.sendPrivateMessage = function sendPrivateMessage(){
     var data = {
         type:"privateMessage",
