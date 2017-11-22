@@ -13,7 +13,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         templateUrl : 'mondai.html',
         controller : 'ChatController'
     })
-  }]).controller('ChatController', function($scope){
+  }]).controller('ChatController', function chatController($scope){
   var socket = io.connect();
   $scope.messages = [];
   $scope.privateMessages = [];
@@ -117,6 +117,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     }
     console.log('Sending message:',data);
     socket.emit('message', data);
+    $scope.privateText='';
   };
   $scope.setName = function setName() {
     socket.emit('identify', $scope.name);
