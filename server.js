@@ -84,7 +84,7 @@ io.on('connection', function (socket) {
           broadcast('message',messages);
         }
       }
-      else if(msg.type="publicMessage"){
+      else if(msg.type=="publicMessage"){
           var data={
               private:"false",
               sent_from:socket.name,
