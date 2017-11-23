@@ -59,6 +59,14 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     var elem = document.getElementById('private-chat-area');
     elem.scrollTop = elem.scrollHeight;
   });
+  
+  socket.on('loadChat', function(msg){
+    $scope.privateMessages = [];
+    msg.forEach(function(item){
+        $scope.privateMessages.push(item);
+    });
+    $scope.$apply();
+  });
   $scope.sendMondai = function sendMondai(){
     if(window.confirm('問題文が変更されます。続行しますか？')){
       var data = {

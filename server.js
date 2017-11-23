@@ -27,6 +27,7 @@ var mondai ={
 }
 var trueAns="クリックして解説を入力";
 var messages = [];
+var chatMessages = [];
 var sockets = [];
 var user_id = 0;
 
@@ -36,6 +37,7 @@ io.on('connection', function (socket) {
     socket.emit("mondai", mondai);
     socket.emit("trueAns", trueAns);
     socket.emit('message', messages);
+    socket.emit('loadChat', chatMessages);
     updateRoster();
     sockets.push(socket);
 
@@ -47,6 +49,7 @@ io.on('connection', function (socket) {
       socket.emit("mondai", mondai);
       socket.emit("trueAns", trueAns);
       socket.emit('message', messages);
+      socket.emit('loadChat', chatMessages);
       updateRoster();
     });
     socket.on('message', function (msg) {
@@ -91,6 +94,7 @@ io.on('connection', function (socket) {
               sent_to:"All",
               content:msg.content
           }
+          chatMessages.push(data);
           broadcast("chatMessage", data);
       }
       else if(msg.type=="privateMessage"){
@@ -126,9 +130,11 @@ io.on('connection', function (socket) {
       };
       trueAns="クリックして解説を入力";
       messages=[];
+      chatMessages=[];
       broadcast("mondai",mondai);
       broadcast("trueAns",trueAns);
       broadcast("message",messages);
+      broadcast("loadChat", chatMessages);
     });
     socket.on('identify', function (name) {
       socket.name = String(name || 'Anonymous');
