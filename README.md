@@ -31,3 +31,13 @@ node server.js
 [さわらび明朝](http://mshio.b.osdn.me/)  
 
 [Google Fonts + 日本語早期アクセス](https://googlefonts.github.io/japanese/)
+## 使用したライブラリ・フレームワーク
+### サーバサイド
+- node.js
+- express
+- socket.io
+- async
+### クライアントサイド
+- bootstrap
+- jQuery
+- angular.js
