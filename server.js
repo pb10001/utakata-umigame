@@ -89,7 +89,7 @@ io.on('connection', function (socket) {
       }
       else if(msg.type=="publicMessage"){
           var data={
-              private:"false",
+              private:false,
               sent_from:socket.name,
               sent_to:"All",
               content:msg.content
@@ -105,13 +105,13 @@ io.on('connection', function (socket) {
           if(sendTo!=null){
             if(socket.user_id!=sendTo.user_id){                
               var sendData={
-                  private:"true",
+                  private:true,
                   sent_from:"You",
                   sent_to:sendTo.name,
                   content:msg.content
               }
               var receiveData={
-                  private:"true",
+                  private:true,
                   sent_from:socket.name,
                   sent_to:"You",
                   content:msg.content
@@ -127,14 +127,14 @@ io.on('connection', function (socket) {
       mondai={
           sender:"Anonymous",
           content:"クリックして問題文を入力"
-      };
+      }
       trueAns="クリックして解説を入力";
       messages=[];
       chatMessages=[];
       broadcast("mondai",mondai);
       broadcast("trueAns",trueAns);
       broadcast("message",messages);
-      broadcast("loadChat", chatMessages);
+      broadcast("clearChat");
     });
     socket.on('identify', function (name) {
       socket.name = String(name || 'Anonymous');
