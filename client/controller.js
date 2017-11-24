@@ -13,6 +13,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         templateUrl : 'mondai.html',
         controller : 'ChatController'
     })
+    .when('/privacy_policy',{
+        templateUrl: 'privacy_policy.html',
+        controller:''
+    })
   }]).controller('ChatController', function chatController($scope){
   var socket = io.connect();
   $scope.messages = [];
