@@ -148,6 +148,9 @@ body {
 .jumbotron{
 	border-radius:1px;
 }
+.form-control{
+    border-radius:1px;
+}
 #name-box{
     margin-top:5px;
 }
