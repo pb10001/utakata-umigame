@@ -21,11 +21,11 @@ var server = http.createServer(router);
 var io = socketio.listen(server);
 
 router.use(express.static(path.resolve(__dirname, 'client')));
-var mondai ={
+var mondai ={};/*{
     sender:"",
     content:"クリックして問題文を入力"
-}
-var trueAns="クリックして解説を入力";
+}*/
+var trueAns={};/*"クリックして解説を入力";*/
 var messages = [];
 var chatMessages = [];
 var sockets = [];
@@ -41,10 +41,11 @@ chat=io.on('connection', function (socket) {
         socket.room=roomId;
         socket.join(roomId);
         console.log(io.sockets.manager.rooms);
-        socket.emit("mondai", mondai);
-        socket.emit("trueAns", trueAns);
-        socket.emit('message', messages);
-        socket.emit('loadChat', chatMessages);
+        socket.emit("mondai", mondai[roomId]);
+        socket.emit("trueAns", trueAns[roomId]);
+        socket.emit('message', messages.filter(x=>x.room==roomId));
+        /*socket.emit('loadChat', chatMessages);*/
+        socket.emit('join', roomId);
         updateRoster();
     });
     socket.on('disconnect', function () {
@@ -53,25 +54,26 @@ chat=io.on('connection', function (socket) {
       updateRoster();
     });
     socket.on('refresh',function(){
-      socket.emit("mondai", mondai);
-      socket.emit("trueAns", trueAns);
-      socket.emit('message', messages);
+        socket.emit("mondai", mondai[socket.room]);
+        socket.emit("trueAns", trueAns[socket.room]);
+        socket.emit('message', messages.filter(x=>x.room==socket.room));
       socket.emit('loadChat', chatMessages);
       updateRoster();
     });
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
-        mondai ={
+        mondai[socket.room] ={
             sender:socket.name,
             content:String(msg.content||"クリックして問題文を入力")
         };
         console.log('room',socket.room);
-        socket.emit("mondai",mondai);
-        socket.broadcast.to(socket.room).emit("mondai", mondai);
+        socket.emit("mondai",mondai[socket.room]);
+        socket.broadcast.to(socket.room).emit("mondai", mondai[socket.room]);
       }
       else if(msg.type == "trueAns"){
-        trueAns = String(msg.content||"クリックして解説を入力");
-        broadcast("trueAns", trueAns);
+        trueAns[socket.room] = String(msg.content||"クリックして解説を入力");
+        socket.emit("trueAns", trueAns[socket.room]);
+        socket.broadcast.to(socket.room).emit("trueAns", trueAns[socket.room]);
       }
       else if(msg.type =="question"){
         var id = messages.length+1;
@@ -79,6 +81,7 @@ chat=io.on('connection', function (socket) {
         var answer = "waiting";
         var answerer = "-";
         var data = {
+          room: socket.room,
           id: id,
           name: socket.name,
           text: text,
@@ -86,14 +89,16 @@ chat=io.on('connection', function (socket) {
           answer: answer
         };
         messages.push(data);
-        broadcast('message', messages);
+        socket.emit('message', messages.filter(x=>x.room==socket.room));
+        socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
       }
       else if(msg.type=="answer"){
         if(msg.id!=0&&msg.id<=messages.length){
           var id = msg.id;
           messages[id-1].answer = msg.answer;
           messages[id-1].answerer =msg.answerer;
-          broadcast('message',messages);
+          socket.emit('message', messages.filter(x=>x.room==socket.room));
+          socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
         }
       }
       else if(msg.type=="publicMessage"){

@@ -34,8 +34,12 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.publicText='';
   $scope.privateText='';
   $scope.toId=-1;
+  $scope.currentRoom='-';
   socket.on('connect', function () {
     $scope.setName();
+  });
+  socket.on('join', function(roomNum){
+    $scope.currentRoom=roomNum;
   });
   socket.on('mondai', function(msg){
     $scope.mondai = msg;
