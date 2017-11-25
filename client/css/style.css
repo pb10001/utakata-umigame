@@ -13,6 +13,10 @@ body {
   background:#FAFAFA;
   background-image:url("/img/circles.svg");
 }
+.select-row{
+    width:80%;
+    margin: 0 auto;
+}
 .nav>li>a:focus,
 .nav>li>a:hover{
     background:#FF9800;

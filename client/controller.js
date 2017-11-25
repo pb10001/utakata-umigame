@@ -154,7 +154,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.fetchData = function fetchData(){
     socket.emit('refresh',null);
   };
-  
+  $scope.joinRoom = function joinRoom(){
+    var roomNum= document.getElementById('room-number').value;
+    socket.emit('join',roomNum);  
+  };
   $scope.clearAll = function clearAll(){
     if(window.confirm('問題、質問、回答がすべて消えます。続行しますか？')){
       socket.emit('clear');

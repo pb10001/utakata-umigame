@@ -31,18 +31,25 @@ var chatMessages = [];
 var sockets = [];
 var user_id = 0;
 
-io.on('connection', function (socket) {
+chat=io.on('connection', function (socket) {
     user_id+=1;
     socket.user_id=user_id;
-    socket.emit("mondai", mondai);
-    socket.emit("trueAns", trueAns);
-    socket.emit('message', messages);
-    socket.emit('loadChat', chatMessages);
-    updateRoster();
     sockets.push(socket);
-
+    
+    socket.on('join', function(roomId){
+        socket.leave(socket.room);
+        socket.room=roomId;
+        socket.join(roomId);
+        console.log(io.sockets.manager.rooms);
+        socket.emit("mondai", mondai);
+        socket.emit("trueAns", trueAns);
+        socket.emit('message', messages);
+        socket.emit('loadChat', chatMessages);
+        updateRoster();
+    });
     socket.on('disconnect', function () {
       sockets.splice(sockets.indexOf(socket), 1);
+      socket.leave(socket.currentRoom);
       updateRoster();
     });
     socket.on('refresh',function(){
@@ -58,7 +65,9 @@ io.on('connection', function (socket) {
             sender:socket.name,
             content:String(msg.content||"クリックして問題文を入力")
         };
-        broadcast("mondai", mondai);
+        console.log('room',socket.room);
+        socket.emit("mondai",mondai);
+        socket.broadcast.to(socket.room).emit("mondai", mondai);
       }
       else if(msg.type == "trueAns"){
         trueAns = String(msg.content||"クリックして解説を入力");
