@@ -1,5 +1,21 @@
  <div ng-controller="ChatController">
     <div class="container-fluid">
+    <div class="row select-row">
+        <form ng-submit="joinRoom()">
+            <div class="form-group">
+                <div>
+                    <label>現在の部屋: {{currentRoom}}</label>
+                </div>
+                <div class="col-xs-4">
+                  <select class="form-control" id="room-number" name="room-number">
+                    <option value="1" selected="selected">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </div>
+                  <input type="submit" class="btn btn-primary" value="入室">
+            </div>
+        </form>
+    </div>
 	<div class="row">
           <div class="panel">
             <div class="panel-heading">
@@ -7,7 +23,7 @@
             </div>
             <div class="panel-body">
 		    <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">{{mondai.content}}</p></a>
-		<p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
+            <p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
                 <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
                 <textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
                 <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">

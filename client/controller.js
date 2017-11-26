@@ -34,15 +34,19 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.publicText='';
   $scope.privateText='';
   $scope.toId=-1;
+  $scope.currentRoom='-';
   socket.on('connect', function () {
     $scope.setName();
   });
+  socket.on('join', function(roomNum){
+    $scope.currentRoom=roomNum;
+  });
   socket.on('mondai', function(msg){
-    $scope.mondai = msg;
+    $scope.mondai = msg||{sender:"-",content:"クリックして問題文を入力"};
     $scope.$apply();
   });
   socket.on('trueAns', function(msg){
-     $scope.trueAns=msg;
+     $scope.trueAns=msg||"クリックして解説を入力";
      $scope.$apply();     
   });
   socket.on('message', function (msg) {
@@ -154,7 +158,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.fetchData = function fetchData(){
     socket.emit('refresh',null);
   };
-  
+  $scope.joinRoom = function joinRoom(){
+    var roomNum= document.getElementById('room-number').value;
+    socket.emit('join',roomNum);  
+  };
   $scope.clearAll = function clearAll(){
     if(window.confirm('問題、質問、回答がすべて消えます。続行しますか？')){
       socket.emit('clear');
