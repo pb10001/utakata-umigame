@@ -21,11 +21,8 @@ var server = http.createServer(router);
 var io = socketio.listen(server);
 
 router.use(express.static(path.resolve(__dirname, 'client')));
-var mondai ={};/*{
-    sender:"",
-    content:"クリックして問題文を入力"
-}*/
-var trueAns={};/*"クリックして解説を入力";*/
+var mondai ={};
+var trueAns={};
 var messages = [];
 var chatMessages = [];
 var sockets = [];
@@ -44,7 +41,7 @@ chat=io.on('connection', function (socket) {
         socket.emit("mondai", mondai[roomId]);
         socket.emit("trueAns", trueAns[roomId]);
         socket.emit('message', messages.filter(x=>x.room==roomId));
-        /*socket.emit('loadChat', chatMessages);*/
+        socket.emit('loadChat', chatMessages.filter(x=>x.room==roomId));
         socket.emit('join', roomId);
         updateRoster();
     });
@@ -103,13 +100,15 @@ chat=io.on('connection', function (socket) {
       }
       else if(msg.type=="publicMessage"){
           var data={
+              room:socket.room,
               private:false,
               sent_from:socket.name,
               sent_to:"All",
               content:msg.content
           }
           chatMessages.push(data);
-          broadcast("chatMessage", data);
+          socket.emit("chatMessage", data);
+          socket.broadcast.to(socket.room).emit("chatMessage", data);
       }
       else if(msg.type=="privateMessage"){
           console.log(msg.to);

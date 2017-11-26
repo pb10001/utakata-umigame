@@ -42,11 +42,11 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     $scope.currentRoom=roomNum;
   });
   socket.on('mondai', function(msg){
-    $scope.mondai = msg;
+    $scope.mondai = msg||{sender:"-",content:"クリックして問題文を入力"};
     $scope.$apply();
   });
   socket.on('trueAns', function(msg){
-     $scope.trueAns=msg;
+     $scope.trueAns=msg||"クリックして解説を入力";
      $scope.$apply();     
   });
   socket.on('message', function (msg) {
