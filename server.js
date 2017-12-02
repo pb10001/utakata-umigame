@@ -137,17 +137,22 @@ chat=io.on('connection', function (socket) {
 
     });
     socket.on('clear',function(){
-      mondai={
-          sender:"Anonymous",
-          content:"クリックして問題文を入力"
-      }
-      trueAns="クリックして解説を入力";
-      messages=[];
-      chatMessages=[];
-      broadcast("mondai",mondai);
-      broadcast("trueAns",trueAns);
-      broadcast("message",messages);
-      broadcast("clearChat");
+      mondai[socket.room]=null;
+      trueAns[socket.room]=null;
+      messages.filter(x=>x.room==socket.room).forEach(function(item){
+        messages.splice(item,1);
+      });
+      chatMessages.filter(x=>x.room==socket.room).forEach(function(item){
+        chatMessages.splice(item,1);
+      });
+      socket.emit("mondai",mondai[socket.room]);
+      socket.emit("trueAns",trueAns[socket.room]);
+      socket.emit("message",messages.filter(x=>x.room==socket.room));
+      socket.emit("clearChat");
+      socket.broadcast.to(socket.room).emit("mondai",mondai[socket.room]);
+      socket.broadcast.to(socket.room).emit("trueAns",trueAns[socket.room]);
+      socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
+      socket.broadcast.to(socket.room).emit("clearChat");
     });
     socket.on('identify', function (name) {
       socket.name = String(name || 'Anonymous');

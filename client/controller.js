@@ -30,7 +30,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
       sender:'',
       content:''
   }
-  $scope.trueAns='';
+  $scope.ansContent='';
   $scope.publicText='';
   $scope.privateText='';
   $scope.toId=-1;
@@ -100,7 +100,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     if(window.confirm('正解が公開されます。続行しますか？')){
       var data = {
       type:"trueAns",
-      content:$scope.ans_content
+      content:$scope.ansContent
       }
       socket.emit("message",data);
     }
