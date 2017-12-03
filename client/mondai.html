@@ -1,50 +1,53 @@
- <div ng-controller="ChatController">
-    <div class="container-fluid">
-    <div class="row select-row">
-        <form ng-submit="joinRoom()">
-            <div class="form-group">
-                <div>
-                    <label>現在の部屋: {{currentRoom}}</label>
-                </div>
-                <div class="col-xs-4">
-                  <input type="text" class="form-control" id="room-number" name="room-number">
-                </div>
-                  <input type="submit" class="btn btn-primary" value="入室">
-            </div>
-        </form>
+<div ng-controller="ChatController">
+	<div class="container-fluid">
+    	<div class="row select-row">
+        	<form ng-submit="joinRoom()">
+            	<div class="form-group">
+                	<div>
+                    	<label>現在の部屋: {{currentRoom}}</label>
+                	</div>
+                	<div class="col-xs-4">
+                  		<input type="text" class="form-control" id="room-number" name="room-number">
+                	</div>
+                  	<input type="submit" class="btn btn-primary" value="入室">
+            	</div>
+			</form>
+            <form class="wide-button" ng-submit="clearAll()">
+                <input class="warning-btn btn-danger" type="submit" value="Clear This Room">
+            </form>
     </div>
 	<div class="row">
-          <div class="panel">
-            <div class="panel-heading">
-                <div class="panel-text">問題文</div>
-            </div>
+		<div class="panel">
+			<div class="panel-heading">
+				<div class="panel-text">問題文</div>
+			</div>
             <div class="panel-body">
-		    <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">{{mondai.content}}</p></a>
-            <p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
+				<a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">{{mondai.content}}</p></a>
+            	<p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
                 <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
-                <textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
-                <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
-            </form>
+                	<textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
+                	<input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
+            	</form>
             </div>
-          </div>
-      </div>
-        <div class="row">
-        <div>
-           <div id="question-area" class ="chat-area">
-            <div class= "row chat-row" ng-repeat="msg in messages">
-              <button class="btn chat-id-button col-xs-12 col-md-1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
-              <div class="chat-box col-xs-12 col-md-5">
-                <small class="secondary-text" ng-bind="msg.name"></small>
-                <span class="primary-text message-text" ng-bind="msg.text"></span>
-              </div>
-              <div class="chat-box col-xs-12 col-md-5">
-                <small class="secondary-text" ng-bind="msg.answerer"></small>
-                <span class="primary-text message-text" ng-bind="msg.answer"></span>
-              </div>
-            </div>
-            </div>
-        </div>
-      </div> 
+		</div>
+	</div>
+	<div class="row">
+		<div>
+	   		<div id="question-area" class ="chat-area">
+            	<div class= "row chat-row" ng-repeat="msg in messages">
+            		<button class="btn chat-id-button col-xs-12 col-md-1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
+            		<div class="chat-box col-xs-12 col-md-5">
+                		<small class="secondary-text" ng-bind="msg.name"></small>
+                		<span class="primary-text message-text" ng-bind="msg.text"></span>
+              		</div>
+              		<div class="chat-box col-xs-12 col-md-5">
+                		<small class="secondary-text" ng-bind="msg.answerer"></small>
+                		<span class="primary-text message-text" ng-bind="msg.answer"></span>
+              		</div>
+            	</div>
+			</div>
+		</div>
+	</div> 
       <div class="row">
         <div class="controls">
         <div class="row control-row">
@@ -78,11 +81,6 @@
                 </form>
             </div>
           </div>      
-      </div>
-      <div class="row">
-            <form class="wide-button" ng-submit="clearAll()">
-                <input class="col-xs-12 col-md-12 btn warning-btn btn-danger" type="submit" value="Clear All">
-            </form>
       </div>
       <div class="row">
       <div class="users-row">
