@@ -46,27 +46,31 @@
             	</div>
 			</div>
 		</div>
-	</div> 
-      <div class="row">
-        <div class="controls">
-        <div class="row control-row">
-            <input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
-        </div>
-        <div class="row control-row">
-        <form ng-submit="send()">
-            <div class ="input-append">
-            <input type="text" class="form-control" ng-model="text" placeholder="Question">
-            <input type="submit" class="btn" value="Send">
-          </div>
-        </form></div>
-        <div class="row control-row"><form ng-submit="sendAnswer()" name="answerForm">
-          <div class="input-append">
-            <input type="number" min=1 id="id_input" class="form-control" ng-model="id" placeholder="Id">
-            <input type="text" class="form-control" ng-model="answer" placeholder="Answer" name="answerBox">
-            <input type="submit" class="btn" value="Send">
-          </div>
-        </form></div>
-      </div></div>
+	</div>
+		<div class="row">
+			<div class="controls">
+				<div class="row control-row">
+					<input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
+				</div>
+				<div class="row control-row">
+					<form ng-submit="send()">
+						<div class ="input-append">
+							<input type="text" class="form-control" ng-model="text" placeholder="Question">
+							<input type="submit" class="btn" value="Send">
+						</div>
+					</form>
+				</div>
+				<div class="row control-row">
+					<form ng-submit="sendAnswer()" name="answerForm">
+						<div class="input-append">
+							<input type="number" min=1 id="id_input" class="form-control" ng-model="id" placeholder="Id">
+							<input type="text" class="form-control" ng-model="answer" placeholder="Answer" name="answerBox">
+							<input type="submit" class="btn" value="Send">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
       <div class="row">
           <div class="panel">
             <div class="panel-body">
@@ -80,38 +84,38 @@
       </div>
       <div class="row">
       <div class="users-row">
-        <div class="user-list col-xs-12 col-sm-4 col-md-3">
-            <div class="panel-heading">
-                <div class="panel-text">
-                ユーザー一覧
-                </div>
-            </div>
-            <div class="panel-body">
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="user in roster"><button class="btn" ng-bind="user.id" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.textContent;">
+		  <div class="user-list col-xs-12 col-sm-4 col-md-3">
+			  <div class="panel-heading">
+				  <div class="panel-text">
+					  ユーザー一覧
+				  </div>
+			  </div>
+			  <div class="panel-body">
+				  <ul class="list-group">
+					  <li class="list-group-item" ng-repeat="user in roster"><button class="btn" ng-bind="user.id" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.textContent;">
             </button><span ng-bind="user.name"></span></li>
-          </ul>
-          </div>
+				  </ul>
+			  </div>
+		  </div>
+		  <div class="col-xs-12 col-sm-8 col-md-9">
+			  <div class="row chat-row input-append">
+				  <form ng-submit="sendPublicMessage()">
+					  <input type="text" class="form-control" ng-model="publicText" placeholder="Send message to all">
+					  <input type="submit" class="btn" value="Send">
+				  </form>
+			  </div>
+			  <div id="private-chat-area">
+				  <div class="row chat-row" ng-repeat="msg in privateMessages">
+					  <div class="chat-box private-chat">
+						  <small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
+						  <span ng-bind="msg.content"></span>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+		  </div>
+		</div>
 	</div>
-      <div class="col-xs-12 col-sm-8 col-md-9">
-	<div class="row chat-row input-append">
-		<form ng-submit="sendPublicMessage()">
-			<input type="text" class="form-control" ng-model="publicText" placeholder="Send message to all"></span>
-			<input type="submit" class="btn" value="Send">
-		</form>
-	</div>
-        <div id="private-chat-area">
-            <div class="row chat-row" ng-repeat="msg in privateMessages">
-                <div class="chat-box private-chat">
-                    <small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
-                  <span ng-bind="msg.content"></span>
-                </div>
-            </div>
-        </div> 
-	</div>
-      </div>
-      </div>
-      </div>
       <!--モーダルダイアログ-->
         <div class="modal fade" id="sampleModal" tabindex="-1">
             <div class="modal-dialog">
