@@ -14,7 +14,6 @@ body {
   background-image:url("/img/circles.svg");
 }
 .select-row{
-    width:90%;
     margin: 0 auto;
 }
 .nav>li>a:focus,
@@ -75,7 +74,6 @@ body {
   padding:10px;
   max-height:500px;
   overflow:auto; 
-  width:90%;
   margin: 0 auto;
 }
 .chat-row{
@@ -89,7 +87,6 @@ body {
 .panel{
     border:#BDBDBD;
     margin: 0 auto;
-    width: 90%;
     opacity:0.8;
 }
 .panel-heading{
@@ -127,7 +124,6 @@ body {
     background:#FF9800;;
 }
 .controls{
-    width:90%;
     margin:0 auto 30px;
 }
 .control-row{
@@ -146,7 +142,6 @@ body {
     border-radius:1px;
 }
 .users-row{
-    width:90%;
     margin:0 auto;
 }
 .jumbotron{
