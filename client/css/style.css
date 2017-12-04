@@ -14,7 +14,7 @@ body {
   background-image:url("/img/circles.svg");
 }
 .select-row{
-    width:80%;
+    width:90%;
     margin: 0 auto;
 }
 .nav>li>a:focus,
@@ -57,6 +57,7 @@ body {
   border-radius:1px;
   border-right:#C5CAE9 solid 1px;
   border-bottom:#C5CAE9 solid 1px;
+  margin: 0 10px;
 }
 .chat-box.private-chat{
   border-right:#FF9800 solid 1px;
@@ -74,7 +75,7 @@ body {
   padding:10px;
   max-height:500px;
   overflow:auto; 
-  width:80%;
+  width:90%;
   margin: 0 auto;
 }
 .chat-row{
@@ -88,7 +89,7 @@ body {
 .panel{
     border:#BDBDBD;
     margin: 0 auto;
-    width: 80%;
+    width: 90%;
     opacity:0.8;
 }
 .panel-heading{
@@ -126,7 +127,7 @@ body {
     background:#FF9800;;
 }
 .controls{
-    width:80%;
+    width:90%;
     margin:0 auto 30px;
 }
 .control-row{
@@ -134,7 +135,6 @@ body {
 }
 .wide-button{
     opacity:0.8;
-    width:80%;
     margin:0 auto;
     margin-top: 10px;
     margin-bottom:50px;
@@ -146,7 +146,7 @@ body {
     border-radius:1px;
 }
 .users-row{
-    width:80%;
+    width:90%;
     margin:0 auto;
 }
 .jumbotron{
@@ -194,6 +194,6 @@ body {
     text-align:right;
 }
 #private-chat-area{
-    height:300px;
+    max-height:600px;
     overflow:auto;
 }
