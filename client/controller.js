@@ -17,10 +17,6 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         templateUrl: 'privacy_policy.html',
         controller:''
     })
-    .when('/redis_test',{
-        templateUrl: 'redis_test.html',
-        controller: 'RedisClient'
-    })
   }]).controller('ChatController', function chatController($scope){
   var socket = io.connect();
   $scope.messages = [];
@@ -175,23 +171,4 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
       window.alert('キャンセルしました。')
     }
   };
-}).controller('RedisClient', function redisClient($scope){
-	var socket = io.connect();
-	$scope.lobbyName=' ';
-	$scope.lobbyMessage=' ';
-	$scope.lobbyChats = [];
-	socket.on('lobby', function(msg){
-		lobbyChats = [];
-		for(var i=1 ; i<=10 ; i++){
-			$scope.lobbyChats.push(msg[i]);
-		}
-	});
-	$scope.sendLobbyChat = function sendLobbyChat(){
-		var message = {
-			sender: $scope.lobbyName,
-			content: $scope.lobbyMessage
-		}
-		console.log("sending",message);
-		socket.emit('lobby', message);
-	};
 });
