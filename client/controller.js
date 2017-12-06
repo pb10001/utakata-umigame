@@ -89,7 +89,8 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
       var data = {
 		  type:"mondai",
 		  content:$scope.content,
-		  created:new Date().getDate()
+		  created_month: new Date().getMonth()+1,
+		  created_date:new Date().getDate()
       }
     socket.emit("message",data);
     }

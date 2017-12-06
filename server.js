@@ -75,12 +75,13 @@ chat=io.on('connection', function (socket) {
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
 		Object.keys(mondai).forEach(function(room){
-			var now = new Date().getDate();
+			var nowMonth = new Date().getMonth()+1;
+			var nowDate = new Date().getDate();
 			if(mondai[room]!=null){
-				var created = mondai[room].created;
+				var cMonth = mondai[room].created_month;
+				var cDate = mondai[room].created_date;
 			}
-			console.log("aaa",now-created);
-			if(created!=null&&now - created > 3){
+			if(cMonth!=null&&(nowDate - cDate > 3 || nowMonth != cMonth)){
 				mondai[room]=null;
 				trueAns[room]=null;
 				messages.filter(x=>x.room==room).forEach(function(item){
@@ -104,7 +105,8 @@ chat=io.on('connection', function (socket) {
         mondai[socket.room] ={
             sender:socket.name,
             content:String(msg.content||"クリックして問題文を入力"),
-			created:msg.created
+			created_month:msg.created_month,
+			created_date:msg.created_date
         };
         console.log('room',socket.room);
         socket.emit("mondai",mondai[socket.room]);
