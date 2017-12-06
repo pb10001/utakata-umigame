@@ -24,6 +24,7 @@ if (process.env.REDISTOGO_URL) {
 client.on("error", function (err) {
     console.log("Error " + err);
 });
+
 //
 // ## SimpleServer `SimpleServer(obj)`
 //
@@ -46,8 +47,14 @@ chat=io.on('connection', function (socket) {
     user_id+=1;
     socket.user_id=user_id;
     sockets.push(socket);
-    socket.on('join', function(roomId){
+	var res = [];
+	client.hgetall('lobbyChat', function(err, msg){
+		res.push(msg);
+	});
+	broadcast('lobby', res);
+    socket.on('join', function(roomName){
         socket.leave(socket.room);
+		var roomId =String(roomName||"Public"); 
         socket.room=roomId;
         socket.join(roomId);
         console.log(io.sockets.manager.rooms);
@@ -171,6 +178,15 @@ chat=io.on('connection', function (socket) {
       socket.name = String(name || 'Anonymous');
       updateRoster();
     });
+	var lobby_id = 0;
+	socket.on('lobby', function(msg){
+		lobby_id+=1;
+		console.log("message",msg);
+		client.hmset('lobbyChat',lobby_id,msg, redis.print);
+		client.hgetall('lobbyChat', function(err, item){
+			broadcast('lobby', item);
+		});
+	});
   });
 function updateRoster() {
   async.map(

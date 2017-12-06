@@ -1,1 +1,13 @@
-<h1>it works</h1>
+<div ng-controller="RedisClient">
+	<form ng-submit="sendLobbyChat()">
+		<input type="text" ng-model="lobbyName" placeholder="Your name">
+		<input type="text" ng-model="lobbyMessage" placeholder="Message">
+		<input type="submit" class="btn" value="submit">
+	</form>
+	<ul>
+		<li ng-repeat="chat in lobbyChats">
+			<small>{{chat}}</small>
+			<span ng-bind="chat"></span>
+		</li>
+	</ul>
+</div>
