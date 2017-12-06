@@ -87,8 +87,9 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.sendMondai = function sendMondai(){
     if(window.confirm('問題文が変更されます。続行しますか？')){
       var data = {
-      type:"mondai",
-      content:$scope.content
+		  type:"mondai",
+		  content:$scope.content,
+		  created:new Date().getDate()
       }
     socket.emit("message",data);
     }

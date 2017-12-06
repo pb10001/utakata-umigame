@@ -74,9 +74,37 @@ chat=io.on('connection', function (socket) {
     });
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
+		Object.keys(mondai).forEach(function(room){
+			var now = new Date().getDate();
+			if(mondai[room]!=null){
+				var created = mondai[room].created;
+			}
+			console.log("aaa",now-created);
+			if(created!=null&&now - created > 3){
+				mondai[room]=null;
+				trueAns[room]=null;
+				messages.filter(x=>x.room==room).forEach(function(item){
+					messages.splice(item,1);
+				});
+				chatMessages.filter(x=>x.room==room).forEach(function(item){
+					chatMessages.splice(item,1);
+				});
+				console.log('removed');
+				socket.emit("mondai",mondai[room]);
+				socket.emit("trueAns",trueAns[room]);
+				socket.emit("message",messages.filter(x=>x.room==room));
+				socket.emit("clearChat");
+				socket.broadcast.to(room).emit("mondai",mondai[room]);
+				socket.broadcast.to(room).emit("trueAns",trueAns[room]);
+				socket.broadcast.to(room).emit('message', messages.filter(x=>x.room==room));
+				socket.broadcast.to(room).emit("clearChat");
+			}
+		});
+		
         mondai[socket.room] ={
             sender:socket.name,
-            content:String(msg.content||"クリックして問題文を入力")
+            content:String(msg.content||"クリックして問題文を入力"),
+			created:msg.created
         };
         console.log('room',socket.room);
         socket.emit("mondai",mondai[socket.room]);
