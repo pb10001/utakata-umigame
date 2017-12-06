@@ -1,15 +1,24 @@
 # utakata-umigame
 Node.jsを用いたQ&A形式のチャットアプリです。
 ## 事前にインストールするもの
+- redis(サーバー)  
+Ubuntuなどの場合  
+```
+sudo apt-get install redis-server
+```  
+Windowsの場合  
+[RedisをWindowsにインストールしてみる -Qiita](https://qiita.com/okoi/items/3bb5ae26ad559e4f39a0)
 - node
 - npm
-- express
-- socket.io
-- async
+  - express
+  - socket.io
+  - async
+  - node_redis
 ```
 npm install express
 npm install socket.io
 npm install async
+npm install redis
 ```
 ## 使い方
 - ZIPをダウンロードする場合  
@@ -37,6 +46,7 @@ node server.js
 - express
 - socket.io
 - async
+- redis
 ### クライアントサイド
 - bootstrap
 - jQuery
