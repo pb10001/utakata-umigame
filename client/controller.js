@@ -41,6 +41,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.currentRoom='-';
   socket.on('connect', function () {
     $scope.setName();
+    socket.emit('join','Public');
   });
   socket.on('join', function(roomNum){
     $scope.currentRoom=roomNum;
