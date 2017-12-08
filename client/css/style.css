@@ -10,15 +10,10 @@ body {
   width:100%;
   font-family:'Mplus 1p', sans-serif;
   font-size:14px;
-  background:#FAFAFA;
-  background-image:url("/img/circles.svg");
+  background:url("/img/circles.svg");
 }
 .select-row{
     margin: 0 auto;
-}
-.nav>li>a:focus,
-.nav>li>a:hover{
-    background:#FF9800;
 }
 .pre-line{
     white-space:pre-line;
@@ -36,6 +31,11 @@ body {
 .secondary-text{
   color:#757575;
 }
+/*
+.nav>li>a:focus,
+.nav>li>a:hover{
+    background:#FF9800;
+}
 .navbar{
   opacity:0.9;
   border-radius:1px;
@@ -47,6 +47,29 @@ body {
 .navbar-text.caption-text{
     margin:10px 5px;
     font-size:1.5em;
+    color:#FFF;
+    font-family:"Kokoro", serif;
+}*/
+#myConteiner{
+	min-height:1000px;
+	background:url("/img/circles.svg");
+}
+.container-fluid{
+	padding-right:0;
+}
+.right-controls{
+	padding-right:0;
+}
+.pusher{
+	margin-top:60px;
+	background:transparent;
+}
+.ui.fixed.menu{
+  border-radius:1px;
+background:#303F9F;
+}
+#caption-text{
+    margin:10px 5px;
     color:#FFF;
     font-family:"Kokoro", serif;
 }

@@ -6,9 +6,12 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.14/angular-route.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js" integrity="sha256-HcON65l89nxNl7vaRECVPe/zNDBzhCcJYBE7O+EcruU=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="controller.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" integrity="sha256-iK7AZM7Xa42iuURdMdo1sp38ld/JJ3fDtS0523GKqdk=" crossorigin="anonymous" />
   </head>
   <body>
     <div style="display:none">
@@ -22,38 +25,32 @@
         gtag('config', 'UA-110000496-1');
       </script>
     </div>
-      <nav class="navbar">
-        <div>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="caption-text navbar-text" href="/">
-                    うたかたウミガメ
-                </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarEexample7">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a ng-href="mondai">Play Now</a></li>
-                    <li><a target="_blank" href="https://github.com/pb10001/utakata-umigame/wiki">How to Play</a></li>
-                    <li><a ng-href="privacy_policy">Privacy Policy</a></li> </ul>
-                <ul class="nav navbar-nav">
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a target="_blank" href="https://github.com/pb10001/utakata-umigame">Contribute</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div ng-view></div>
-    <div class="footer">
-      <p>© 2017 うたかたウミガメ</p>
-    </div>
+	<div class="ui sidebar inverted vertical menu">
+		<a class="item" ng-href="/"><b>Home</b></a>
+		<a class="item" ng-href="mondai">Play Now</a>
+		<a class="item" target="_blank" href="https://github.com/pb10001/utakata-umigame/wiki">How to Play</a>
+		<a class="item" ng-href="privacy_policy">Privacy Policy</a>
+		<a class="item" target="_blank" href="https://github.com/pb10001/utakata-umigame">Contribute</a>
+	</div>
+	<div class="ui fixed menu header-bar">
+		<div class="menu">
+			<div id="js-sidebar" class="item"><i class="icon large grey content"></i><span id="caption-text">うたかたウミガメ</span></div>
+		</div>
+	</div>
+    <div class="pusher">
+		<div id="myConteiner">
+			<div ng-view></div>
+			<div class="footer">
+				<p>© 2017 うたかたウミガメ</p>
+			</div>
+		</div>
+	</div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+	<script>
+	$('#js-sidebar').click(function() {
+		$('.ui.sidebar').sidebar('toggle');
+	});
+	</script>
   </body>
 </html>
