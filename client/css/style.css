@@ -31,25 +31,6 @@ body {
 .secondary-text{
   color:#757575;
 }
-/*
-.nav>li>a:focus,
-.nav>li>a:hover{
-    background:#FF9800;
-}
-.navbar{
-  opacity:0.9;
-  border-radius:1px;
-	background:#303F9F;
-}
-.navbar a{
-    color:#FFF;
-}
-.navbar-text.caption-text{
-    margin:10px 5px;
-    font-size:1.5em;
-    color:#FFF;
-    font-family:"Kokoro", serif;
-}*/
 #myConteiner{
 	min-height:1000px;
 	background:url("/img/circles.svg");
