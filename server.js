@@ -167,21 +167,26 @@ chat=io.on('connection', function (socket) {
 
     });
     socket.on('clear',function(){
-      mondai[socket.room]=null;
-      trueAns[socket.room]=null;
-      messages.filter(x=>x.room==socket.room).forEach(function(item){
-        messages.splice(item,1);
-      });
-      chatMessages.filter(x=>x.room==socket.room).forEach(function(item){
-        chatMessages.splice(item,1);
-      });
-      socket.emit("mondai",mondai[socket.room]);
-      socket.emit("trueAns",trueAns[socket.room]);
-      socket.emit("message",messages.filter(x=>x.room==socket.room));
+      var room = socket.room;
+	  mondai[room]=null;
+      trueAns[room]=null;
+	  for(var i = 0;i<messages.length;i++){
+		  if(messages[i].room==room){
+			  messages.splice(i--,1);
+		  }
+	  }
+	  for(i=0;i<chatMessages.length;i++){
+		  if(chatMessages[i].room==room){
+			  chatMessages.splice(i--,1);
+		  }
+	  }
+      socket.emit("mondai",mondai[room]);
+      socket.emit("trueAns",trueAns[room]);
+      socket.emit("message",messages.filter(x=>x.room==room));
       socket.emit("clearChat");
-      socket.broadcast.to(socket.room).emit("mondai",mondai[socket.room]);
-      socket.broadcast.to(socket.room).emit("trueAns",trueAns[socket.room]);
-      socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
+      socket.broadcast.to(socket.room).emit("mondai",mondai[room]);
+      socket.broadcast.to(socket.room).emit("trueAns",trueAns[room]);
+      socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==room));
       socket.broadcast.to(socket.room).emit("clearChat");
     });
     socket.on('identify', function (name) {
