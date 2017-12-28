@@ -129,6 +129,10 @@ background:#303F9F;
     background:#FF9800;;
 }
 .controls{
+	opacity: 0.8;
+	border-radius: 1px;
+	padding: 5px;
+    background:#F0F0F0;
     margin:0 auto 30px;
 }
 .control-row{
