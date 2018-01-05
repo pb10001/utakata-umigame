@@ -62,3 +62,4 @@ typings/
 
 # package
 package-lock.json
+*.db

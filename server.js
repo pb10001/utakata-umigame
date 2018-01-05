@@ -10,6 +10,16 @@ var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
 
+var Datastore = require('nedb');
+var db = {};
+db.mondai = new Datastore({
+	filename: 'mondai.db',
+	autoload: true
+});
+db.chat = new Datastore({
+	filename: 'chat.db',
+	autoload: true
+});
 //
 // ## SimpleServer `SimpleServer(obj)`
 //
@@ -38,10 +48,17 @@ chat=io.on('connection', function (socket) {
         socket.room=roomId;
         socket.join(roomId);
         console.log(io.sockets.manager.rooms);
-        socket.emit("mondai", mondai[roomId]);
-        socket.emit("trueAns", trueAns[roomId]);
+		db.mondai.findOne({room: roomId}, function(err, doc){
+			socket.emit("mondai", doc);
+			if(doc != null)
+				socket.emit("trueAns", doc.trueAns);
+			else
+				socket.emit("trueAns", null);
+		});
+		db.chat.find({room: roomId}).sort({id: 1}).exec(function(err, docs){
+			socket.emit('loadChat', docs);
+		});
         socket.emit('message', messages.filter(x=>x.room==roomId));
-        socket.emit('loadChat', chatMessages.filter(x=>x.room==roomId));
         socket.emit('join', roomId);
         updateRoster();
     });
@@ -86,13 +103,24 @@ chat=io.on('connection', function (socket) {
 				socket.broadcast.to(room).emit("clearChat");
 			}
 		});
-		
-        mondai[socket.room] ={
+		var doc = {
+			room: socket.room,
             sender:socket.name,
             content:String(msg.content||"クリックして問題文を入力"),
+			trueAns: "クリックして解説を入力",
 			created_month:msg.created_month,
 			created_date:msg.created_date
         };
+		db.mondai.count({room: socket.room}, (err, count)=>{
+			console.log("count=", count);
+			if(count==0)
+				db.mondai.insert(doc);
+			else{
+				db.mondai.update({room: socket.room}, {$set: {content: msg.content}});
+			}
+		});
+		
+        mondai[socket.room] = doc;
         console.log('room',socket.room);
         socket.emit("mondai",mondai[socket.room]);
         socket.broadcast.to(socket.room).emit("mondai", mondai[socket.room]);
@@ -100,6 +128,7 @@ chat=io.on('connection', function (socket) {
       else if(msg.type == "trueAns"){
         trueAns[socket.room] = String(msg.content||"クリックして解説を入力");
         socket.emit("trueAns", trueAns[socket.room]);
+		db.mondai.update({room: socket.room}, {$set: {trueAns: msg.content}});
         socket.broadcast.to(socket.room).emit("trueAns", trueAns[socket.room]);
       }
       else if(msg.type =="question"){
@@ -129,16 +158,20 @@ chat=io.on('connection', function (socket) {
         }
       }
       else if(msg.type=="publicMessage"){
-          var data={
+		  db.chat.count({room: socket.room},function(err, count){
+			var data={
+			  id: count,
               room:socket.room,
               private:false,
               sent_from:socket.name,
               sent_to:"All",
               content:msg.content
-          }
-          chatMessages.push(data);
-          socket.emit("chatMessage", data);
-          socket.broadcast.to(socket.room).emit("chatMessage", data);
+		  }
+		  db.chat.insert(data);
+		  chatMessages.push(data);
+		  socket.emit("chatMessage", data);
+		  socket.broadcast.to(socket.room).emit("chatMessage", data);
+		  });
       }
       else if(msg.type=="privateMessage"){
           console.log(msg.to);
