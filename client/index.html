@@ -25,7 +25,7 @@
         gtag('config', 'UA-110000496-1');
       </script>
     </div>
-	<div class="ui sidebar inverted vertical menu">
+	<div id = "my-sidebar" class="ui sidebar vertical menu">
 		<a class="item" ng-href="/"><b>Home</b></a>
 		<a class="item" ng-href="mondai">Play Now</a>
 		<a class="item" target="_blank" href="https://github.com/pb10001/utakata-umigame/wiki">How to Play</a>
@@ -50,6 +50,10 @@
 	<script>
 	$('#js-sidebar').click(function() {
 		$('.ui.sidebar').sidebar('toggle');
+	})
+	$('#my-sidebar').sidebar('setting', {
+	   'transition': 'push',
+       'dimPage': false,
 	});
 	</script>
   </body>
