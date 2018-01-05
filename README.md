@@ -3,7 +3,6 @@ Node.jsを用いたQ&A形式のチャットアプリです。
 ## 事前にインストールするもの
 - node
 - npm
-```
 ## 使い方
 - ZIPをダウンロードする場合  
 Clone or Download→Download ZIP→ZIPを展開  
