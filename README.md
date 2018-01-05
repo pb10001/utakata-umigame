@@ -6,10 +6,12 @@ Node.jsを用いたQ&A形式のチャットアプリです。
   - express
   - socket.io
   - async
+  - nedb
 ```
 npm install express
 npm install socket.io
 npm install async
+npm install nedb --save
 ```
 ## 使い方
 - ZIPをダウンロードする場合  
@@ -37,7 +39,17 @@ node server.js
 - express
 - socket.io
 - async
+- nedb
 ### クライアントサイド
 - bootstrap
 - jQuery
 - angular.js
+
+## ライセンス
+このアプリケーションはGPL 3.0で配布されています。
+公開しているソースコードの使用、再頒布は以下の条件のもとで自由に行えます。
+- このgithubリポジトリへの引用を明記する。
+- 変更箇所がある場合は、その旨を明記する。
+- ソースコードを公開する場合、GPL 3.0またはGPL 3.0より限定されたライセンスを付与する。  
+詳細はGPL 3.0の原文をご参照ください。  
+不明点やご指摘等がございましたらお気軽にご連絡ください。
