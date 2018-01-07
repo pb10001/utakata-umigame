@@ -9,15 +9,16 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         templateUrl:'top_page.html',
         controller:''
     })
-    .when('/mondai',{
-        templateUrl : 'mondai.html',
+    .when('/mondai/:room',{
+        templateUrl : '/mondai.html',
         controller : 'ChatController'
     })
     .when('/privacy_policy',{
         templateUrl: 'privacy_policy.html',
         controller:''
-    })
-  }]).controller('ChatController', function chatController($scope){
+    });
+  }]).controller('ChatController', function chatController($scope, $routeParams){
+  var room= $routeParams.room;
   var socket = io.connect();
   $scope.messages = [];
   $scope.privateMessages = [];
@@ -37,7 +38,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.currentRoom='-';
   socket.on('connect', function () {
     $scope.setName();
-    socket.emit('join','Public');
+    socket.emit('join',room);
   });
   socket.on('join', function(roomNum){
     $scope.currentRoom=roomNum;
@@ -165,6 +166,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     var roomNum= document.getElementById('room-number').value;
     socket.emit('join',roomNum);  
   };
+  $scope.quit = function quit(){
+	socket.emit('disconnect');
+	location.href = '/';
+  }
   $scope.clearAll = function clearAll(){
     if(window.confirm('問題、質問、回答がすべて消えます。続行しますか？')){
       socket.emit('clear');

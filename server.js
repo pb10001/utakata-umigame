@@ -15,6 +15,10 @@ db.chat = new Datastore({
 	filename: 'chat.db',
 	autoload: true
 });
+db.question = new Datastore({
+	filename: 'question.db',
+	autoload: true
+});
 
 
 var router = express();
@@ -49,7 +53,11 @@ chat=io.on('connection', function (socket) {
 		db.chat.find({room: roomId}).sort({id: 1}).exec(function(err, docs){
 			socket.emit('loadChat', docs);
 		});
-        socket.emit('message', messages.filter(x=>x.room==roomId));
+		db.question.find({room: roomId}).sort({id: 1}).exec(function(err, docs){
+			socket.emit('message', docs);
+			messages = docs;
+		});
+        //socket.emit('message', messages.filter(x=>x.room==roomId));
         socket.emit('join', roomId);
         updateRoster();
     });
@@ -74,7 +82,7 @@ chat=io.on('connection', function (socket) {
 				var cMonth = mondai[room].created_month;
 				var cDate = mondai[room].created_date;
 			}
-			if(cMonth!=null&&(nowDate - cDate > 3 || nowMonth != cMonth)){
+			/*if(cMonth!=null&&(nowDate - cDate > 3 || nowMonth != cMonth)){
 				mondai[room]=null;
 				trueAns[room]=null;
 				messages.filter(x=>x.room==room).forEach(function(item){
@@ -92,7 +100,7 @@ chat=io.on('connection', function (socket) {
 				socket.broadcast.to(room).emit("trueAns",trueAns[room]);
 				socket.broadcast.to(room).emit('message', messages.filter(x=>x.room==room));
 				socket.broadcast.to(room).emit("clearChat");
-			}
+			}*/
 		});
 		var doc = {
 			room: socket.room,
@@ -135,6 +143,7 @@ chat=io.on('connection', function (socket) {
           answerer: answerer,
           answer: answer
         };
+		db.question.insert(data);
         messages.push(data);
         socket.emit('message', messages.filter(x=>x.room==socket.room));
         socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
@@ -146,6 +155,8 @@ chat=io.on('connection', function (socket) {
           messages[id-1].answerer =msg.answerer;
           socket.emit('message', messages.filter(x=>x.room==socket.room));
           socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
+		  var data = messages[id-1];
+		  db.question.update({id : parseInt(id)}, data, {upsert: true}, function(err, items){});
         }
       }
       else if(msg.type=="publicMessage"){

@@ -77,8 +77,9 @@
 			<div class="row control-row">
 				<input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
 			</div>
-                        <input type="text" class="form-control" id="room-number" name="room-number" placeholder="Room key">
-                        <input type="submit" class="btn btn-primary" value="入室">
+                    </form>
+                    <form class="wide-button" ng-submit="quit()">
+                        <input class="btn btn-primary" type="submit" value="退室する">
                     </form>
                     <form class="wide-button" ng-submit="clearAll()">
                         <input class="btn warning-btn btn-danger" type="submit" value="Clear This Room">
