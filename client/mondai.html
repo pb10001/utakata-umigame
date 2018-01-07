@@ -74,9 +74,9 @@
           <div class="row select-row">
                     <form ng-submit="joinRoom()">
                         <label>現在の部屋: {{currentRoom}}</label>
-			<div class="row control-row">
-				<input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
-			</div>
+						<div class="row control-row">
+							<input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
+						</div>
                     </form>
                     <form class="wide-button" ng-submit="quit()">
                         <input class="btn btn-primary" type="submit" value="退室する">
@@ -123,23 +123,23 @@
 		  </div>
 		  </div>
 		</div>
-	</div>
-      <!--モーダルダイアログ-->
-        <div class="modal fade" id="sampleModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-                        <h4 class="modal-title">プライベートメッセージ</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form ng-submit="sendPrivateMessage()">
-                            <p><span>To: </span><input type="number" id="toIdLabel" ng-model="toId"></input></p>
-                            <input type="text" ng-model="privateText">
-                            <input class="btn btn-primary" type="submit" value ="送信">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+	<!--モーダルダイアログ-->
+	<div class="modal fade" id="sampleModal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+					<h4 class="modal-title">プライベートメッセージ</h4>
+				</div>
+				<div class="modal-body">
+					<form ng-submit="sendPrivateMessage()">
+						<p><span>To: </span><input type="number" id="toIdLabel" ng-model="toId"></input></p>
+						<input type="text" ng-model="privateText">
+						<input class="btn btn-primary" type="submit" value ="送信">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

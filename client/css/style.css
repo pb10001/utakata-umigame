@@ -42,15 +42,28 @@ body {
 	padding-right:0;
 }
 .pusher{
-	margin-top:60px;
 	background:transparent;
 }
-.ui.fixed.menu{
+nav.navbar{
   border-radius:1px;
+background:#303F9F;
+margin-bottom: 0;
+}
+.navbar-nav>li>a.item{
+	color:#FFF;
+}
+.navbar-nav>li:hover{
+	background: #EEE;
+}
+div.navbar-header{
+	margin: 0 auto;
+background:#303F9F;
+}
+div.navbar-collapse{
+	margin: 0 auto;
 background:#303F9F;
 }
 #caption-text{
-    margin:10px 5px;
     color:#FFF;
     font-family:"Kokoro", serif;
 }
