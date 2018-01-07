@@ -31,7 +31,7 @@ body {
 .secondary-text{
   color:#757575;
 }
-#myConteiner{
+#myContainer{
 	min-height:1000px;
 	background:url("/img/circles.svg");
 }
