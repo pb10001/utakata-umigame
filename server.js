@@ -124,6 +124,10 @@ chat=io.on('connection', function (socket) {
 			created_month:msg.created_month,
 			created_date:msg.created_date
         };
+		var mondai = new Mondai(doc);
+		mondai.save(function(err) {
+			if (err) { console.log(err); }
+		});
 		db.mondai.count({room: socket.room}, (err, count)=>{
 			console.log("count=", count);
 			if(count==0)
