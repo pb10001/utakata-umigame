@@ -1,3 +1,4 @@
+const mongoURI = process.env.MONGODB_URI;
 var http = require('http');
 var path = require('path');
 
@@ -7,10 +8,10 @@ var express = require('express');
 
 var Datastore = require('nedb');
 var db = {};
-db.mondai = new Datastore({
+/*db.mondai = new Datastore({
 	filename: 'mondai.db',
 	autoload: true
-});
+});*/
 db.chat = new Datastore({
 	filename: 'chat.db',
 	autoload: true
@@ -20,6 +21,19 @@ db.question = new Datastore({
 	autoload: true
 });
 
+//mongoose
+var mongoose = require('mongoose');
+var MondaiSchema = {
+	room: String,
+	sender: String,
+	content:String,
+	trueAns: String,
+	created_month: Number,
+	created_date:Number
+};
+mongoose.model('Mondai', MondaiSchema);
+mongoose.connect(mongoURI);
+db.mondai = mongoose.model('Mondai');
 
 var router = express();
 var server = http.createServer(router);
@@ -113,7 +127,7 @@ chat=io.on('connection', function (socket) {
 		db.mondai.count({room: socket.room}, (err, count)=>{
 			console.log("count=", count);
 			if(count==0)
-				db.mondai.insert(doc);
+				db.mondai.update(doc, {upsert: true});
 			else{
 				db.mondai.update({room: socket.room}, {$set: {content: msg.content}});
 			}
