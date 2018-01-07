@@ -1,4 +1,3 @@
-const mongoURI = process.env.MONGODB_URI;
 var http = require('http');
 var path = require('path');
 
@@ -6,21 +5,21 @@ var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
 
-var Datastore = require('nedb');
-var db = {};
-db.mondai = new Datastore({
-	filename: 'mondai.db',
-	autoload: true
-});
-db.chat = new Datastore({
-	filename: 'chat.db',
-	autoload: true
-});
-db.question = new Datastore({
-	filename: 'question.db',
-	autoload: true
-});
+//connect to redis
+//参考：https://qiita.com/5a3i/items/224ee1ea234d90d9dd7a
+var redis = require("redis"),
+    url   = require("url")
+if (process.env.REDISTOGO_URL) {
+    var rtg    = url.parse(process.env.REDISTOGO_URL);
+    var client = redis.createClient(rtg.port, rtg.hostname);
 
+    client.auth(rtg.auth.split(":")[1]);
+} else {
+    var client = redis.createClient();
+}
+client.on("error", function (err) {
+	console.log("Error " + err);
+});
 
 var router = express();
 var server = http.createServer(router);
@@ -44,21 +43,40 @@ chat=io.on('connection', function (socket) {
         socket.room=roomId;
         socket.join(roomId);
         console.log(io.sockets.manager.rooms);
-		db.mondai.findOne({room: roomId}, function(err, doc){
+		client.hgetall(roomId, function(err, doc){
 			socket.emit("mondai", doc);
 			if(doc != null)
 				socket.emit("trueAns", doc.trueAns);
 			else
-				socket.emit("trueAns", null);
+				socket.emit("trueAns",null);
 		});
-		db.chat.find({room: roomId}).sort({id: 1}).exec(function(err, docs){
-			socket.emit('loadChat', docs);
+		client.lrange('chats', 0, -1, function(err, docs){
+			chatMessages = [];
+			docs.forEach(function(item){
+				var obj = JSON.parse(item);
+				chatMessages.push(obj);
+			});
+			console.log(chatMessages.filter(x=>x.room == roomId));
+			socket.emit('loadChat', chatMessages.filter(x=>x.room == roomId).sort(function(a,b){
+					if(a.id<b.id) return -1;
+					if(a.id > b.id) return 1;
+					return 0;
+				}));
 		});
-		db.question.find({room: roomId}).sort({id: 1}).exec(function(err, docs){
-			socket.emit('message', docs);
-			messages = docs;
+		client.lrange('questions', 0, -1, function(err, docs){
+			messages = [];
+			docs.forEach(function(item){
+				var obj = JSON.parse(item);
+				if(messages.filter(x=>parseInt(x.id)).indexOf(parseInt(obj.id)) == -1){
+					messages.push(obj);
+				}
+			});
+			socket.emit('message', messages.filter(x=>x.room == roomId).sort(function(a,b){
+					if(a.id<b.id) return -1;
+					if(a.id > b.id) return 1;
+					return 0;
+				}));
 		});
-        //socket.emit('message', messages.filter(x=>x.room==roomId));
         socket.emit('join', roomId);
         updateRoster();
     });
@@ -111,14 +129,15 @@ chat=io.on('connection', function (socket) {
 			created_month:msg.created_month,
 			created_date:msg.created_date
         };
-		db.mondai.count({room: socket.room}, (err, count)=>{
+		client.hmset(socket.room, doc);
+		/*db.mondai.count({room: socket.room}, (err, count)=>{
 			console.log("count=", count);
 			if(count==0)
 				db.mondai.update(doc, {upsert: true});
 			else{
 				db.mondai.update({room: socket.room}, {$set: {content: msg.content}});
 			}
-		});
+		});*/
 		
         mondai[socket.room] = doc;
         console.log('room',socket.room);
@@ -128,24 +147,30 @@ chat=io.on('connection', function (socket) {
       else if(msg.type == "trueAns"){
         trueAns[socket.room] = String(msg.content||"クリックして解説を入力");
         socket.emit("trueAns", trueAns[socket.room]);
-		db.mondai.update({room: socket.room}, {$set: {trueAns: msg.content}});
+		client.hgetall(socket.room, function(err, doc){
+			doc.trueAns = msg.content;
+			client.hmset(socket.room, doc);
+		});
         socket.broadcast.to(socket.room).emit("trueAns", trueAns[socket.room]);
       }
       else if(msg.type =="question"){
         var id = messages.length+1;
+		var questionNum = messages.filter(x=>x.room == socket.room).length+1;
         var text = msg.question;
         var answer = "waiting";
         var answerer = "-";
         var data = {
           room: socket.room,
           id: id,
+		  questionNum: questionNum,
           name: socket.name,
           text: text,
           answerer: answerer,
           answer: answer
         };
-		db.question.insert(data);
+		//db.question.insert(data);
         messages.push(data);
+		client.rpush('questions', JSON.stringify(data));
         socket.emit('message', messages.filter(x=>x.room==socket.room));
         socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
       }
@@ -157,11 +182,14 @@ chat=io.on('connection', function (socket) {
           socket.emit('message', messages.filter(x=>x.room==socket.room));
           socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
 		  var data = messages[id-1];
-		  db.question.update({id : parseInt(id)}, data, {upsert: true}, function(err, items){});
+		  client.del('questions');
+		  messages.forEach(function(item){
+			client.rpush('questions', JSON.stringify(item));
+		  });
         }
       }
       else if(msg.type=="publicMessage"){
-		  db.chat.count({room: socket.room},function(err, count){
+		  client.llen('chats',function(err, count){
 			var data={
 			  id: count,
               room:socket.room,
@@ -170,7 +198,7 @@ chat=io.on('connection', function (socket) {
               sent_to:"All",
               content:msg.content
 		  }
-		  db.chat.insert(data);
+		  client.rpush('chats', JSON.stringify(data));
 		  chatMessages.push(data);
 		  socket.emit("chatMessage", data);
 		  socket.broadcast.to(socket.room).emit("chatMessage", data);
