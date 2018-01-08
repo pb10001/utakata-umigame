@@ -82,20 +82,6 @@ chat=io.on('connection', function (socket) {
 					return 0;
 				}));
 		});
-		/*client.lrange('questions', 0, -1, function(err, docs){
-			messages = [];
-			docs.forEach(function(item){
-				var obj = JSON.parse(item);
-				if(messages.filter(x=>parseInt(x.id)).indexOf(parseInt(obj.id)) == -1){
-					messages.push(obj);
-				}
-			});
-			socket.emit('message', messages.filter(x=>x.room == roomId).sort(function(a,b){
-					if(a.id<b.id) return -1;
-					if(a.id > b.id) return 1;
-					return 0;
-				}));
-		});*/
         socket.emit('join', roomId);
         updateRoster();
     });
@@ -153,7 +139,6 @@ chat=io.on('connection', function (socket) {
         };
         messages.push(data);
 		client.hset('questions', data.id, JSON.stringify(data));
-		//client.rpush('questions', JSON.stringify(data));
         socket.emit('message', messages.filter(x=>x.room==socket.room));
         socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
       }
@@ -165,10 +150,6 @@ chat=io.on('connection', function (socket) {
           socket.emit('message', messages.filter(x=>x.room==socket.room));
           socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
 		  var data = messages[id-1];
-		  /*client.del('questions');
-		  messages.forEach(function(item){
-			client.rpush('questions', JSON.stringify(item));
-		  });*/
 		  client.hset(questionKey, data.id, JSON.stringify(data));
         }
       }
