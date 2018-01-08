@@ -3,6 +3,7 @@ Node.jsを用いたQ&A形式のチャットアプリです。
 ## 事前にインストールするもの
 - node
 - npm
+- redis
 ## 使い方
 - ZIPをダウンロードする場合  
 Clone or Download→Download ZIP→ZIPを展開  
@@ -14,6 +15,9 @@ git clone https://github.com/pb10001/utakata-umigame.git
 ```
 npm install
 ```
+- redisサーバーを起動する  
+redisのインストール方法および起動方法は、検索するとたくさんヒットします。  
+例えばWindowsの場合は[こちら](https://weblabo.oscasierra.net/redis-windows-install/)など
 - ローカルサーバーをスタートする
 ```
 node server.js
@@ -33,15 +37,15 @@ node server.js
 - express
 - socket.io
 - async
-- nedb
+- node-redis
 ### クライアントサイド
 - bootstrap
 - jQuery
 - angular.js
 
 ## ライセンス
-このアプリケーションはGPL 3.0で配布されています。
-公開しているソースコードの使用、再頒布は以下の条件のもとで自由に行えます。
+このアプリケーションはGPL 3.0のもとで配布されています。
+公開しているソースコードの使用、再頒布は以下の条件を満たしている限り自由に行えます。
 - このgithubリポジトリへの引用を明記する。
 - 変更箇所がある場合は、その旨を明記する。
 - ソースコードを公開する場合、GPL 3.0またはGPL 3.0より限定されたライセンスを付与する。  
