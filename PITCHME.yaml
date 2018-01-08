@@ -10,3 +10,5 @@ loop : true
 
 #トランジションの設定
 transition : fade
+
+published : true
