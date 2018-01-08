@@ -1,4 +1,5 @@
-#　うたかたウミガメ
+# うたかたウミガメ
+### Q&A-based web chat application
 
 ---
 
