@@ -33,13 +33,21 @@ var chatMessages = [];
 var sockets = [];
 var user_id = 0;
 
+const chatKey = 'chats';
+const questionKey = 'questions';
+
 chat=io.on('connection', function (socket) {
     user_id+=1;
     socket.user_id=user_id;
     sockets.push(socket);
     socket.on('join', function(roomName){
         socket.leave(socket.room);
-		var roomId =String(roomName||"Public"); 
+		var roomId =String(roomName||"Public");
+		//DBのキー衝突を避ける
+		if(roomId=='chats'||roomId == 'questions'){
+			roomId = 'Public';
+		}
+		//入室
         socket.room=roomId;
         socket.join(roomId);
         console.log(io.sockets.manager.rooms);
@@ -50,7 +58,7 @@ chat=io.on('connection', function (socket) {
 			else
 				socket.emit("trueAns",null);
 		});
-		client.lrange('chats', 0, -1, function(err, docs){
+		client.lrange(chatKey, 0, -1, function(err, docs){
 			chatMessages = [];
 			docs.forEach(function(item){
 				var obj = JSON.parse(item);
@@ -63,7 +71,18 @@ chat=io.on('connection', function (socket) {
 					return 0;
 				}));
 		});
-		client.lrange('questions', 0, -1, function(err, docs){
+		client.hgetall(questionKey, function(err, doc){
+			messages = [];
+			for(key in doc){
+				messages.push(JSON.parse(doc[key]));
+			}
+			socket.emit('message', messages.filter(x=>x.room == roomId).sort(function(a,b){
+					if(a.id<b.id) return -1;
+					if(a.id > b.id) return 1;
+					return 0;
+				}));
+		});
+		/*client.lrange('questions', 0, -1, function(err, docs){
 			messages = [];
 			docs.forEach(function(item){
 				var obj = JSON.parse(item);
@@ -76,7 +95,7 @@ chat=io.on('connection', function (socket) {
 					if(a.id > b.id) return 1;
 					return 0;
 				}));
-		});
+		});*/
         socket.emit('join', roomId);
         updateRoster();
     });
@@ -94,33 +113,6 @@ chat=io.on('connection', function (socket) {
     });
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
-		/*Object.keys(mondai).forEach(function(room){
-			var nowMonth = new Date().getMonth()+1;
-			var nowDate = new Date().getDate();
-			if(mondai[room]!=null){
-				var cMonth = mondai[room].created_month;
-				var cDate = mondai[room].created_date;
-			}
-			if(cMonth!=null&&(nowDate - cDate > 3 || nowMonth != cMonth)){
-				mondai[room]=null;
-				trueAns[room]=null;
-				messages.filter(x=>x.room==room).forEach(function(item){
-					messages.splice(item,1);
-				});
-				chatMessages.filter(x=>x.room==room).forEach(function(item){
-					chatMessages.splice(item,1);
-				});
-				console.log('removed');
-				socket.emit("mondai",mondai[room]);
-				socket.emit("trueAns",trueAns[room]);
-				socket.emit("message",messages.filter(x=>x.room==room));
-				socket.emit("clearChat");
-				socket.broadcast.to(room).emit("mondai",mondai[room]);
-				socket.broadcast.to(room).emit("trueAns",trueAns[room]);
-				socket.broadcast.to(room).emit('message', messages.filter(x=>x.room==room));
-				socket.broadcast.to(room).emit("clearChat");
-			}
-		});*/
 		var doc = {
 			room: socket.room,
             sender:socket.name,
@@ -130,7 +122,6 @@ chat=io.on('connection', function (socket) {
 			created_date:msg.created_date.toString()
         };
 		client.hmset(socket.room, doc);
-		
         mondai[socket.room] = doc;
         console.log('room',socket.room);
         socket.emit("mondai",mondai[socket.room]);
@@ -160,9 +151,9 @@ chat=io.on('connection', function (socket) {
           answerer: answerer,
           answer: answer
         };
-		//db.question.insert(data);
         messages.push(data);
-		client.rpush('questions', JSON.stringify(data));
+		client.hset('questions', data.id, JSON.stringify(data));
+		//client.rpush('questions', JSON.stringify(data));
         socket.emit('message', messages.filter(x=>x.room==socket.room));
         socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
       }
@@ -174,14 +165,15 @@ chat=io.on('connection', function (socket) {
           socket.emit('message', messages.filter(x=>x.room==socket.room));
           socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
 		  var data = messages[id-1];
-		  client.del('questions');
+		  /*client.del('questions');
 		  messages.forEach(function(item){
 			client.rpush('questions', JSON.stringify(item));
-		  });
+		  });*/
+		  client.hset(questionKey, data.id, JSON.stringify(data));
         }
       }
       else if(msg.type=="publicMessage"){
-		  client.llen('chats',function(err, count){
+		  client.llen(chatKey,function(err, count){
 			var data={
 			  id: count,
               room:socket.room,
@@ -190,7 +182,7 @@ chat=io.on('connection', function (socket) {
               sent_to:"All",
               content:msg.content
 		  }
-		  client.rpush('chats', JSON.stringify(data));
+		  client.rpush(chatKey, JSON.stringify(data));
 		  chatMessages.push(data);
 		  socket.emit("chatMessage", data);
 		  socket.broadcast.to(socket.room).emit("chatMessage", data);
