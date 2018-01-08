@@ -94,14 +94,14 @@ chat=io.on('connection', function (socket) {
     });
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
-		Object.keys(mondai).forEach(function(room){
+		/*Object.keys(mondai).forEach(function(room){
 			var nowMonth = new Date().getMonth()+1;
 			var nowDate = new Date().getDate();
 			if(mondai[room]!=null){
 				var cMonth = mondai[room].created_month;
 				var cDate = mondai[room].created_date;
 			}
-			/*if(cMonth!=null&&(nowDate - cDate > 3 || nowMonth != cMonth)){
+			if(cMonth!=null&&(nowDate - cDate > 3 || nowMonth != cMonth)){
 				mondai[room]=null;
 				trueAns[room]=null;
 				messages.filter(x=>x.room==room).forEach(function(item){
@@ -119,25 +119,17 @@ chat=io.on('connection', function (socket) {
 				socket.broadcast.to(room).emit("trueAns",trueAns[room]);
 				socket.broadcast.to(room).emit('message', messages.filter(x=>x.room==room));
 				socket.broadcast.to(room).emit("clearChat");
-			}*/
-		});
+			}
+		});*/
 		var doc = {
 			room: socket.room,
             sender:socket.name,
             content:String(msg.content||"クリックして問題文を入力"),
 			trueAns: "クリックして解説を入力",
-			created_month:msg.created_month,
-			created_date:msg.created_date
+			created_month:msg.created_month.toString(),
+			created_date:msg.created_date.toString()
         };
 		client.hmset(socket.room, doc);
-		/*db.mondai.count({room: socket.room}, (err, count)=>{
-			console.log("count=", count);
-			if(count==0)
-				db.mondai.update(doc, {upsert: true});
-			else{
-				db.mondai.update({room: socket.room}, {$set: {content: msg.content}});
-			}
-		});*/
 		
         mondai[socket.room] = doc;
         console.log('room',socket.room);
