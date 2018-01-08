@@ -16,7 +16,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     .when('/privacy_policy',{
         templateUrl: 'privacy_policy.html',
         controller:''
-    });
+    })
+	.otherwise({
+		redirectTo: '/'
+	});
   }]).controller('ChatController', function chatController($scope, $routeParams){
   var room= $routeParams.room;
   var socket = io.connect();
