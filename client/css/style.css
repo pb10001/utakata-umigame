@@ -12,6 +12,10 @@ body {
   font-size:16px;
   background-color:#F0F0F0;
 }
+.title{
+	margin: 0 auto;
+	padding: 20px;
+}
 .select-row{
     margin: 0 auto;
 }
@@ -158,9 +162,6 @@ background:#303F9F;
 }
 .users-row{
     margin:0 auto;
-}
-.jumbotron{
-	border-radius:1px;
 }
 .form-control{
     border-radius:1px;
