@@ -9,8 +9,8 @@ html{
 body {
   width:100%;
   font-family:'Mplus 1p', sans-serif;
-  font-size:14px;
-  background:url("/img/circles.svg");
+  font-size:16px;
+  background-color:#F0F0F0;
 }
 .select-row{
     margin: 0 auto;
@@ -33,16 +33,12 @@ body {
 }
 #myContainer{
 	min-height:1000px;
-	background:url("/img/circles.svg");
 }
 .container-fluid{
 	padding-right:0;
 }
 .right-controls{
 	padding-right:0;
-}
-.pusher{
-	background:transparent;
 }
 nav.navbar{
   border-radius:1px;
@@ -73,14 +69,15 @@ background:#303F9F;
   border-radius:1px;
   border-right:#C5CAE9 solid 1px;
   border-bottom:#C5CAE9 solid 1px;
-  margin: 0 10px;
+  margin: 0 auto;
+  min-height: 50px;
 }
 .chat-box.private-chat{
   border-right:#FF9800 solid 1px;
   border-bottom:#FF9800 solid 1px;
 }
 .multiline-box{
-  font-size:1.2em;
+  font-size:1em;
   background:#FFFFFF;
   padding: 5px;
   border-radius:1px;
@@ -102,9 +99,9 @@ background:#303F9F;
     word-wrap:break-word;
 }
 .panel{
-    border:#BDBDBD;
+	border: 0;
     margin: 0 auto;
-    opacity:0.8;
+	background-color:#F0F0F0;
 }
 .panel-heading{
     background:#C5CAE9;
@@ -113,8 +110,7 @@ background:#303F9F;
     font-family:"Noto Sans Japanese",sans-serif;
 }
 .panel-body{
-	opacity:0.8;
-    background:#F0F0F0;
+	background-color: #F0F0F0;
 }
 .fixed-area{
   display:block;
@@ -142,7 +138,6 @@ background:#303F9F;
     background:#FF9800;;
 }
 .controls{
-	opacity: 0.8;
 	border-radius: 1px;
 	padding: 5px;
     background:#F0F0F0;
@@ -152,7 +147,6 @@ background:#303F9F;
     margin:0 auto;
 }
 .wide-button{
-    opacity:0.8;
     margin:0 auto;
     margin-top: 10px;
 }
@@ -171,6 +165,9 @@ background:#303F9F;
 .form-control{
     border-radius:1px;
 }
+.chat-id-button{
+	/*padding: 1px;*/
+}
 #name-box{
     margin-top:5px;
 }
@@ -183,7 +180,6 @@ background:#303F9F;
   position:fixed;
 }
 #mondai-text{
-  opacity:1.0;
   word-wrap:break-word;
   font-family:"Noto Sans Japanese", sans-serif;
 }

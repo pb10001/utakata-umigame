@@ -18,9 +18,9 @@
 		<div>
 	   		<div id="question-area" class ="chat-area">
             	<div class= "row chat-row" ng-repeat="msg in messages">
-            		<button class="btn chat-id-button col-xs-12 col-md-1" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
-            		<div class="chat-box col-xs-12 col-md-5">
-                		<small class="secondary-text" ng-bind="msg.name"></small>
+            		<div class="chat-box col-xs-12 col-md-7">
+                		<button class="btn chat-id-button" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
+						<small class="secondary-text" ng-bind="msg.name"></small>
                 		<span class="primary-text message-text" ng-bind="msg.text"></span>
               		</div>
               		<div class="chat-box col-xs-12 col-md-5">
@@ -32,7 +32,7 @@
 		</div>
 	</div>
 		<div class="row">
-			<div class="controls">
+			<div class="controls panel">
 				<div class="row control-row">
 					<form ng-submit="send()">
 						<div class ="input-append">
@@ -64,7 +64,9 @@
           </div>      
       </div>
     </div>
+	<div>
       <div class="right-controls col-xs-12 col-sm-4 col-md-3">
+	  <div class="panel">
       <div class="panel-heading">
         <div class="panel-text">
             部屋
@@ -86,8 +88,9 @@
                     </form>
             </div>
         </div>
-      <div class="users-row">
-		  <div class="user-list">
+      </div>
+	  <div class="users-row">
+		  <div class="panel user-list">
 			  <div class="panel-heading">
 				  <div class="panel-text">
 					  ユーザー一覧
@@ -100,6 +103,7 @@
 				  </ul>
 			  </div>
 		  </div>
+		  <div class="panel">
           <div class= "panel-heading">
             <div class="panel-text">
                 チャット
@@ -122,8 +126,10 @@
 			  </div>
 		  </div>
 		  </div>
+		  </div>
 		</div>
     </div>
+	</div>
 	<!--モーダルダイアログ-->
 	<div class="modal fade" id="sampleModal" tabindex="-1">
 		<div class="modal-dialog">
