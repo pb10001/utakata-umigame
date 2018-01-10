@@ -239,7 +239,7 @@ chat=io.on('connection', function (socket) {
       socket.broadcast.to(socket.room).emit("trueAns",trueAns[room]);
       socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==room));
       socket.broadcast.to(socket.room).emit("clearChat");
-    });
+    });*/
     socket.on('identify', function (name) {
       socket.name = String(name || 'Anonymous');
       updateRoster();
