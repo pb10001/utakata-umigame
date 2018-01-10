@@ -139,7 +139,6 @@ chat=io.on('connection', function (socket) {
       }
       else if(msg.type =="question"){
         var max = Math.max.apply(null, messages.map(x=>x.id));
-		console.log("最大値=", messages.map(x=>x.id));
 		if(max>=0)
 			var id = max+1;
 		else
@@ -174,7 +173,11 @@ chat=io.on('connection', function (socket) {
         }
       }
       else if(msg.type=="publicMessage"){
-		  var chatNum = chatMessages.length+1;
+		  var max = Math.max.apply(null, chatMessages.map(x=>x.id));
+		  if(max >=0)
+			var chatNum = max +1;
+		  else
+			var chatNum = 1;
 		  var data={
 			  id: chatNum,
               room:socket.room,
