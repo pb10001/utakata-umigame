@@ -72,7 +72,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     var elem = document.getElementById('private-chat-area');
     elem.scrollTop = elem.scrollHeight;
   });
-  socket.on('clearChat', function(){
+  /*socket.on('clearChat', function(){
     var privates = $scope.privateMessages.filter(x=>x.private);
     $scope.privateMessages = [];
     privates.forEach(function(item){
@@ -80,13 +80,16 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     });
     $scope.$apply();      
     console.log('clear chat');
-  });
+  });*/
   socket.on('loadChat', function(msg){
     $scope.privateMessages = [];
     msg.forEach(function(item){
         $scope.privateMessages.push(item);
     });
     $scope.$apply();
+  });
+  socket.on('redirect', function(msg){
+	location.href = '/';
   });
   $scope.sendMondai = function sendMondai(){
     if(window.confirm('問題文が変更されます。続行しますか？')){
@@ -165,20 +168,16 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   $scope.fetchData = function fetchData(){
     socket.emit('refresh',null);
   };
-  $scope.joinRoom = function joinRoom(){
-    var roomNum= document.getElementById('room-number').value;
-    socket.emit('join',roomNum);  
-  };
   $scope.quit = function quit(){
 	socket.emit('disconnect');
 	location.href = '/';
   }
-  $scope.clearAll = function clearAll(){
+  /*$scope.clearAll = function clearAll(){
     if(window.confirm('問題、質問、回答がすべて消えます。続行しますか？')){
       socket.emit('clear');
     }
     else{
       window.alert('キャンセルしました。')
     }
-  };
+  };*/
 });

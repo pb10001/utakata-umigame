@@ -44,7 +44,11 @@ chat=io.on('connection', function (socket) {
         socket.leave(socket.room);
 		var roomId =String(roomName||"Public");
 		//DBのキー衝突を避ける
-		if(roomId=='chats'||roomId == 'questions'){
+		if(roomId.match(/[^A-Za-z0-9]+/)){
+			socket.emit('redirect');
+			return;
+		}
+		if(roomId==chatKey||roomId == questionKey){
 			roomId = 'Public';
 		}
 		//入室
@@ -58,7 +62,7 @@ chat=io.on('connection', function (socket) {
 			else
 				socket.emit("trueAns",null);
 		});
-		client.lrange(chatKey, 0, -1, function(err, docs){
+		/*client.lrange(chatKey, 0, -1, function(err, docs){
 			chatMessages = [];
 			docs.forEach(function(item){
 				var obj = JSON.parse(item);
@@ -70,10 +74,21 @@ chat=io.on('connection', function (socket) {
 					if(a.id > b.id) return 1;
 					return 0;
 				}));
+		});*/
+		client.hgetall(chatKey, function(err, doc){
+			chatMessages = [];
+			for(var key in doc){
+				chatMessages.push(JSON.parse(doc[key]));
+			}
+			socket.emit('loadChat', chatMessages.filter(x=>x.room == roomId).sort(function(a,b){
+					if(a.id<b.id) return -1;
+					if(a.id > b.id) return 1;
+					return 0;
+				}));
 		});
 		client.hgetall(questionKey, function(err, doc){
 			messages = [];
-			for(key in doc){
+			for(var key in doc){
 				messages.push(JSON.parse(doc[key]));
 			}
 			socket.emit('message', messages.filter(x=>x.room == roomId).sort(function(a,b){
@@ -123,7 +138,12 @@ chat=io.on('connection', function (socket) {
         socket.broadcast.to(socket.room).emit("trueAns", trueAns[socket.room]);
       }
       else if(msg.type =="question"){
-        var id = messages.length+1;
+        var max = Math.max.apply(null, messages.map(x=>x.id));
+		console.log("最大値=", messages.map(x=>x.id));
+		if(max>=0)
+			var id = max+1;
+		else
+			var id = 1;
 		var questionNum = messages.filter(x=>x.room == socket.room).length+1;
         var text = msg.question;
         var answer = "waiting";
@@ -154,20 +174,19 @@ chat=io.on('connection', function (socket) {
         }
       }
       else if(msg.type=="publicMessage"){
-		  client.llen(chatKey,function(err, count){
-			var data={
-			  id: count,
+		  var chatNum = chatMessages.length+1;
+		  var data={
+			  id: chatNum,
               room:socket.room,
               private:false,
               sent_from:socket.name,
               sent_to:"All",
               content:msg.content
 		  }
-		  client.rpush(chatKey, JSON.stringify(data));
+		  client.hset(chatKey, data.id, JSON.stringify(data));
 		  chatMessages.push(data);
 		  socket.emit("chatMessage", data);
 		  socket.broadcast.to(socket.room).emit("chatMessage", data);
-		  });
       }
       else if(msg.type=="privateMessage"){
           console.log(msg.to);
@@ -177,12 +196,14 @@ chat=io.on('connection', function (socket) {
           if(sendTo!=null){
             if(socket.user_id!=sendTo.user_id){                
               var sendData={
+				  id: -1,
                   private:true,
                   sent_from:"You",
                   sent_to:sendTo.name,
                   content:msg.content
               }
               var receiveData={
+				  id: -1,
                   private:true,
                   sent_from:socket.name,
                   sent_to:"You",
@@ -195,19 +216,20 @@ chat=io.on('connection', function (socket) {
       }
 
     });
-    socket.on('clear',function(){
+    /*socket.on('clear',function(){
       var room = socket.room;
 	  mondai[room]=null;
       trueAns[room]=null;
-	  for(var i = 0;i<messages.length;i++){
-		  if(messages[i].room==room){
-			  messages.splice(i--,1);
+	  for(var key in messages){
+		  if(messages[key].room == room){
+			  console.log('これを消す\n', messages[key]);
+			  client.del(questionKey, messages[key].id);
 		  }
 	  }
-	  for(i=0;i<chatMessages.length;i++){
-		  if(chatMessages[i].room==room){
-			  chatMessages.splice(i--,1);
-		  }
+	  for(var key in chatMessages){
+		if(chatMessages[key].room ==room){
+			client.del(chatKey, chatMessages[key].id);
+		}
 	  }
       socket.emit("mondai",mondai[room]);
       socket.emit("trueAns",trueAns[room]);

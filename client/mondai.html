@@ -74,7 +74,7 @@
       </div>
       <div class="panel-body">
           <div class="row select-row">
-                    <form ng-submit="joinRoom()">
+                    <form ng-submit="void(0)">
                         <label>現在の部屋: {{currentRoom}}</label>
 						<div class="row control-row">
 							<input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
@@ -83,9 +83,9 @@
                     <form class="wide-button" ng-submit="quit()">
                         <input class="btn btn-primary" type="submit" value="退室する">
                     </form>
-                    <form class="wide-button" ng-submit="clearAll()">
+                    <!--<form class="wide-button" ng-submit="clearAll()">
                         <input class="btn warning-btn btn-danger" type="submit" value="Clear This Room">
-                    </form>
+                    </form>-->
             </div>
         </div>
       </div>
@@ -140,7 +140,7 @@
 				</div>
 				<div class="modal-body">
 					<form ng-submit="sendPrivateMessage()">
-						<p><span>To: </span><input type="number" id="toIdLabel" ng-model="toId"></input></p>
+						<p><span>To: </span><input type="number" id="toIdLabel" ng-model="toId"></p>
 						<input type="text" ng-model="privateText">
 						<input class="btn btn-primary" type="submit" value ="送信">
 					</form>
