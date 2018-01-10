@@ -72,7 +72,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     var elem = document.getElementById('private-chat-area');
     elem.scrollTop = elem.scrollHeight;
   });
-  /*socket.on('clearChat', function(){
+  socket.on('clearChat', function(){
     var privates = $scope.privateMessages.filter(x=>x.private);
     $scope.privateMessages = [];
     privates.forEach(function(item){
@@ -80,7 +80,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
     });
     $scope.$apply();      
     console.log('clear chat');
-  });*/
+  });
   socket.on('loadChat', function(msg){
     $scope.privateMessages = [];
     msg.forEach(function(item){
@@ -172,12 +172,12 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
 	socket.emit('disconnect');
 	location.href = '/';
   }
-  /*$scope.clearAll = function clearAll(){
+  $scope.clearAll = function clearAll(){
     if(window.confirm('問題、質問、回答がすべて消えます。続行しますか？')){
       socket.emit('clear');
     }
     else{
       window.alert('キャンセルしました。')
     }
-  };*/
+  };
 });

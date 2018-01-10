@@ -219,30 +219,31 @@ chat=io.on('connection', function (socket) {
       }
 
     });
-    /*socket.on('clear',function(){
+    socket.on('clear',function(){
       var room = socket.room;
 	  mondai[room]=null;
       trueAns[room]=null;
+	  client.del(room);
 	  for(var key in messages){
 		  if(messages[key].room == room){
 			  console.log('これを消す\n', messages[key]);
-			  client.del(questionKey, messages[key].id);
+			  client.hdel(questionKey, messages[key].id);
 		  }
 	  }
 	  for(var key in chatMessages){
 		if(chatMessages[key].room ==room){
-			client.del(chatKey, chatMessages[key].id);
+			client.hdel(chatKey, chatMessages[key].id);
 		}
 	  }
       socket.emit("mondai",mondai[room]);
       socket.emit("trueAns",trueAns[room]);
-      socket.emit("message",messages.filter(x=>x.room==room));
+      socket.emit("message",[]);
       socket.emit("clearChat");
       socket.broadcast.to(socket.room).emit("mondai",mondai[room]);
       socket.broadcast.to(socket.room).emit("trueAns",trueAns[room]);
-      socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==room));
+      socket.broadcast.to(socket.room).emit('message', []);
       socket.broadcast.to(socket.room).emit("clearChat");
-    });*/
+    });
     socket.on('identify', function (name) {
       socket.name = String(name || 'Anonymous');
       updateRoster();
