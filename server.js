@@ -36,7 +36,7 @@ var user_id = 0;
 const chatKey = 'chats';
 const questionKey = 'questions';
 
-chat=io.on('connection', function (socket) {
+io.on('connection', function (socket) {
     user_id+=1;
     socket.user_id=user_id;
     sockets.push(socket);
@@ -226,7 +226,6 @@ chat=io.on('connection', function (socket) {
 	  client.del(room);
 	  for(var key in messages){
 		  if(messages[key].room == room){
-			  console.log('これを消す\n', messages[key]);
 			  client.hdel(questionKey, messages[key].id);
 		  }
 	  }
