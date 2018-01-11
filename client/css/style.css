@@ -12,6 +12,9 @@ body {
   font-size:16px;
   background-color:#F0F0F0;
 }
+.transparent{
+	background: transparent;
+}
 .title{
 	margin: 0 auto;
 	padding: 20px;
