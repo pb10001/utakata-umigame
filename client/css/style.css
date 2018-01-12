@@ -19,6 +19,9 @@ body {
 	margin: 0 auto;
 	padding: 20px;
 }
+div.row{
+	margin: 0;
+}
 .select-row{
     margin: 0 auto;
 }
@@ -40,6 +43,7 @@ body {
 }
 #myContainer{
 	min-height:1000px;
+	background: #F0F0F0;
 }
 .container-fluid{
 	padding-right:0;
@@ -70,7 +74,7 @@ background:#303F9F;
     color:#FFF;
     font-family:"Kokoro", serif;
 }
-.chat-box{
+div.chat-box{
   background:#FFFFFF;
   padding: 5px;
   border-radius:1px;
@@ -105,7 +109,7 @@ background:#303F9F;
 .message-text{
     word-wrap:break-word;
 }
-.panel{
+div.panel{
 	border: 0;
     margin: 0 auto;
 	background-color:#F0F0F0;
