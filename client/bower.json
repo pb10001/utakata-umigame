@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/pb10001/utakata-umigame",
+  "authors": [
+    "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.8",
+    "angular-route": "^1.6.8"
+  }
+}

@@ -7,6 +7,7 @@
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "dependencies": {
     "async": "^0.2.10",
+    "bower": "^1.8.2",
     "express": "^3.2.6",
     "redis": "^2.8.0",
     "socket.io": "^0.9.19"
