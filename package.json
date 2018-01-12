@@ -5,6 +5,9 @@
   "main": "server.js",
   "repository": "https://github.com/pb10001/utakata-umigame.git",
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "dependencies": {
     "async": "^0.2.10",
     "bower": "^1.8.2",
