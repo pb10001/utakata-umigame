@@ -1,26 +1,4 @@
-var app = angular.module('App', ['ngRoute']);
-app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode({
-    enabled:true,
-    requireBase: false    
-  });
-  $routeProvider
-    .when('/',{
-        templateUrl:'top_page.html',
-        controller:''
-    })
-    .when('/mondai/:room',{
-        templateUrl : '/mondai.html',
-        controller : 'ChatController'
-    })
-    .when('/privacy_policy',{
-        templateUrl: 'privacy_policy.html',
-        controller:''
-    })
-	.otherwise({
-		redirectTo: '/'
-	});
-  }]).controller('ChatController', function chatController($scope, $routeParams){
+function chatController($scope, $routeParams){
   var room= $routeParams.room;
   var socket = io.connect();
   $scope.messages = [];
@@ -180,4 +158,28 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
       window.alert('キャンセルしました。')
     }
   };
-});
+}
+
+var app = angular.module('App', ['ngRoute']);
+app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode({
+    enabled:true,
+    requireBase: false    
+  });
+  $routeProvider
+    .when('/',{
+        templateUrl:'top_page.html',
+        controller:''
+    })
+    .when('/mondai/:room',{
+        templateUrl : '/mondai.html',
+        controller : 'ChatController'
+    })
+    .when('/privacy_policy',{
+        templateUrl: 'privacy_policy.html',
+        controller:''
+    })
+	.otherwise({
+		redirectTo: '/'
+	});
+  }]).controller('ChatController', chatController);
