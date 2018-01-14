@@ -63,3 +63,7 @@ typings/
 # package
 package-lock.json
 *.db
+*.map
+client/app.ts
+client/app.js
+tsconfig.json
