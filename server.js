@@ -271,9 +271,11 @@ function msgInRoom(room, messages){
 
 function maxId(messages){
 	var max = 0;
-	for(var key in messages)
-		if(key >= max)
-			max = key;
+	for(var key in messages){
+		var id = parseInt(key);
+		if(id >= max)
+			max = id;
+	}
 	return max;
 }
 
