@@ -39,7 +39,7 @@ node server.js
 - async
 - node-redis
 ### クライアントサイド
-- bower
+- browserify
 - bootstrap
 - jQuery
 - angular.js
