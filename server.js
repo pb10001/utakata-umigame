@@ -28,7 +28,9 @@ var io = socketio.listen(server);
 router.use(express.static(path.resolve(__dirname, 'client')));
 var mondai ={};
 var trueAns={};
-var messages = [];
+var messages = {};
+//var messages = [];
+var questions = [];
 var chatMessages = [];
 var sockets = [];
 var user_id = 0;
@@ -62,19 +64,6 @@ io.on('connection', function (socket) {
 			else
 				socket.emit("trueAns",null);
 		});
-		/*client.lrange(chatKey, 0, -1, function(err, docs){
-			chatMessages = [];
-			docs.forEach(function(item){
-				var obj = JSON.parse(item);
-				chatMessages.push(obj);
-			});
-			console.log(chatMessages.filter(x=>x.room == roomId));
-			socket.emit('loadChat', chatMessages.filter(x=>x.room == roomId).sort(function(a,b){
-					if(a.id<b.id) return -1;
-					if(a.id > b.id) return 1;
-					return 0;
-				}));
-		});*/
 		client.hgetall(chatKey, function(err, doc){
 			chatMessages = [];
 			for(var key in doc){
@@ -87,11 +76,13 @@ io.on('connection', function (socket) {
 				}));
 		});
 		client.hgetall(questionKey, function(err, doc){
-			messages = [];
+			messages = {};
+			//messages = [];
 			for(var key in doc){
-				messages.push(JSON.parse(doc[key]));
+				//messages.push(JSON.parse(doc[key]));
+				messages[key] = JSON.parse(doc[key]);
 			}
-			socket.emit('message', messages.filter(x=>x.room == roomId).sort(function(a,b){
+			socket.emit('message', msgInRoom(socket.room, messages).sort(function(a,b){
 					if(a.id<b.id) return -1;
 					if(a.id > b.id) return 1;
 					return 0;
@@ -108,7 +99,7 @@ io.on('connection', function (socket) {
     socket.on('refresh',function(){
         socket.emit("mondai", mondai[socket.room]);
         socket.emit("trueAns", trueAns[socket.room]);
-        socket.emit('message', messages.filter(x=>x.room==socket.room));
+        socket.emit('message', msgInRoom(socket.room, messages));
       socket.emit('loadChat', chatMessages);
       updateRoster();
     });
@@ -138,12 +129,12 @@ io.on('connection', function (socket) {
         socket.broadcast.to(socket.room).emit("trueAns", trueAns[socket.room]);
       }
       else if(msg.type =="question"){
-        var max = Math.max.apply(null, messages.map(x=>x.id));
+        var max = Math.max.apply(null, msgInRoom(socket.room, messages).map(x=>x.id));
 		if(max>=0)
 			var id = max+1;
 		else
 			var id = 1;
-		var questionNum = messages.filter(x=>x.room == socket.room).length+1;
+		var questionNum = msgInRoom(socket.room, messages).filter(x=>x.room == socket.room).length+1;
         var text = msg.question;
         var answer = "waiting";
         var answerer = "-";
@@ -156,20 +147,24 @@ io.on('connection', function (socket) {
           answerer: answerer,
           answer: answer
         };
-        messages.push(data);
+		messages[id] = data;
+        //messages.push(data);
 		client.hset('questions', data.id, JSON.stringify(data));
-        socket.emit('message', messages.filter(x=>x.room==socket.room));
-        socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
+        socket.emit('message', msgInRoom(socket.room, messages));
+        socket.broadcast.to(socket.room).emit('message', msgInRoom(socket.room, messages));
       }
       else if(msg.type=="answer"){
-        if(msg.id!=0&&msg.id<=messages.length){
-          var id = msg.id;
-          messages[id-1].answer = msg.answer;
-          messages[id-1].answerer =msg.answerer;
-          socket.emit('message', messages.filter(x=>x.room==socket.room));
-          socket.broadcast.to(socket.room).emit('message', messages.filter(x=>x.room==socket.room));
-		  var data = messages[id-1];
-		  client.hset(questionKey, data.id, JSON.stringify(data));
+		  console.log('answer: ', msg);
+        if(msg.id!=0){
+          var id = parseInt(msg.id);
+          messages[id].answer = msg.answer;
+          messages[id].answerer =msg.answerer;
+          //messages[id-1].answer = msg.answer;
+          //messages[id-1].answerer =msg.answerer;
+          socket.emit('message', msgInRoom(socket.room, messages));
+          socket.broadcast.to(socket.room).emit('message', msgInRoom(socket.room, messages));
+		  var data = messages[id];
+		  client.hset(questionKey, id, JSON.stringify(data));
         }
       }
       else if(msg.type=="publicMessage"){
@@ -263,6 +258,15 @@ function broadcast(event, data) {
   sockets.forEach(function (socket) {
     socket.emit(event, data);
   });
+}
+
+function msgInRoom(room, messages){
+	var array = [];
+	for(var key in messages){
+		if(messages[key].room == room)
+			array.push(messages[key]);
+	}
+	return array;
 }
 
 server.listen(process.env.PORT || 5000, process.env.IP || "0.0.0.0", function(){

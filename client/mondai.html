@@ -19,7 +19,7 @@
 	   		<div id="question-area" class ="chat-area">
             	<div class= "row chat-row" ng-repeat="msg in messages">
             		<div class="chat-box col-xs-12 col-md-7">
-                		<button class="btn chat-id-button" ng-bind="msg.id" onClick="document.getElementById('id_input').value=this.textContent; document.answerForm.answerBox.focus()"></button>
+                		<button class="btn chat-id-button" ng-bind="msg.questionNum" name= "{{msg.id}}" onClick="document.getElementById('id_input').value=this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();"></button>
 						<small class="secondary-text" ng-bind="msg.name"></small>
                 		<span class="primary-text message-text" ng-bind="msg.text"></span>
               		</div>
@@ -45,6 +45,7 @@
 					<form ng-submit="sendAnswer()" name="answerForm">
 						<div class="input-append">
 							<input type="number" min=1 id="id_input" class="form-control" ng-model="id" placeholder="Id">
+							<div style="display:none;" id="ques_id_input"></div>
 							<input type="text" class="form-control" ng-model="answer" placeholder="Answer" name="answerBox">
 							<input type="submit" class="btn" value="Send">
 						</div>

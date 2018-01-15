@@ -116,7 +116,7 @@ function chatController($scope, $routeParams){
   };
   
   $scope.sendAnswer = function sendAnswer() {
-    var id = document.getElementById("id_input").value || 0;
+    var id = document.getElementById("ques_id_input").value || 0;
     var data = {
       type:"answer",
       answerer: String($scope.name||"Anonymous"),
