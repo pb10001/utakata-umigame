@@ -13,6 +13,7 @@
     "angular-route": "^1.6.8",
     "async": "^0.2.10",
     "bootstrap": "^3.3.7",
+    "browserify": "^15.1.0",
     "express": "^3.2.6",
     "jquery": "^3.2.1",
     "redis": "^2.8.0",
