@@ -6,13 +6,14 @@
   "repository": "https://github.com/pb10001/utakata-umigame.git",
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "browserify src/main.js -o client/js/bundle.js"
   },
   "dependencies": {
+    "angular": "^1.6.8",
+    "angular-route": "^1.6.8",
     "async": "^0.2.10",
     "bower": "^1.8.2",
     "express": "^3.2.6",
     "redis": "^2.8.0",
     "socket.io": "^0.9.19"
-  }
 }

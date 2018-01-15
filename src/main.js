@@ -1,3 +1,9 @@
+var $ = require('jquery');
+window.jQuery = $;
+var io = require('socket.io-client');
+var angular = require('angular');
+var ngRoute = require('angular-route');
+var bootstrap = require('bootstrap');
 function chatController($scope, $routeParams){
   var room= $routeParams.room;
   var socket = io.connect();
