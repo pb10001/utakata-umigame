@@ -129,12 +129,12 @@ io.on('connection', function (socket) {
         socket.broadcast.to(socket.room).emit("trueAns", trueAns[socket.room]);
       }
       else if(msg.type =="question"){
-        var max = Math.max.apply(null, msgInRoom(socket.room, messages).map(x=>x.id));
+		var id = maxId(messages)+1;
+        var max = Math.max.apply(null, msgInRoom(socket.room, messages).map(x=>x.questionNum));
 		if(max>=0)
-			var id = max+1;
+			var questionNum = max+1;
 		else
-			var id = 1;
-		var questionNum = msgInRoom(socket.room, messages).filter(x=>x.room == socket.room).length+1;
+			var questionNum = 1;
         var text = msg.question;
         var answer = "waiting";
         var answerer = "-";
@@ -267,6 +267,14 @@ function msgInRoom(room, messages){
 			array.push(messages[key]);
 	}
 	return array;
+}
+
+function maxId(messages){
+	var max = 0;
+	for(var key in messages)
+		if(key >= max)
+			max = key;
+	return max;
 }
 
 server.listen(process.env.PORT || 5000, process.env.IP || "0.0.0.0", function(){
