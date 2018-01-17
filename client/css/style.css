@@ -5,13 +5,59 @@
 @import url('https://fonts.googleapis.com/earlyaccess/sawarabimincho.css');
 html{
   width:100%;
+  height: 100%;
 }
 body {
   width:100%;
+  height: 100%;
   font-family:'Mplus 1p', sans-serif;
   font-size:16px;
-  background-color:#F0F0F0;
+  background-color:#FFFFFF;
 }
+.svg-logo{
+  width:100%;
+}
+/*引用:https://webdesign-trends.net/entry/2325*/
+* {
+ box-sizing:border-box;
+}
+ 
+.split-box{
+ position:absolute;
+ height:100%;
+ padding:1em;
+}
+ 
+.right-box {
+ right:0;
+ width:70%;
+ color:#ffffff;
+ /*background: #bdc3c7;*/
+background: #c2e59c;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+ 
+.left-box {
+ left:0;
+ width:30%;
+ color: #333;
+ background-color: #ffffff;
+}
+ 
+.left-box h2 a{
+  color: #333;
+ display:block;
+}
+ 
+@media screen and (max-width:1080px) { 
+ .split-box {
+ position:relative;
+ width:100%;
+ height:auto;
+ }
+}
+ 
 .transparent{
 	background: transparent;
 }
@@ -43,7 +89,8 @@ div.row{
 }
 #myContainer{
 	min-height:1000px;
-	background: #F0F0F0;
+	/*background: #F0F0F0;*/
+  background:#FFFFFF;
 }
 .container-fluid{
 	padding-right:0;
@@ -53,33 +100,37 @@ div.row{
 }
 nav.navbar{
   border-radius:1px;
-background:#303F9F;
+/*background:#303F9F;*/
+background:#FFFFFF;
+font-weight: 300;
 margin-bottom: 0;
+border-bottom: solid 1px #FF9800;
 }
 .navbar-default .navbar-nav>li>a.item{
-	color:#FFF;
+  font-weight: 300;
+	color:#333;
 }
 .navbar-nav>li:hover{
 	background: #EEE;
 }
 div.navbar-header{
 	margin: 0 auto;
-background:#303F9F;
+background:#FFFFFF;
 }
 div.navbar-collapse{
 	margin: 0 auto;
-background:#303F9F;
+background:#FFFFFF;
 }
 #caption-text{
-    color:#FFF;
+    color:#333;
     font-family:"Kokoro", serif;
 }
 div.chat-box{
   background:#FFFFFF;
   padding: 5px;
   border-radius:1px;
-  border-right:#C5CAE9 solid 1px;
-  border-bottom:#C5CAE9 solid 1px;
+  border-right:#FF9800 solid 1px;
+  border-bottom:#FF9800 solid 1px;
   margin: 0 auto;
   min-height: 50px;
 }
@@ -89,11 +140,17 @@ div.chat-box{
 }
 .multiline-box{
   font-size:1em;
-  background:#FFFFFF;
+  /*background:#FFFFFF;
   padding: 5px;
   border-radius:1px;
   border-bottom:#C5CAE9 solid 1px;
-  border-right:#C5CAE9 solid 1px;
+  border-right:#C5CAE9 solid 1px;*/
+  
+  background:#F0F0F0;
+  padding: 5px;
+  border-radius:3px;
+  border: 0;
+  margin: 0 auto;
 }
 .chat-area{
   padding:10px;
@@ -112,16 +169,15 @@ div.chat-box{
 div.panel{
 	border: 0;
     margin: 0 auto;
-	background-color:#F0F0F0;
 }
 .panel-heading{
-    background:#C5CAE9;
+    background:#FFFFFF;
     border-radius:1px;
     font-weight:lighter;
     font-family:"Noto Sans Japanese",sans-serif;
 }
 .panel-body{
-	background-color: #F0F0F0;
+	background-color: #FFFFFF;
 }
 .fixed-area{
   display:block;
@@ -151,7 +207,7 @@ div.panel{
 .controls{
 	border-radius: 1px;
 	padding: 5px;
-    background:#F0F0F0;
+    background:#FFFFFF;
     margin:0 auto 30px;
 }
 .control-row{
@@ -162,6 +218,8 @@ div.panel{
     margin-top: 10px;
 }
 .footer{
+  position: absolute;
+  bottom: 10px;
     margin-top:20px;
 }
 .modal-content{

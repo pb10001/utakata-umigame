@@ -4,6 +4,11 @@ var io = require('socket.io-client');
 var angular = require('angular');
 var ngRoute = require('angular-route');
 var bootstrap = require('bootstrap');
+
+function enterController(){
+    this.roomName = '';
+}
+
 function chatController($scope, $routeParams){
   var room= $routeParams.room;
   var socket = io.connect();
@@ -174,7 +179,7 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
   });
   $routeProvider
     .when('/',{
-        templateUrl:'top_page.html',
+        templateUrl:'/top_page_beta.html',
         controller:''
     })
     .when('/mondai/:room',{
@@ -189,3 +194,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
 		redirectTo: '/'
 	});
   }]).controller('ChatController', chatController);
+app.component('enter',{
+	template: ['<div class="input-append">',
+			  '<input ng-model="$ctrl.roomName" class="form-control" placeholder="Room Name">',
+			  '<a class="btn btn-primary" ng-href="/mondai/{{$ctrl.roomName}}">新規作成/入室</a>',
+		      '</div>'].join(''),
+  controller: enterController
+});

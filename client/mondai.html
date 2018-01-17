@@ -4,9 +4,13 @@
 	<div class="row">
 		<div class="panel">
 			<div class="panel-body">
-				<a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">{{mondai.content}}</p></a>
-				<p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
-				<p data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{mondai.created_month}}月{{mondai.created_date}}日</p>
+				<a class="clear-deco">
+          <div data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">
+            {{mondai.content}}
+            <p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
+            <p data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{mondai.created_month}}月{{mondai.created_date}}日</p>
+          </div>
+        </a>
 				<form class="collapse" id="mondai-input" ng-submit="sendMondai()">
 					<textarea class="form-control" placeholder="Content" ng-model="content"></textarea><br>
 					<input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
