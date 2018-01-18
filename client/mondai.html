@@ -4,11 +4,7 @@
       <div class="row">
         <div>
           <div class="panel-body">
-            <a class="clear-deco">
-              <div data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">
-                {{mondai.content}}
-              </div>
-            </a>
+            <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text multiline-box">{{mondai.content}}</p></a>
             <p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{mondai.sender}}</p>
             <p data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{mondai.created_month}}月{{mondai.created_date}}日</p>
             <form class="collapse" id="mondai-input" ng-submit="sendMondai()">
@@ -106,8 +102,8 @@
               </div>
             </div>
             <div class="panel-body">
-              <ul class="list-group">
-                <li class="list-group-item" ng-repeat="user in roster">
+              <ul>
+                <li style="list-style:none;" ng-repeat="user in roster">
                   <button class="btn transparent" value="{{user.id}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;">
                   <span ng-bind="user.name"></span>
                   </button>

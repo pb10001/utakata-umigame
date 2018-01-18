@@ -12,7 +12,7 @@ body {
   height: 100%;
   font-family:'Noto Sans Japanese', sans-serif;
   font-size:16px;
-  background-color:#FFFFFF;
+  background-color:#F0F0F0;
 }
 .svg-logo{
   width:100%;
@@ -26,10 +26,12 @@ body {
   position:absolute;
   height:100%;
   padding:1em;
+  border-bottom: #DDD solid 1px;
 }
  
 .right-box {
   left:300px;
+  right:0;
   color:#ffffff;
   /*background: #bdc3c7;*/
   background: #c2e59c;  /* fallback for old browsers */
@@ -49,7 +51,7 @@ body {
  display:block;
 }
  
-@media screen and (max-width:600px) { 
+@media screen and (max-width:900px) { 
   .split-box {
     position:relative;
     left:0;
@@ -89,8 +91,7 @@ div.row{
 }
 #myContainer{
 	min-height:1000px;
-	/*background: #F0F0F0;*/
-  background:#FFFFFF;
+	background: #FFFFFF;
 }
 .container-fluid{
 	padding-right:0;
