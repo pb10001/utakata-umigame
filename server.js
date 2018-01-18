@@ -222,11 +222,13 @@ io.on('connection', function (socket) {
 	  for(var key in messages){
 		  if(messages[key].room == room){
 			  client.hdel(questionKey, messages[key].id);
+        delete messages[key];
 		  }
 	  }
 	  for(var key in chatMessages){
 		if(chatMessages[key].room ==room){
 			client.hdel(chatKey, chatMessages[key].id);
+      delete chatMessages[key];
 		}
 	  }
       socket.emit("mondai",mondai[room]);
