@@ -178,7 +178,7 @@ io.on('connection', function (socket) {
               room:socket.room,
               private:false,
               sent_from:socket.name,
-              sent_to:"All",
+              sent_to:"All in "+  socket.room,
               content:msg.content
 		  }
 		  client.hset(chatKey, data.id, JSON.stringify(data));
