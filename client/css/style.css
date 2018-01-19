@@ -29,24 +29,21 @@ body {
   border-bottom: #DDD solid 1px;
 }
  
-.right-box {
-  left:300px;
-  right:0;
-  color:#ffffff;
-  /*background: #bdc3c7;*/
-  background: #c2e59c;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #64b3f4, #c2e59c);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #64b3f4, #c2e59c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
- 
 .left-box {
   left:0;
-  width:300px;
-  color: #333;
-  background-color: #ffffff;
+  width: 60%;
+  color:#ffffff;
+  background: #665e51;
 }
  
-.left-box h3 a{
+.right-box {
+  right:0;
+  width:40%;
+  color: #333;
+  background-color: #dbdf19;
+}
+ 
+.right-box h3 a{
   color: #333;
  display:block;
 }
@@ -95,7 +92,6 @@ div.row{
 }
 #myContainer{
 	min-height:1000px;
-	background: #FFFFFF;
 }
 .container-fluid{
 	padding-right:0;
@@ -152,9 +148,9 @@ div.chat-box{
   border-bottom:#C5CAE9 solid 1px;
   border-right:#C5CAE9 solid 1px;*/
   
-  background:#F0F0F0;
+  background:#c9ced1;
   padding: 5px;
-  border-radius:3px;
+  border-radius:1px;
   border: 0;
   margin: 0 auto;
 }
@@ -174,17 +170,18 @@ div.chat-box{
 }
 div.panel{
 	border: 0;
+	background: #FFFFFF;
     margin: 0 auto;
 }
 div.panel-heading{
-    background:#FFFFFF;
+	background: #FFFFFF;
     border-radius:1px;
     border-bottom: solid 1px rgba(230, 126, 34,0.5);
     font-weight:lighter;
     font-family:"Noto Sans Japanese",sans-serif;
 }
 .panel-body{
-	background-color: #FFFFFF;
+	background: #FFFFFF;
 }
 .fixed-area{
   display:block;
@@ -213,8 +210,8 @@ div.panel-heading{
 }
 .controls{
 	border-radius: 1px;
+	background: #F7FCFE;
 	padding: 5px;
-    background:#FFFFFF;
     margin:0 auto 30px;
 }
 .control-row{
@@ -238,9 +235,15 @@ div.panel-heading{
 .form-control{
     border-radius:1px;
 }
+.btn.btn-default{
+  background:#c9ced1;
+  border:0;
+  border-radius:0;
+}
 button.btn.chat-id-button{
-  background:transparent;
-  border: #DDD solid 1px;
+  background:#c9ced1;
+  border: 0;
+  border-radius:0;
   color: #333;
 }
 #name-box{
