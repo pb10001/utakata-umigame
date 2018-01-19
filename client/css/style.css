@@ -105,7 +105,7 @@ nav.navbar{
 background:#FFFFFF;
 font-weight: 300;
 margin-bottom: 0;
-border-bottom: solid 1px rgba(230, 126, 34,0.5);
+border-bottom: solid 2px rgba(230, 126, 34,1.0);
 }
 .navbar-default .navbar-nav>li>a.item{
   font-weight: lighter;
