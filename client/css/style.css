@@ -76,6 +76,9 @@ div.row{
 .btn.warning-btn{
  	background:#FF9800;
 	border:0;
+	border-radius: 0;
+	font-family: "Noto Sans Japanese", sans-serif;
+	font-weight: lighter;
 }
 .hannari{
 	font-family:"Hannari","Sawarabi Mincho", serif;
@@ -187,8 +190,9 @@ div.panel-heading{
   display:block;
   position:fixed;
 }
-.form-control{
+input.form-control{
     width:100%;
+    border-radius: 0;
 }
 .btn{
     border-radius:1px;
@@ -239,6 +243,8 @@ div.panel-heading{
   background:#c9ced1;
   border:0;
   border-radius:0;
+	font-family: "Noto Sans Japanese", sans-serif;
+	font-weight: lighter;
 }
 button.btn.chat-id-button{
   background:#c9ced1;
