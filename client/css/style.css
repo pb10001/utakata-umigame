@@ -83,6 +83,10 @@ div.row{
 .hannari{
 	font-family:"Hannari","Sawarabi Mincho", serif;
 }
+.sawarabi{
+  color: #333;
+  font-family: "Sawarabi Mincho", serif;
+}
 .primary-text{
   color:#212121;
 }
