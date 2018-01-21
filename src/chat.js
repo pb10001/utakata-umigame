@@ -1,4 +1,5 @@
 var io = require('socket.io-client');
+var crypto = require('crypto');
 var chatController = function ($scope, $routeParams) {
   var room= $routeParams.room;
   var socket = io.connect();
@@ -142,7 +143,17 @@ var chatController = function ($scope, $routeParams) {
     $scope.privateText='';
   };
   $scope.setName = function setName() {
-    socket.emit('identify', $scope.name);
+    var doc = $scope.name.split('#');
+    if(doc.length ==2){
+      var sha1 = crypto.createHash('sha1');
+      sha1.update(doc[1]);
+      var hash = sha1.digest('hex');
+      var txt = doc[0]+ "◆" +window.btoa(hash).substr(1,10);
+    }
+    else{
+      var txt = doc[0];
+    }
+    socket.emit('identify', txt);
   };
   $scope.fetchData = function fetchData(){
     socket.emit('refresh',null);

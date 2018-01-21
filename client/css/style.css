@@ -14,6 +14,9 @@ body {
   font-size:16px;
   background-color:#F0F0F0;
 }
+ul{
+  padding:0;
+}
 .svg-logo{
   width:100%;
 }
