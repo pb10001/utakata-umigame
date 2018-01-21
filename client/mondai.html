@@ -104,7 +104,7 @@
             <div class="panel-body">
               <ul>
                 <li style="list-style:none;" ng-repeat="user in roster">
-                  <button class="btn transparent" value="{{user.id}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;">
+                  <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;document.getElementById('toIdLabel').textContent= this.name;">
                   <span ng-bind="user.name"></span>
                   </button>
                 </li>
@@ -148,7 +148,7 @@
         </div>
         <div class="modal-body">
           <form ng-submit="sendPrivateMessage()">
-            <p><span>To: </span><input type="number" id="toIdLabel" ng-model="toId"></p>
+            <p><span>To: </span><span type="number" id="toIdLabel" ng-model="toId"></span></p>
             <input type="text" ng-model="privateText">
             <input class="btn btn-primary" type="submit" value ="送信">
           </form>
