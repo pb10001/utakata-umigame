@@ -1,3 +1,4 @@
+var $ = require('jquery');
 var io = require('socket.io-client');
 var crypto = require('crypto');
 var chatController = function ($scope, $routeParams) {
@@ -167,8 +168,11 @@ var chatController = function ($scope, $routeParams) {
       socket.emit('clear');
     }
     else{
-      window.alert('キャンセルしました。')
+      window.alert('キャンセルしました。');
     }
+  };
+  $scope.onClick = function onClick(){
+    $('.heart-animation').toggleClass('active');
   };
 }
 
