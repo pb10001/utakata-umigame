@@ -1,7 +1,7 @@
 var app = require('./angular-init');
 var chatController = require('./chat');
 function enterController(){
-    this.roomName = '';
+  this.roomName = '';
 }
 function publicController(){
   this.roomName = 'Public';
