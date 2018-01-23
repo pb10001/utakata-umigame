@@ -1,7 +1,12 @@
 var $ = require('jquery');
-window.jQuery = $;var bootstrap = require('bootstrap');
+window.jQuery = $;
+var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
+
+$(document).on('click', '.heart-animation', function(){
+  $('.heart-animation').toggleClass('active');
+});
 
 var app = angular.module('App', ['ngRoute']);
 app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
