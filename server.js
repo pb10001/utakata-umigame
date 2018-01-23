@@ -103,6 +103,12 @@ io.on('connection', function (socket) {
       socket.emit('loadChat', chatMessages);
       updateRoster();
     });
+    socket.on('good', function(){
+      var msg ={
+        content: "「Good!」を送信しました。"
+      };
+      sendMessage(socket, msg, chatMessages, client);
+    });
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
 		var doc = {
@@ -168,23 +174,7 @@ io.on('connection', function (socket) {
         }
       }
       else if(msg.type=="publicMessage"){
-		  var max = Math.max.apply(null, chatMessages.map(x=>x.id));
-		  if(max >=0)
-			var chatNum = max +1;
-		  else
-			var chatNum = 1;
-		  var data={
-			  id: chatNum,
-              room:socket.room,
-              private:false,
-              sent_from:socket.name,
-              sent_to:"All in "+  socket.room,
-              content:msg.content
-		  }
-		  client.hset(chatKey, data.id, JSON.stringify(data));
-		  chatMessages.push(data);
-		  socket.emit("chatMessage", data);
-		  socket.broadcast.to(socket.room).emit("chatMessage", data);
+        sendMessage(socket, msg, chatMessages, client);
       }
       else if(msg.type=="privateMessage"){
           console.log(msg.to);
@@ -279,6 +269,26 @@ function maxId(messages){
 			max = id;
 	}
 	return max;
+}
+
+function sendMessage(socket, msg, chatMessages, client){
+  var max = Math.max.apply(null, chatMessages.map(x=>x.id));
+  if(max >=0)
+  var chatNum = max +1;
+  else
+  var chatNum = 1;
+  var data={
+    id: chatNum,
+    room:socket.room,
+    private:false,
+    sent_from:socket.name,
+    sent_to:"All in "+  socket.room,
+    content:msg.content
+  }
+  client.hset(chatKey, data.id, JSON.stringify(data));
+  chatMessages.push(data);
+  socket.emit("chatMessage", data);
+  socket.broadcast.to(socket.room).emit("chatMessage", data); 
 }
 
 server.listen(process.env.PORT || 5000, process.env.IP || "0.0.0.0", function(){

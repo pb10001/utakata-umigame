@@ -20,6 +20,7 @@ var chatController = function ($scope, $routeParams) {
   $scope.privateText='';
   $scope.toId=-1;
   $scope.currentRoom='-';
+  $scope.isGoodSent = false;
   socket.on('connect', function () {
     $scope.setName();
     socket.emit('join',room);
@@ -173,6 +174,10 @@ var chatController = function ($scope, $routeParams) {
   };
   $scope.onClick = function onClick(){
     $('.heart-animation').toggleClass('active');
+    if(!$scope.isGoodSent){
+      socket.emit('good');
+      $scope.isGoodSent = true;
+    }
   };
 }
 
