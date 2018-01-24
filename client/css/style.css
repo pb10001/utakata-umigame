@@ -181,12 +181,13 @@ div.chat-box{
   border-radius:1px;
   border-bottom:#C5CAE9 solid 1px;
   border-right:#C5CAE9 solid 1px;*/
-  
-  background:#c9ced1;
-  padding: 5px;
-  border-radius:1px;
-  border: 0;
-  margin: 0 auto;
+  padding: 20px;
+  background: transparent;
+  border: solid #665e51 1px;
+  color: #665e51;
+  border-radius:0;
+	font-family: "Noto Sans Japanese", sans-serif;
+  margin: 10px auto;
   cursor: pointer;
 }
 .chat-area{
