@@ -26,6 +26,36 @@ var server = http.createServer(router);
 var io = socketio.listen(server);
 
 router.use(express.static(path.resolve(__dirname, 'client')));
+router.get('/puzzles',function(req, res){
+  var response = {};
+  client.hgetall(req.query.room, function(err, doc){
+    response.mondai = doc;
+    client.hgetall(chatKey, function(err, doc){
+      chatMessages = [];
+      for(var key in doc){
+        chatMessages.push(JSON.parse(doc[key]));
+      }
+      response.chat = chatMessages.filter(x=>x.room == req.query.room).sort(function(a,b){
+          if(a.id<b.id) return -1;
+          if(a.id > b.id) return 1;
+          return 0;
+        });
+      client.hgetall(questionKey, function(err, doc){
+        messages = {};
+        for(var key in doc){
+          messages[key] = JSON.parse(doc[key]);
+        }
+        response.question = msgInRoom(req.query.room, messages).sort(function(a,b){
+            if(a.id<b.id) return -1;
+            if(a.id > b.id) return 1;
+            return 0;
+          });
+        res.send(JSON.stringify(response));
+      });
+      
+    });
+  });
+});
 var mondai ={};
 var trueAns={};
 var messages = {};
