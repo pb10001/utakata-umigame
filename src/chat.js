@@ -15,6 +15,7 @@ var chatController = function ($scope, $routeParams) {
       sender:'',
       content:''
   }
+  $scope.trueAns = '';
   $scope.ansContent='';
   $scope.publicText='';
   $scope.privateText='';

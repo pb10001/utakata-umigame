@@ -145,7 +145,7 @@ io.on('connection', function (socket) {
 			room: socket.room,
             sender:socket.name,
             content:String(msg.content||"クリックして問題文を入力"),
-			trueAns: "クリックして解説を入力",
+			trueAns: trueAns[socket.room]||"クリックして解説を入力",
 			created_month:msg.created_month.toString(),
 			created_date:msg.created_date.toString()
         };
@@ -158,10 +158,15 @@ io.on('connection', function (socket) {
       else if(msg.type == "trueAns"){
         trueAns[socket.room] = String(msg.content||"クリックして解説を入力");
         socket.emit("trueAns", trueAns[socket.room]);
-		client.hgetall(socket.room, function(err, doc){
-			doc.trueAns = msg.content;
-			client.hmset(socket.room, doc);
-		});
+        client.hgetall(socket.room, function(err, doc){
+          if(doc==null){
+            
+          }
+          else{
+            doc.trueAns = msg.content;
+            client.hmset(socket.room, doc);
+          }
+        });
         socket.broadcast.to(socket.room).emit("trueAns", trueAns[socket.room]);
       }
       else if(msg.type =="question"){
