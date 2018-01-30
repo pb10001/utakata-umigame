@@ -52,9 +52,46 @@ router.get('/puzzles',function(req, res){
           });
         res.send(JSON.stringify(response));
       });
-      
+
     });
   });
+});
+router.get('/puzzles/update', function(req, res){
+  var room = req.query.room;
+  var name = req.query.name||"Anonymous on Desktop";
+  var content = req.query.content||'';
+  var trueAns = req.query.trueAns||'';
+  if(room!=null){
+    client.hgetall(room, function(err, doc){
+      if(doc!=null){
+        if(content != ''){
+          var data = {
+      			room: doc.room,
+            sender:name,
+            content:content,
+      			trueAns: doc.trueAns,
+      			created_month:doc.created_month,
+      			created_date:doc.created_date
+          };
+          mondai[room] = data;
+          client.hmset(room, data);
+          for(var key in sockets){
+            sockets[key].emit("mondai",mondai[room]);
+          }
+          //socket.broadcast.to(room).emit("mondai", mondai[room]);
+        }
+        else if(trueAns != ''){
+          doc.trueAns = trueAns;
+          mondai[room] = doc;
+          client.hmset(room, doc);
+          for(var key in sockets){
+            sockets[key].emit("mondai",mondai[room]);
+          }
+          //socket.broadcast.to(room).emit("trueAns", trueAns[room]);
+        }
+      }
+    });
+  }
 });
 var mondai ={};
 var trueAns={};
@@ -160,7 +197,7 @@ io.on('connection', function (socket) {
         socket.emit("trueAns", trueAns[socket.room]);
         client.hgetall(socket.room, function(err, doc){
           if(doc==null){
-            
+
           }
           else{
             doc.trueAns = msg.content;
@@ -217,7 +254,7 @@ io.on('connection', function (socket) {
                 return elem.user_id==msg.to;
           })[0]||null;
           if(sendTo!=null){
-            if(socket.user_id!=sendTo.user_id){                
+            if(socket.user_id!=sendTo.user_id){
               var sendData={
 				  id: -1,
                   private:true,
@@ -323,7 +360,7 @@ function sendMessage(socket, msg, chatMessages, client){
   client.hset(chatKey, data.id, JSON.stringify(data));
   chatMessages.push(data);
   socket.emit("chatMessage", data);
-  socket.broadcast.to(socket.room).emit("chatMessage", data); 
+  socket.broadcast.to(socket.room).emit("chatMessage", data);
 }
 
 server.listen(process.env.PORT || 5000, process.env.IP || "0.0.0.0", function(){
