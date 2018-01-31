@@ -65,29 +65,23 @@ router.get('/puzzles/update', function(req, res){
     client.hgetall(room, function(err, doc){
       if(doc!=null){
         if(content != ''){
-          var data = {
-      			room: doc.room,
-            sender:name,
-            content:content,
-      			trueAns: doc.trueAns,
-      			created_month:doc.created_month,
-      			created_date:doc.created_date
-          };
-          mondai[room] = data;
-          client.hmset(room, data);
-          for(var key in sockets){
-            sockets[key].emit("mondai",mondai[room]);
-          }
-          //socket.broadcast.to(room).emit("mondai", mondai[room]);
-        }
-        else if(trueAns != ''){
-          doc.trueAns = trueAns;
+          doc.sender = name;
+          doc.content = content;
           mondai[room] = doc;
           client.hmset(room, doc);
           for(var key in sockets){
             sockets[key].emit("mondai",mondai[room]);
           }
-          //socket.broadcast.to(room).emit("trueAns", trueAns[room]);
+        }
+        else if(trueAns != ''){
+          doc.sender = name;
+          doc.trueAns = trueAns;
+          mondai[room] = doc;
+          trueAns[room] = doc.trueAns;
+          client.hmset(room, doc);
+          for(var key in sockets){
+            sockets[key].emit("trueAns",doc.trueAns);
+          }
         }
       }
     });
