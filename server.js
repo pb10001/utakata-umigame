@@ -52,7 +52,6 @@ router.get('/puzzles',function(req, res){
           });
         res.send(JSON.stringify(response));
       });
-
     });
   });
 });
@@ -63,6 +62,7 @@ router.get('/puzzles/update', function(req, res){
   var trueAns = req.query.trueAns||'';
   var question = req.query.question||'';
   var answer = req.query.answer||'';
+  var chat = req.query.chat||'';
   if(room!=null){
     client.hgetall(room, function(err, doc){
       if(content != ''){
@@ -119,7 +119,28 @@ router.get('/puzzles/update', function(req, res){
             sockets[key].emit("message", msgInRoom(room, messages));
         }
       }
+      else if(chat != ''){
+        var max = Math.max.apply(null, chatMessages.map(x=>x.id));
+        if(max >=0)
+          var chatNum = max +1;
+        else
+          var chatNum = 1;
+        var data={
+          id: chatNum,
+          room:room,
+          private:false,
+          sent_from:name,
+          sent_to:"All in "+  room,
+          content:chat
+        }
+        client.hset(chatKey, data.id, JSON.stringify(data));
+        chatMessages.push(data);
+        for(var key in sockets){
+          sockets[key].emit("chatMessage", data);
+        }
+      }
       else if(answer != ''){
+        console.log("running:", answer);
         var id = parseInt(req.query.id);
         messages[id].answer = req.query.answer;
         messages[id].answerer = name;
@@ -133,6 +154,7 @@ router.get('/puzzles/update', function(req, res){
       }
     });
   }
+  res.send("Done");
 });
 var mondai ={};
 var trueAns={};
