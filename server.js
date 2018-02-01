@@ -61,6 +61,7 @@ router.get('/puzzles/update', function(req, res){
   var name = req.query.name||"Anonymous on Desktop";
   var content = req.query.content||'';
   var trueAns = req.query.trueAns||'';
+  var question = req.query.question||'';
   if(room!=null){
     client.hgetall(room, function(err, doc){
       if(doc!=null){
@@ -70,7 +71,8 @@ router.get('/puzzles/update', function(req, res){
           mondai[room] = doc;
           client.hmset(room, doc);
           for(var key in sockets){
-            sockets[key].emit("mondai",mondai[room]);
+            if(sockets[key].room == room)
+              sockets[key].emit("mondai",mondai[room]);
           }
         }
         else if(trueAns != ''){
@@ -80,7 +82,35 @@ router.get('/puzzles/update', function(req, res){
           trueAns[room] = doc.trueAns;
           client.hmset(room, doc);
           for(var key in sockets){
-            sockets[key].emit("trueAns",doc.trueAns);
+            if(sockets[key].room == room)
+              sockets[key].emit("trueAns",doc.trueAns);
+          }
+        }
+        else if(question != ''){
+          var id = maxId(messages)+1;
+              var max = Math.max.apply(null, msgInRoom(room, messages).map(x=>x.questionNum));
+          if(max>=0)
+            var questionNum = max+1;
+          else
+            var questionNum = 1;
+          var text = question;
+          var answer = "waiting";
+          var answerer = "-";
+          var data = {
+            room: room,
+            id: id,
+            questionNum: questionNum,
+            name: name,
+            text: text,
+            answerer: answerer,
+            answer: answer
+          };
+          messages[id] = data;
+              //messages.push(data);
+          client.hset('questions', data.id, JSON.stringify(data));
+          for(var key in sockets){
+            if(sockets[key].room == room)
+              sockets[key].emit("message", msgInRoom(room, messages));
           }
         }
       }
@@ -174,8 +204,8 @@ io.on('connection', function (socket) {
       if (msg.type =="mondai") {
 		var doc = {
 			room: socket.room,
-            sender:socket.name,
-            content:String(msg.content||"クリックして問題文を入力"),
+      sender:socket.name,
+      content:String(msg.content||"クリックして問題文を入力"),
 			trueAns: trueAns[socket.room]||"クリックして解説を入力",
 			created_month:msg.created_month.toString(),
 			created_date:msg.created_date.toString()
@@ -317,8 +347,8 @@ function broadcast(event, data) {
     socket.emit(event, data);
   });
 }
-
 function msgInRoom(room, messages){
+  //部屋を指定して質問の配列を取り出す
 	var array = [];
 	for(var key in messages){
 		if(messages[key].room == room)
