@@ -62,57 +62,74 @@ router.get('/puzzles/update', function(req, res){
   var content = req.query.content||'';
   var trueAns = req.query.trueAns||'';
   var question = req.query.question||'';
+  var answer = req.query.answer||'';
   if(room!=null){
     client.hgetall(room, function(err, doc){
-      if(doc!=null){
-        if(content != ''){
-          doc.sender = name;
-          doc.content = content;
-          mondai[room] = doc;
-          client.hmset(room, doc);
-          for(var key in sockets){
-            if(sockets[key].room == room)
-              sockets[key].emit("mondai",mondai[room]);
-          }
+      if(content != ''){
+        var doc = {
+    			room: room,
+          sender:name,
+          content:String(content||"クリックして問題文を入力"),
+    			trueAns: trueAns[room]||"クリックして解説を入力",
+    			created_month:'0',
+    			created_date:'0'
+        };
+        mondai[room] = doc;
+        client.hmset(room, doc);
+        for(var key in sockets){
+          if(sockets[key].room == room)
+            sockets[key].emit("mondai",mondai[room]);
         }
-        else if(trueAns != ''){
-          doc.sender = name;
-          doc.trueAns = trueAns;
-          mondai[room] = doc;
-          trueAns[room] = doc.trueAns;
-          client.hmset(room, doc);
-          for(var key in sockets){
-            if(sockets[key].room == room)
-              sockets[key].emit("trueAns",doc.trueAns);
-          }
+      }
+      else if(trueAns != ''){
+        doc.sender = name;
+        doc.trueAns = trueAns;
+        mondai[room] = doc;
+        trueAns[room] = doc.trueAns;
+        client.hmset(room, doc);
+        for(var key in sockets){
+          if(sockets[key].room == room)
+            sockets[key].emit("trueAns",doc.trueAns);
         }
-        else if(question != ''){
-          var id = maxId(messages)+1;
-              var max = Math.max.apply(null, msgInRoom(room, messages).map(x=>x.questionNum));
-          if(max>=0)
-            var questionNum = max+1;
-          else
-            var questionNum = 1;
-          var text = question;
-          var answer = "waiting";
-          var answerer = "-";
-          var data = {
-            room: room,
-            id: id,
-            questionNum: questionNum,
-            name: name,
-            text: text,
-            answerer: answerer,
-            answer: answer
-          };
-          messages[id] = data;
-              //messages.push(data);
-          client.hset('questions', data.id, JSON.stringify(data));
-          for(var key in sockets){
-            if(sockets[key].room == room)
-              sockets[key].emit("message", msgInRoom(room, messages));
-          }
+      }
+      else if(question != ''){
+        var id = maxId(messages)+1;
+            var max = Math.max.apply(null, msgInRoom(room, messages).map(x=>x.questionNum));
+        if(max>=0)
+          var questionNum = max+1;
+        else
+          var questionNum = 1;
+        var text = question;
+        var answer = "waiting";
+        var answerer = "-";
+        var data = {
+          room: room,
+          id: id,
+          questionNum: questionNum,
+          name: name,
+          text: text,
+          answerer: answerer,
+          answer: answer
+        };
+        messages[id] = data;
+            //messages.push(data);
+        client.hset(questionKey, data.id, JSON.stringify(data));
+        for(var key in sockets){
+          if(sockets[key].room == room)
+            sockets[key].emit("message", msgInRoom(room, messages));
         }
+      }
+      else if(answer != ''){
+        var id = parseInt(req.query.id);
+        messages[id].answer = req.query.answer;
+        messages[id].answerer = name;
+        for(var key in sockets){
+          if(sockets[key].room == room)
+            sockets[key].emit("message", msgInRoom(room, messages));
+        }
+  		  var data = messages[id];
+        console.log("data:",data);
+  		  client.hset(questionKey, id, JSON.stringify(data));
       }
     });
   }
@@ -202,15 +219,15 @@ io.on('connection', function (socket) {
     });
     socket.on('message', function (msg) {
       if (msg.type =="mondai") {
-		var doc = {
-			room: socket.room,
-      sender:socket.name,
-      content:String(msg.content||"クリックして問題文を入力"),
-			trueAns: trueAns[socket.room]||"クリックして解説を入力",
-			created_month:msg.created_month.toString(),
-			created_date:msg.created_date.toString()
+    		var doc = {
+    			room: socket.room,
+          sender:socket.name,
+          content:String(msg.content||"クリックして問題文を入力"),
+    			trueAns: trueAns[socket.room]||"クリックして解説を入力",
+    			created_month:msg.created_month.toString(),
+    			created_date:msg.created_date.toString()
         };
-		client.hmset(socket.room, doc);
+	      client.hmset(socket.room, doc);
         mondai[socket.room] = doc;
         console.log('room',socket.room);
         socket.emit("mondai",mondai[socket.room]);
