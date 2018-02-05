@@ -4,6 +4,9 @@ Node.jsを用いたQ&A形式のチャットアプリです。
 以下のアプリケーションは必須です。
 - [node/npm](https://nodejs.org/en/)
 - [redis](https://github.com/MicrosoftArchive/redis/releases)
+
+以下のアプリケーションはあると便利です。
+- [Git](https://git-scm.com/downloads)
 ## 使い方
 - ZIPをダウンロードする場合  
 Clone or Download→Download ZIP→ZIPを展開  
@@ -43,6 +46,7 @@ node server.js
 - bootstrap
 - jQuery
 - angular.js
+- uglify-es
 
 ## ライセンス
 このアプリケーションはGPL 3.0のもとで配布されています。
