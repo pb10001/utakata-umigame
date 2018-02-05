@@ -67,3 +67,5 @@ package-lock.json
 client/app.ts
 client/app.js
 tsconfig.json
+client/js/bundle.js
+client/js/bundle.min.js

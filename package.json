@@ -6,7 +6,7 @@
   "repository": "https://github.com/pb10001/utakata-umigame.git",
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "scripts": {
-    "postinstall": "browserify src/main.js -o client/js/bundle.js"
+    "postinstall": "browserify src/main.js -o client/js/bundle.js &&  uglifyjs -c -o client/js/bundle.min.js client/js/bundle.js"
   },
   "dependencies": {
     "angular": "^1.6.8",
@@ -17,7 +17,8 @@
     "express": "^3.2.6",
     "jquery": "^3.2.1",
     "redis": "^2.8.0",
-    "socket.io": "^0.9.19"
+    "socket.io": "^0.9.19",
+    "uglify-es": "^3.3.9"
   },
   "license": "GPL-3.0"
 }
