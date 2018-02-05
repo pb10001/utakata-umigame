@@ -1,7 +1,7 @@
 # utakata-umigame
 Node.jsを用いたQ&A形式のチャットアプリです。
 ## 事前にインストールするもの
-以下の3つが必須です。
+以下のアプリケーションは必須です。
 - [node/npm](https://nodejs.org/en/)
 - [redis](https://github.com/MicrosoftArchive/redis/releases)
 ## 使い方
