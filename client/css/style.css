@@ -98,7 +98,7 @@ ul{
 }
 .title{
 	margin: 0 auto;
-  margin-top: 60%;
+  margin-top: 300px;
   text-align: center;
 }
 div.row{
@@ -371,7 +371,7 @@ button.btn.chat-id-button{
   text-align: center;
   vertical-align: middle;
   background: #FFF;
-  top:200px;
+  top: 200px;
   left: 50%;
   width: 200px;
   height: 200px;
