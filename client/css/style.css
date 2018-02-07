@@ -29,16 +29,16 @@ ul{
 * {
  box-sizing:border-box;
 }
- 
+
 .split-box{
   position:absolute;
   padding:1em;
   border-bottom: #DDD solid 1px;
 }
- 
+
 .left-box {
   left:0;
-  width: 70%;
+  width: 50%;
   height: 100%;
   min-height: 500px;
   color:#ffffff;
@@ -60,21 +60,24 @@ ul{
 }
 .right-box {
   right:0;
-  width:45%;
-  top:150px;
+  width:50%;
   height:100%;
   min-height: 500px;
-  opacity: 0.9;
   color: #333;
   background-color: #dbdf19;
 }
- 
+.left-box h3{
+  text-align: center;
+}
+.left-box h3 a{
+  color: #FFF;
+}
 .right-box h3 a{
   color: #333;
  display:block;
 }
- 
-@media screen and (max-width:900px) { 
+
+@media screen and (max-width:900px) {
   .split-box {
     position:relative;
     left:0;
@@ -83,7 +86,7 @@ ul{
     height:auto;
   }
 }
- 
+
 .transparent{
 	background: transparent;
 }
@@ -193,7 +196,7 @@ div.chat-box{
 .chat-area{
   padding:10px;
   max-height:500px;
-  overflow:auto; 
+  overflow:auto;
   margin: 0 auto;
 }
 .chat-row{
@@ -292,6 +295,21 @@ input.form-control{
   background: #665e51;
   border: solid #665e51 1px;
   color: #FFF;
+}
+a.btn.btn-white{
+  background: transparent;
+  border: solid #EEE 1px;
+  color: #EEE;
+  letter-spacing:0.1em;
+  width: 80%;
+  border-radius:0;
+	font-family: "Noto Sans Japanese", sans-serif;
+	font-weight: lighter;
+}
+a.btn.btn-white:hover{
+  border: solid #EEE 1px;
+  background: #EEE;
+  color: #333;
 }
 button.btn.chat-id-button{
   background:#c9ced1;
