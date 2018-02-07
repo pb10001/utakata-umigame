@@ -39,7 +39,7 @@ app.component('public',{
   controller: publicController
 })
 app.component('current',{
-  template:'<h4 id="current-content" class="sawarabi" style="white-space: pre-wrap; text-align: center;"></h4>',
+  template:'<h3 class="sawarabi">Publicで出題中</h3><h4 id="current-content" class="sawarabi" style="white-space: pre-wrap; text-align: center;"></h4>',
   controller: currentController
 });
 app.controller('ChatController', chatController);
