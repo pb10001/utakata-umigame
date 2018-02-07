@@ -22,6 +22,10 @@ app.config(['$routeProvider','$locationProvider', function($routeProvider, $loca
         templateUrl: 'privacy_policy.html',
         controller:''
     })
+    .when('/link',{
+      template: '<links></links>',
+      controller:''
+    })
 	.otherwise({
 		redirectTo: '/'
 	});
