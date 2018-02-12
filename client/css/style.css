@@ -396,6 +396,7 @@ button.btn.chat-id-button{
 #center-box p{
   margin-top: 25px;
   font-size: 6rem;
+  -webkit-animation-duration: 3s;
 }
 #current-public{
   -webkit-animation-duration: 3s;
