@@ -375,6 +375,8 @@ button.btn.chat-id-button{
   vertical-align: middle;
   width: 200px;
   height: 100px;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-delay: 2s;
   /*background: #FFF;*/
 }
 #center-box.left{
@@ -394,4 +396,10 @@ button.btn.chat-id-button{
 #center-box p{
   margin-top: 25px;
   font-size: 4rem;
+}
+#current-public{
+  -webkit-animation-duration: 3s;
+}
+#enter-form{
+  -webkit-animation-duration: 3s;
 }
