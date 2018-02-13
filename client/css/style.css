@@ -377,7 +377,7 @@ button.btn.chat-id-button{
   position: absolute;
   text-align: center;
   vertical-align: middle;
-  width: 300px;
+  width: 400px;
   height: 150px;
   border:0;
   -webkit-animation-duration: 3s;
@@ -388,14 +388,14 @@ button.btn.chat-id-button{
   top: 100px;
   left: 50%;
   background: #dbdf19;
-  border-radius: 5px 0 0 5px;
-  margin-left: -299px;
+  border-radius: 20px 0 0 20px;
+  margin-left: -399px;
 }
 #center-box.right{
   top: 250px;
   left: 50%;
   background:#665e51;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 20px 20px 0;
   margin-left: 0;
 }
 #center-box p{
