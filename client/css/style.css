@@ -385,12 +385,14 @@ button.btn.chat-id-button{
   top: 180px;
   left: 50%;
   background: #dbdf19;
+  border-radius: 10px 0 0 10px;
   margin-left: -300px;
 }
 #center-box.right{
   top: 180px;
   left: 50%;
   background:#665e51;
+  border-radius: 0 10px 10px 0;
   margin-left: 0;
 }
 #center-box p{
