@@ -35,18 +35,20 @@ node server.js
 
 [Google Fonts + 日本語早期アクセス](https://googlefonts.github.io/japanese/)
 ## 使用したライブラリ・フレームワーク
-### サーバサイド
-- node.js
-- express
-- socket.io
-- async
-- node-redis
-### クライアントサイド
-- browserify
-- bootstrap
+### サーバサイドJS
+- Node.js
+- Express
+- Socket.io
+- Async
+- Node-Redis
+### クライアントサイドJS
+- Browserify
+- Bootstrap
 - jQuery
-- angular.js
-- uglify-es
+- AngularJS
+- Uglify-es
+### css
+- Animate.css
 
 ## ライセンス
 このアプリケーションはGPL 3.0のもとで配布されています。
