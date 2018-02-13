@@ -41,6 +41,7 @@ ul{
   width: 50%;
   height: 100%;
   min-height: 600px;
+  border:0;
   color:#ffffff;
   background: #665e51;
 }
@@ -62,6 +63,7 @@ ul{
   right:0;
   width:50%;
   height:100%;
+  border:0;
   min-height: 600px;
   color: #333;
   background-color: #dbdf19;
@@ -377,22 +379,23 @@ button.btn.chat-id-button{
   vertical-align: middle;
   width: 300px;
   height: 150px;
+  border:0;
   -webkit-animation-duration: 3s;
   -webkit-animation-delay: 2s;
   /*background: #FFF;*/
 }
 #center-box.left{
-  top: 180px;
+  top: 100px;
   left: 50%;
   background: #dbdf19;
-  border-radius: 10px 0 0 10px;
-  margin-left: -300px;
+  border-radius: 5px 0 0 5px;
+  margin-left: -299px;
 }
 #center-box.right{
-  top: 180px;
+  top: 250px;
   left: 50%;
   background:#665e51;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 5px 5px 0;
   margin-left: 0;
 }
 #center-box p{
