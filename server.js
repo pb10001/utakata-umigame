@@ -34,6 +34,12 @@ router.get('/', function(req, res) {
 router.get('/mondai/:room', function(req, res) {
   res.sendFile(__dirname + '/client/template.html');
 });
+router.get('/privacy_policy', function(req, res) {
+  res.sendFile(__dirname + '/client/template.html');
+});
+router.get('/link', function(req, res) {
+  res.sendFile(__dirname + '/client/template.html');
+});
 //API
 router.get('/puzzles', function(req, res) {
   var response = {};

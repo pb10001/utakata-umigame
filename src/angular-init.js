@@ -13,6 +13,9 @@ app.config([
       requireBase: false
     });
     $routeProvider
+      .when('/mondai', {
+        redirectTo: '/'
+      })
       .when('/mondai/:room', {
         templateUrl: '/mondai.html',
         controller: 'ChatController'
@@ -22,7 +25,12 @@ app.config([
         controller: ''
       })
       .when('/link', {
-        template: '<links></links>',
+        template: [
+          '<div class="row">',
+          '<links></links>',
+          '<button class="btn btn-default" style="width:100%" onclick="location.href=\'/\'">Back</button>',
+          '</div>'
+        ].join(''),
         controller: ''
       })
       .otherwise({

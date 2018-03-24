@@ -1,8 +1,6 @@
 var app = require('./angular-init');
 var chatController = require('./chat');
 var http = require('http');
-//var puzzleUrl = "http://localhost:5000/";
-var puzzleUrl = 'https://utakata-umigame.herokuapp.com/';
 
 app.component('links', {
   template: [
