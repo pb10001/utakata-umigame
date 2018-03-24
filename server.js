@@ -26,6 +26,15 @@ var server = http.createServer(router);
 var io = socketio.listen(server);
 
 router.use(express.static(path.resolve(__dirname, 'client')));
+router.use(express.static(path.resolve(__dirname, 'client/js')));
+router.use(express.static(path.resolve(__dirname, 'client/css')));
+router.get('/', function(req, res) {
+  res.sendFile(__dirname + '/client/index.html');
+});
+router.get('/mondai/:room', function(req, res) {
+  res.sendFile(__dirname + '/client/index.html');
+});
+//API
 router.get('/puzzles', function(req, res) {
   var response = {};
   client.hgetall(req.query.room, function(err, doc) {
@@ -156,6 +165,9 @@ router.get('/puzzles/update', function(req, res) {
   }
   res.send('Done');
 });
+
+//router.get('*', function(req, res) {});
+
 var mondai = {};
 var trueAns = {};
 var messages = {};
@@ -167,7 +179,7 @@ var user_id = 0;
 
 const chatKey = 'chats';
 const questionKey = 'questions';
-
+//Socket.io
 io.on('connection', function(socket) {
   user_id += 1;
   socket.user_id = user_id;
