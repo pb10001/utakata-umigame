@@ -4,6 +4,7 @@ var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
 var app = angular.module('App', []);
+var http = require('http');
 function enterController() {
   this.roomName = '';
 }
