@@ -7,7 +7,7 @@
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "scripts": {
     "postinstall":
-      "browserify src/main.js -o client/js/bundle.js &&  uglifyjs -c -o client/js/bundle.min.js client/js/bundle.js",
+      "browserify src/main.js -o client/js/bundle.js && browserify src/top.js -o client/js/top.js &&  uglifyjs -c -o client/js/bundle.min.js client/js/bundle.js &&  uglifyjs -c -o client/js/top.min.js client/js/top.js",
     "dev": "node-dev server.js"
   },
   "dependencies": {

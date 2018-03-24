@@ -13,10 +13,6 @@ app.config([
       requireBase: false
     });
     $routeProvider
-      .when('/', {
-        templateUrl: '/top_page_beta.html',
-        controller: ''
-      })
       .when('/mondai/:room', {
         templateUrl: '/mondai.html',
         controller: 'ChatController'

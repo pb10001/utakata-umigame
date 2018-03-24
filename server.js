@@ -29,10 +29,10 @@ router.use(express.static(path.resolve(__dirname, 'client')));
 router.use(express.static(path.resolve(__dirname, 'client/js')));
 router.use(express.static(path.resolve(__dirname, 'client/css')));
 router.get('/', function(req, res) {
-  res.sendFile(__dirname + '/client/index.html');
+  res.sendFile(__dirname + '/client/top_page.html');
 });
 router.get('/mondai/:room', function(req, res) {
-  res.sendFile(__dirname + '/client/index.html');
+  res.sendFile(__dirname + '/client/template.html');
 });
 //API
 router.get('/puzzles', function(req, res) {
@@ -179,6 +179,7 @@ var user_id = 0;
 
 const chatKey = 'chats';
 const questionKey = 'questions';
+
 //Socket.io
 io.on('connection', function(socket) {
   user_id += 1;
@@ -384,6 +385,7 @@ io.on('connection', function(socket) {
     updateRoster();
   });
 });
+
 function updateRoster() {
   async.map(
     sockets,

@@ -69,3 +69,5 @@ client/app.js
 tsconfig.json
 client/js/bundle.js
 client/js/bundle.min.js
+client/js/top.js
+client/js/top.min.js
