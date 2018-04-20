@@ -5,14 +5,12 @@ var angular = require('angular');
 var ngRoute = require('angular-route');
 var app = angular.module('App', []);
 var http = require('http');
-//var puzzleUrl = "http://localhost:5000/";
-var puzzleUrl = 'https://utakata-umigame.herokuapp.com/';
 function enterController() {
   this.roomName = '';
 }
 function currentController() {
   http
-    .get(puzzleUrl + 'puzzles?room=Public', res => {
+    .get('/puzzles?room=Public', res => {
       var body = '';
       res.setEncoding('utf8');
 
