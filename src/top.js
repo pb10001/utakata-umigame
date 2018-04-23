@@ -32,6 +32,7 @@ app.component('enter', {
   template: [
     '<h3 class="sawarabi" style="color: #FFF; text-align: center;">チャットをはじめる</h3>',
     '<div class="input-append">',
+    '<p><font color="red">使えるのはアルファベット(A-Z, a-z)と数字(0-9)のみです。</font></p>'
     '<input ng-model="$ctrl.roomName" class="form-control" style="margin-bottom:10px;" placeholder="Room Name">',
     '<a class="btn btn-white" ng-href="/mondai/{{$ctrl.roomName}}">新規作成/入室</a>',
     '</div>'
