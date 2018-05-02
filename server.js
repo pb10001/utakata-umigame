@@ -43,7 +43,8 @@ router.get('/link', function(req, res) {
 //API
 router.get('/puzzles', function(req, res) {
   var response = {};
-  client.hgetall(req.query.room, function(err, doc) {
+  const room = decodeURI(req.query.room);
+  client.hgetall(room, function(err, doc) {
     response.mondai = doc;
     client.hgetall(chatKey, function(err, doc) {
       chatMessages = [];
@@ -51,7 +52,7 @@ router.get('/puzzles', function(req, res) {
         chatMessages.push(JSON.parse(doc[key]));
       }
       response.chat = chatMessages
-        .filter(x => x.room == req.query.room)
+        .filter(x => x.room == room)
         .sort(function(a, b) {
           if (a.id < b.id) return -1;
           if (a.id > b.id) return 1;
@@ -62,7 +63,7 @@ router.get('/puzzles', function(req, res) {
         for (var key in doc) {
           messages[key] = JSON.parse(doc[key]);
         }
-        response.question = msgInRoom(req.query.room, messages).sort(function(
+        response.question = msgInRoom(room, messages).sort(function(
           a,
           b
         ) {
@@ -76,7 +77,7 @@ router.get('/puzzles', function(req, res) {
   });
 });
 router.get('/puzzles/update', function(req, res) {
-  var room = req.query.room;
+  var room = decodeURI(req.query.room);
   var name = req.query.name || 'Anonymous on Desktop';
   var content = req.query.content || '';
   var trueAns = req.query.trueAns || '';
@@ -194,11 +195,6 @@ io.on('connection', function(socket) {
   socket.on('join', function(roomName) {
     socket.leave(socket.room);
     var roomId = String(roomName || 'Public');
-    //DBのキー衝突を避ける
-    if (roomId.match(/[^A-Za-z0-9]+/)) {
-      socket.emit('redirect');
-      return;
-    }
     if (roomId == chatKey || roomId == questionKey) {
       roomId = 'Public';
     }

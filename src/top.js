@@ -5,14 +5,16 @@ var angular = require('angular');
 var ngRoute = require('angular-route');
 var app = angular.module('App', []);
 var http = require('http');
-//var puzzleUrl = "http://localhost:5000/";
-var puzzleUrl = 'https://utakata-umigame.herokuapp.com/';
 function enterController() {
   this.roomName = '';
+  this.getRoomName = function() {
+    console.log(this.roomName);
+    return encodeURI(this.roomName).replace(/\//g, '');
+  };
 }
 function currentController() {
   http
-    .get(puzzleUrl + 'puzzles?room=Public', res => {
+    .get('/puzzles?room=Public', res => {
       var body = '';
       res.setEncoding('utf8');
 
@@ -36,7 +38,7 @@ app.component('enter', {
     '<div class="input-append">',
     '<p><font color="red">アルファベットと数字以外の文字は使用できません。</font></p>',
     '<input ng-model="$ctrl.roomName" class="form-control" style="margin-bottom:10px;" placeholder="Room Name">',
-    '<a class="btn btn-white" ng-href="/mondai/{{$ctrl.roomName}}">新規作成/入室</a>',
+    '<a class="btn btn-white" ng-href="/mondai/{{$ctrl.getRoomName()}}">新規作成/入室</a>',
     '</div>'
   ].join(''),
   controller: enterController
