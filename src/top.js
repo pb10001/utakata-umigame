@@ -44,7 +44,7 @@ app.component('enter', {
 });
 app.component('public', {
   template:
-    '<a class="btn btn-default" href="/mondai/Public">この問題を解く</a>'
+    '<a class="btn btn-default" href="/lobby">ロビーへ</a>'
 });
 app.component('current', {
   template:

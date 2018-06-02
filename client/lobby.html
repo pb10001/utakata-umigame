@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja" ng-app="App">
+  <head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/lobby.js"></script>
+  </head>
+  <body>
+    <div ng-controller="freeChatController as main">
+      <h1>ロビー(ベータ版)</h1>
+      <div class="row control-row">
+        <input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
+      </div>
+      <form ng-submit="send()">
+        <div class ="input-append">
+          <input type="text" class="form-control" ng-model="text" placeholder="Chat">
+          <input type="submit" class="btn btn-default" value="Send">
+        </div>
+      </form>
+      <div class="chat-area">
+        <div class= "row chat-row" ng-repeat="msg in messages">
+          <div class="chat-box">
+            <small class="secondary-text" ng-bind="msg.name"></small>
+            <span class="primary-text message-text" ng-bind="msg.content"></span>
+          </div>
+        </div>
+      </div>
+      <a href= '/'>Back</a>
+    </div>
+  </body>
+</html>

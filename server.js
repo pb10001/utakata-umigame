@@ -44,7 +44,9 @@ router.get('/privacy_policy', function(req, res) {
 router.get('/link', function(req, res) {
   res.sendFile(__dirname + '/client/template.html');
 });
-
+router.get('/lobby', function(req, res){
+  res.sendFile(__dirname + '/client/lobby.html');
+});
 //router.get('*', function(req, res) {});
 
 var mondai = {};
@@ -53,6 +55,7 @@ var messages = {};
 //var messages = [];
 var questions = [];
 var chatMessages = [];
+var lobbyChats = [];
 var sockets = [];
 var user_id = 0;
 
@@ -129,6 +132,9 @@ io.on('connection', function(socket) {
       content: '「Good!」を送信しました。'
     };
     sendMessage(socket, msg, chatMessages, client);
+  });
+  socket.on('fetchLobby', function(){
+    socket.emit('lobbyChat', lobbyChats);
   });
   socket.on('message', function(msg) {
     if (msg.type == 'mondai') {
@@ -226,6 +232,11 @@ io.on('connection', function(socket) {
           sendTo.emit('chatMessage', receiveData);
         }
       }
+    }else if(msg.type = 'lobbyChat'){
+      console.log("lobby", msg);
+      lobbyChats.push(msg);
+      socket.emit('lobbyChat', lobbyChats);
+      socket.broadcast.to('LobbyChat').emit('lobbyChat', lobbyChats);
     }
   });
   socket.on('clear', function() {
