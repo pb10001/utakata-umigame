@@ -7,21 +7,6 @@ var express = require('express');
 
 var apis = require('./apis');
 
-//connect to redis
-//参考：https://qiita.com/5a3i/items/224ee1ea234d90d9dd7a
-/*var redis = require('redis'),
-  url = require('url');
-if (process.env.REDISTOGO_URL) {
-  var rtg = url.parse(process.env.REDISTOGO_URL);
-  var client = redis.createClient(rtg.port, rtg.hostname);
-
-  client.auth(rtg.auth.split(':')[1]);
-} else {
-  var client = redis.createClient();
-}
-client.on('error', function(err) {
-  console.log('Error ' + err);
-});*/
 var client = require('./redis_client');
 
 var router = express();
@@ -47,12 +32,10 @@ router.get('/link', function(req, res) {
 router.get('/lobby', function(req, res){
   res.sendFile(__dirname + '/client/lobby.html');
 });
-//router.get('*', function(req, res) {});
 
 var mondai = {};
 var trueAns = {};
 var messages = {};
-//var messages = [];
 var questions = [];
 var chatMessages = [];
 var lobbyChats = [];
@@ -98,9 +81,7 @@ io.on('connection', function(socket) {
     });
     client.hgetall(questionKey, function(err, doc) {
       messages = {};
-      //messages = [];
       for (var key in doc) {
-        //messages.push(JSON.parse(doc[key]));
         messages[key] = JSON.parse(doc[key]);
       }
       socket.emit(
@@ -183,7 +164,6 @@ io.on('connection', function(socket) {
         answer: answer
       };
       messages[id] = data;
-      //messages.push(data);
       client.hset('questions', data.id, JSON.stringify(data));
       socket.emit('message', msgInRoom(socket.room, messages));
       socket.broadcast
@@ -195,8 +175,6 @@ io.on('connection', function(socket) {
         var id = parseInt(msg.id);
         messages[id].answer = msg.answer;
         messages[id].answerer = msg.answerer;
-        //messages[id-1].answer = msg.answer;
-        //messages[id-1].answerer =msg.answerer;
         socket.emit('message', msgInRoom(socket.room, messages));
         socket.broadcast
           .to(socket.room)
@@ -233,6 +211,7 @@ io.on('connection', function(socket) {
         }
       }
     }else if(msg.type = 'lobbyChat'){
+      /* TODO: Redisを使うように書き直す */
       console.log("lobby", msg);
       lobbyChats.push(msg);
       socket.emit('lobbyChat', lobbyChats);

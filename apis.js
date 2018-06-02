@@ -136,6 +136,9 @@ router.get('/update', function(req, res){
   }
   res.send('Done');
 });
+router.get('/lobby_chat', function(req, res){
+  /* Redisに追加する */
+});
 function msgInRoom(room, messages) {
   //部屋を指定して質問の配列を取り出す
   var array = [];
