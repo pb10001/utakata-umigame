@@ -7,32 +7,34 @@
     <script src="js/lobby.js"></script>
   </head>
   <body>
-    <div ng-controller="lobbyChatController as main">
-      <h1 style="text-align:center;">ロビー(ベータ版)</h1>
-      <div class="row control-row">
-        <p style="text-align:center;">名前</p>
-        <input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
-        <p style="text-align:center;">削除用パス</p>
-        <input id="pass-box" type="text" class="form-control" ng-model="removePass" placeholder="Remove Pass">
-      </div>
-      <form ng-submit="send()">
-        <div class ="input-append">
-          <input type="text" class="form-control" ng-model="text" placeholder="Chat">
-          <input type="submit" class="btn btn-default" value="Send">
+    <div class="container-fluid">
+      <div ng-controller="lobbyChatController as main">
+        <h1 style="text-align:center;">ロビー(ベータ版)</h1>
+        <div class="row control-row">
+          <p style="text-align:center;">名前</p>
+          <input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
+          <p style="text-align:center;">削除用パス</p>
+          <input id="pass-box" type="text" class="form-control" ng-model="removePass" placeholder="Remove Pass">
         </div>
-      </form>
-      <div class="chat-area">
-        <div class= "row chat-row" ng-repeat="msg in messages">
-          <div class="chat-box">
-            <small class="secondary-text" ng-bind="msg.name"></small>
-            <span class="primary-text message-text" ng-bind="msg.content"></span>
-            <form name="removeForm" ng-submit = "remove(msg.id)">
-              <input class="btn" type = "submit" value = "Remove">
-            </form>
+        <form ng-submit="send()">
+          <div class ="input-append">
+            <input type="text" class="form-control" ng-model="text" placeholder="Chat">
+            <input type="submit" class="btn btn-default" value="Send">
+          </div>
+        </form>
+        <div class="chat-area">
+          <div class= "row chat-row" ng-repeat="msg in messages">
+            <div class="chat-box">
+              <small class="secondary-text" ng-bind="msg.name"></small>
+              <span class="primary-text message-text" ng-bind="msg.content"></span>
+              <form name="removeForm" ng-submit = "remove(msg.id)">
+                <input class="btn" type = "submit" value = "Remove">
+              </form>
+            </div>
           </div>
         </div>
+        <a href= '/'>Back</a>
       </div>
-      <a href= '/'>Back</a>
     </div>
   </body>
 </html>
