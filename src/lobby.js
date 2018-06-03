@@ -5,15 +5,12 @@ var angular = require('angular');
 var ngRoute = require('angular-route');
 var app = angular.module('App', []);
 var io = require('socket.io-client');
-app.component('lobby_chat', {
-  templateUrl: '/lobby_chat.html',
-  controller: freeChatController
-});
-var freeChatController= function($scope){
+var lobbyChatController= function($scope){
   var socket = io.connect();
   $scope.messages = [];
   $scope.text = '';
   $scope.name = '';
+  $scope.removePass = '';
   socket.on('connect', function() {
     socket.emit('join', 'LobbyChat');
     socket.emit('fetchLobby');
@@ -26,7 +23,8 @@ var freeChatController= function($scope){
     var data = {
       type: 'lobbyChat',
       name: $scope.name,
-      content: $scope.text
+      content: $scope.text,
+      removePass: $scope.removePass
     };
     console.log('Sending message:', data);
     socket.emit('message', data);
@@ -35,5 +33,12 @@ var freeChatController= function($scope){
   $scope.setName = function setName(){
     socket.emit('identify', $scope.name);
   };
-}
-app.controller("freeChatController", freeChatController);
+  $scope.remove = function remove(id){
+    var data = {
+      id: id,
+      removePass: $scope.removePass
+    };
+    socket.emit('removeLobby', data);
+  };
+};
+app.controller("lobbyChatController", lobbyChatController);

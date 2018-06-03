@@ -44,6 +44,7 @@ var user_id = 0;
 
 const chatKey = 'chats';
 const questionKey = 'questions';
+const lobbyChatKey = 'LobbyChat';
 
 //Socket.io
 io.on('connection', function(socket) {
@@ -115,7 +116,35 @@ io.on('connection', function(socket) {
     sendMessage(socket, msg, chatMessages, client);
   });
   socket.on('fetchLobby', function(){
-    socket.emit('lobbyChat', lobbyChats);
+    client.hgetall('lobbyChats', function(err, docs){
+      lobbyChats = [];
+      for (var key in docs) {
+        lobbyChats.push(JSON.parse(docs[key]));
+      }
+    });
+    socket.emit("lobbyChat", lobbyChats);
+  });
+  socket.on('removeLobby', function(data){
+    client.hget('lobbyChats', data.id, function(err, res){
+      if(res != null){
+        var doc = JSON.parse(res);
+        console.log(doc.removePass);
+        if(doc.removePass === data.removePass){
+          client.del('lobbyChats');
+          var tmp = [];
+          for(var key in lobbyChats){
+            if(lobbyChats[key].id != data.id){
+              client.hset('lobbyChats', lobbyChats[key].id, JSON.stringify(lobbyChats[key]));
+              tmp.push(lobbyChats[key]);
+            }
+          }
+          lobbyChats = tmp;
+          console.log(lobbyChats);
+          socket.emit("lobbyChat", lobbyChats);
+          socket.broadcast.to("LobbyChat").emit("lobbyChat", lobbyChats);
+        }
+      }
+    });
   });
   socket.on('message', function(msg) {
     if (msg.type == 'mondai') {
@@ -211,11 +240,26 @@ io.on('connection', function(socket) {
         }
       }
     }else if(msg.type = 'lobbyChat'){
-      /* TODO: Redisを使うように書き直す */
-      console.log("lobby", msg);
-      lobbyChats.push(msg);
-      socket.emit('lobbyChat', lobbyChats);
-      socket.broadcast.to('LobbyChat').emit('lobbyChat', lobbyChats);
+        console.log("今こんな感じ: ", lobbyChats);
+        if(lobbyChats != null)
+          var max = Math.max.apply(null, lobbyChats.map(x => x.id));
+        else{
+          var max = -1;
+          lobbyChats = [];
+        }
+        if (max >= 0) var chatNum = max + 1;
+        else var chatNum = 1;
+        var data = {
+          id: chatNum,
+          name: msg.name,
+          content: msg.content,
+          removePass: msg.removePass
+        };
+        client.hset('lobbyChats', data.id, JSON.stringify(data));
+        console.log("lobby", data);
+        lobbyChats.push(data);
+        socket.emit('lobbyChat', lobbyChats);
+        socket.broadcast.to('LobbyChat').emit('lobbyChat', lobbyChats);
     }
   });
   socket.on('clear', function() {
@@ -302,7 +346,6 @@ function sendMessage(socket, msg, chatMessages, client) {
   socket.emit('chatMessage', data);
   socket.broadcast.to(socket.room).emit('chatMessage', data);
 }
-
 server.listen(
   process.env.PORT || 5000,
   process.env.IP || '0.0.0.0',

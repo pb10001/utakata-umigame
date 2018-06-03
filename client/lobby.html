@@ -7,10 +7,13 @@
     <script src="js/lobby.js"></script>
   </head>
   <body>
-    <div ng-controller="freeChatController as main">
-      <h1>ロビー(ベータ版)</h1>
+    <div ng-controller="lobbyChatController as main">
+      <h1 style="text-align:center;">ロビー(ベータ版)</h1>
       <div class="row control-row">
+        <p style="text-align:center;">名前</p>
         <input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
+        <p style="text-align:center;">削除用パス</p>
+        <input id="pass-box" type="text" class="form-control" ng-model="removePass" placeholder="Remove Pass">
       </div>
       <form ng-submit="send()">
         <div class ="input-append">
@@ -23,6 +26,9 @@
           <div class="chat-box">
             <small class="secondary-text" ng-bind="msg.name"></small>
             <span class="primary-text message-text" ng-bind="msg.content"></span>
+            <form name="removeForm" ng-submit = "remove(msg.id)">
+              <input class="btn" type = "submit" value = "Remove">
+            </form>
           </div>
         </div>
       </div>
