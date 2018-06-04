@@ -4,7 +4,7 @@ var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
 var app = angular.module('App', []);
-var io = require('socket.io-client');
+var io = require("socket.io-client");
 app.factory('socket', function ($rootScope) {
   var socket = io.connect();
   return {

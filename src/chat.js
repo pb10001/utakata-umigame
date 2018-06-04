@@ -1,9 +1,8 @@
 var $ = require('jquery');
 var io = require('socket.io-client');
 var crypto = require('crypto');
-var chatController = function($scope, $routeParams) {
+var chatController = function($scope, $routeParams, socket) {
   var room = $routeParams.room;
-  var socket = io.connect();
   $scope.messages = [];
   $scope.privateMessages = [];
   $scope.roster = [];
