@@ -83,7 +83,6 @@ var lobbyChatController= function($scope, socket){
     for(var i=0; i < $scope.perPage; i++){
       $scope.messages.push(msg[$scope.page*$scope.perPage + i]);
     }
-    $scope.$apply();
   }
 };
 app.controller("lobbyChatController", lobbyChatController);
