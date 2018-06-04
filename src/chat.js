@@ -30,27 +30,27 @@ var chatController = function($scope, $routeParams, socket) {
   });
   socket.on('mondai', function(msg) {
     $scope.mondai = msg || { sender: '-', content: 'クリックして問題文を入力' };
-    $scope.$apply();
+    //$scope.$apply();
   });
   socket.on('trueAns', function(msg) {
     $scope.trueAns = msg || 'クリックして解説を入力';
-    $scope.$apply();
+    //$scope.$apply();
   });
   socket.on('message', function(msg) {
     $scope.messages = msg;
-    $scope.$apply();
+    // $scope.$apply();
     var elem = document.getElementById('question-area');
     elem.scrollTop = elem.scrollHeight;
   });
 
   socket.on('roster', function(names) {
     $scope.roster = names;
-    $scope.$apply();
+    // $scope.$apply();
   });
 
   socket.on('chatMessage', function(msg) {
     $scope.privateMessages.push(msg);
-    $scope.$apply();
+    // $scope.$apply();
     var elem = document.getElementById('private-chat-area');
     elem.scrollTop = elem.scrollHeight;
   });
@@ -60,7 +60,7 @@ var chatController = function($scope, $routeParams, socket) {
     privates.forEach(function(item) {
       $scope.privateMessages.push(item);
     });
-    $scope.$apply();
+    // $scope.$apply();
     console.log('clear chat');
   });
   socket.on('loadChat', function(msg) {
@@ -68,7 +68,7 @@ var chatController = function($scope, $routeParams, socket) {
     msg.forEach(function(item) {
       $scope.privateMessages.push(item);
     });
-    $scope.$apply();
+    //$scope.$apply();
   });
   socket.on('redirect', function(msg) {
     location.href = '/';
