@@ -122,7 +122,12 @@ io.on('connection', function(socket) {
         lobbyChats.push(JSON.parse(docs[key]));
       }
     });
-    socket.emit("lobbyChat", lobbyChats);
+    var reverse =lobbyChats.sort(function(a, b) {
+      if (a.id < b.id) return 1;
+      if (a.id > b.id) return -1;
+      return 0;
+    });
+    socket.emit("lobbyChat",reverse);
   });
   socket.on('removeLobby', function(data){
     client.hget('lobbyChats', data.id, function(err, res){
@@ -140,8 +145,13 @@ io.on('connection', function(socket) {
           }
           lobbyChats = tmp;
           console.log(lobbyChats);
-          socket.emit("lobbyChat", lobbyChats);
-          socket.broadcast.to("LobbyChat").emit("lobbyChat", lobbyChats);
+          var reverse =lobbyChats.sort(function(a, b) {
+            if (a.id < b.id) return 1;
+            if (a.id > b.id) return -1;
+            return 0;
+          });
+          socket.emit("lobbyChat",reverse);
+          socket.broadcast.to("LobbyChat").emit("lobbyChat", reverse);
         }
       }
     });
@@ -240,7 +250,6 @@ io.on('connection', function(socket) {
         }
       }
     }else if(msg.type = 'lobbyChat'){
-        console.log("今こんな感じ: ", lobbyChats);
         if(lobbyChats != null)
           var max = Math.max.apply(null, lobbyChats.map(x => x.id));
         else{
@@ -258,8 +267,16 @@ io.on('connection', function(socket) {
         client.hset('lobbyChats', data.id, JSON.stringify(data));
         console.log("lobby", data);
         lobbyChats.push(data);
-        socket.emit('lobbyChat', lobbyChats);
-        socket.broadcast.to('LobbyChat').emit('lobbyChat', lobbyChats);
+        socket.emit('lobbyChat', lobbyChats.sort(function(a,b){
+          if(a.id < b.id) return 1;
+          if(a.id > b.id) return -1;
+          else return 0;
+        }));
+        socket.broadcast.to('LobbyChat').emit('lobbyChat', lobbyChats.sort(function(a,b){
+          if(a.id < b.id) return 1;
+          if(a.id > b.id) return -1;
+          else return 0;
+        }));
     }
   });
   socket.on('clear', function() {
@@ -328,7 +345,14 @@ function maxId(messages) {
   }
   return max;
 }
-
+function reverseById(array){
+  //降順で並び替え
+  return array.sort(function(a,b){
+    if(a.id < b.id) return 1;
+    else if(a.id > b.id) return -1;
+    else return 0;
+  });
+}
 function sendMessage(socket, msg, chatMessages, client) {
   var max = Math.max.apply(null, chatMessages.map(x => x.id));
   if (max >= 0) var chatNum = max + 1;
