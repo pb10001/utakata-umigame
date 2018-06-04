@@ -52749,17 +52749,20 @@ var app = angular.module('App', []);
 var io = require('socket.io-client');
 var lobbyChatController= function($scope){
   var socket = io.connect();
+  $scope.allMessages = [];
   $scope.messages = [];
   $scope.text = '';
   $scope.name = '';
   $scope.removePass = '';
+  $scope.page = 0;
+  $scope.perPage = 10;
   socket.on('connect', function() {
     socket.emit('join', 'LobbyChat');
     socket.emit('fetchLobby');
   });
   socket.on('lobbyChat', function(msg){
-    $scope.messages = msg;
-    $scope.$apply();
+    $scope.allMessages = msg;
+    refresh(msg);
   });
   $scope.send = function send() {
     var data = {
@@ -52780,9 +52783,28 @@ var lobbyChatController= function($scope){
       id: id,
       removePass: $scope.removePass
     };
-    console.log("remove request:", data);
     socket.emit('removeLobby', data);
   };
+  $scope.zeroPage = function zeroPage(){
+      $scope.page = 0;
+      refresh($scope.allMessages);
+  }
+  $scope.nextPage = function nextPage(){
+    $scope.page += 1;
+    refresh($scope.allMessages);
+  }
+  $scope.prevPage = function prevPage(){
+    if($scope.page == 0) return;
+    $scope.page -= 1;
+    refresh($scope.allMessages);
+  }
+  function refresh(msg){
+    $scope.messages = [];
+    for(var i=0; i < $scope.perPage; i++){
+      $scope.messages.push(msg[$scope.page*$scope.perPage + i]);
+    }
+    $scope.$apply();
+  }
 };
 app.controller("lobbyChatController", lobbyChatController);
 

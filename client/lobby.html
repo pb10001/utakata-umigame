@@ -10,6 +10,7 @@
     <div class="container-fluid">
       <div ng-controller="lobbyChatController as main">
         <h1 style="text-align:center;">ロビー(ベータ版)</h1>
+        <!-- フォーム -->
         <div class="row control-row">
           <p style="text-align:center;">名前</p>
           <input id="name-box" type="text" class="form-control" ng-model="name" ng-change="setName()" placeholder="Your Name">
@@ -22,9 +23,19 @@
             <input type="submit" class="btn btn-default" value="Send">
           </div>
         </form>
+        <!-- ページネーション -->
+        <div class="row">
+          <ul class="pagination" style="display: table; margin: 0 auto;">
+            <li><span>ページ: {{page}}</span></li>
+            <li ng-click="zeroPage()"><a href=""><<</a></li>
+            <li ng-click="prevPage()"><a href="">Prev</a></li>
+            <li ng-click="nextPage()"><a href="">Next</a></li>
+          </ul>
+        </div>
+        <!-- チャット -->
         <div class="chat-area">
-          <div class= "row chat-row" ng-repeat="msg in messages">
-            <div class="chat-box">
+          <div class= "row chat-row" ng-repeat="msg in messages track by $index">
+            <div ng-if="msg" class="chat-box">
               <small class="secondary-text" ng-bind="msg.name"></small>
               <span class="primary-text message-text" ng-bind="msg.content"></span>
               <form name="removeForm" ng-submit = "remove(msg.id)">
@@ -33,7 +44,7 @@
             </div>
           </div>
         </div>
-        <a href= '/'>Back</a>
+        <a class="btn btn-default" style="display: table; margin: 10px auto;" href= '/'>Back</a>
       </div>
     </div>
   </body>
