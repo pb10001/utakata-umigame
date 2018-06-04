@@ -122,12 +122,7 @@ io.on('connection', function(socket) {
         lobbyChats.push(JSON.parse(docs[key]));
       }
     });
-    var reverse =lobbyChats.sort(function(a, b) {
-      if (a.id < b.id) return 1;
-      if (a.id > b.id) return -1;
-      return 0;
-    });
-    socket.emit("lobbyChat",reverse);
+    socket.emit("lobbyChat",reverseById(lobbyChats));
   });
   socket.on('removeLobby', function(data){
     client.hget('lobbyChats', data.id, function(err, res){
@@ -145,13 +140,8 @@ io.on('connection', function(socket) {
           }
           lobbyChats = tmp;
           console.log(lobbyChats);
-          var reverse =lobbyChats.sort(function(a, b) {
-            if (a.id < b.id) return 1;
-            if (a.id > b.id) return -1;
-            return 0;
-          });
-          socket.emit("lobbyChat",reverse);
-          socket.broadcast.to("LobbyChat").emit("lobbyChat", reverse);
+          socket.emit("lobbyChat", reverseById(lobbyChats));
+          socket.broadcast.to("LobbyChat").emit("lobbyChat", reverseById(lobbyChats));
         }
       }
     });
@@ -267,16 +257,8 @@ io.on('connection', function(socket) {
         client.hset('lobbyChats', data.id, JSON.stringify(data));
         console.log("lobby", data);
         lobbyChats.push(data);
-        socket.emit('lobbyChat', lobbyChats.sort(function(a,b){
-          if(a.id < b.id) return 1;
-          if(a.id > b.id) return -1;
-          else return 0;
-        }));
-        socket.broadcast.to('LobbyChat').emit('lobbyChat', lobbyChats.sort(function(a,b){
-          if(a.id < b.id) return 1;
-          if(a.id > b.id) return -1;
-          else return 0;
-        }));
+        socket.emit('lobbyChat', reverseById(lobbyChats));
+        socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
     }
   });
   socket.on('clear', function() {
