@@ -1,6 +1,6 @@
 var app = require('./angular-init');
 var chatController = require('./chat');
-var lobbyController = require('./lobby')
+var lobbyController = require('./lobby');
 var http = require('http');
 //socket.ioの依存性注入
 var io = require('socket.io-client');

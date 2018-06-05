@@ -1,7 +1,6 @@
 var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
-var app = angular.module('App', []);
 
 var lobbyController= function lobbyController(socket){
   var allMessages = [];
