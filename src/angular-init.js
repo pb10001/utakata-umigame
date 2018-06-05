@@ -33,6 +33,10 @@ app.config([
         ].join(''),
         controller: ''
       })
+      .when('/lobby',{
+        templateUrl: '/lobby.html',
+        controller: ''
+      })
       .otherwise({
         redirectTo: '/'
       });

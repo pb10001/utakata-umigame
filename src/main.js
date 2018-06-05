@@ -1,5 +1,6 @@
 var app = require('./angular-init');
 var chatController = require('./chat');
+var lobbyController = require('./lobby')
 var http = require('http');
 //socket.ioの依存性注入
 var io = require('socket.io-client');
@@ -55,3 +56,15 @@ app.component('links', {
   controller: ''
 });
 app.controller('ChatController', chatController);
+
+app.component("lobby", {
+  templateUrl:"lobby_chat.html",
+  binding:{
+    messages: "<",
+    text: "<",
+    name: "<",
+    removePass: "<",
+    page: "<",
+  },
+  controller: lobbyController
+});

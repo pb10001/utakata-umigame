@@ -1,33 +1,8 @@
-var $ = require('jquery');
-window.jQuery = $;
 var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
-var app = angular.module('App', []);
-var io = require("socket.io-client");
-app.factory('socket', function ($rootScope) {
-  var socket = io.connect();
-  return {
-    on: function (eventName, callback) {
-      socket.on(eventName, function () {
-        var args = arguments;
-        $rootScope.$apply(function () {
-          callback.apply(socket, args);
-        });
-      });
-    },
-    emit: function (eventName, data, callback) {
-      socket.emit(eventName, data, function () {
-        var args = arguments;
-        $rootScope.$apply(function () {
-          if (callback) {
-            callback.apply(socket, args);
-          }
-        });
-      })
-    }
-  };
-});
+var app = angular.module('App', []);*/
+
 var lobbyController= function lobbyController(socket){
   var allMessages = [];
   var self = this;
@@ -79,6 +54,10 @@ var lobbyController= function lobbyController(socket){
     this.page -= 1;
     refresh(allMessages);
   }
+  this.quit = function quit() {
+    socket.emit('disconnect');
+    location.href = '/';
+  };
   function refresh(msg){
     var tmp = [];
     for(var i=0; i < self.perPage; i++){
@@ -87,14 +66,4 @@ var lobbyController= function lobbyController(socket){
     self.messages = tmp;
   }
 };
-app.component("lobby", {
-  templateUrl:"lobby_chat.html",
-  binding:{
-    messages: "<",
-    text: "<",
-    name: "<",
-    removePass: "<",
-    page: "<",
-  },
-  controller: lobbyController
-});
+module.exports = lobbyController;
