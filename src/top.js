@@ -35,7 +35,7 @@ function currentController() {
 app.component('enter', {
   template: [
     '<div class="input-append">',
-    '<input ng-model="$ctrl.roomName" class="form-control" style="margin-bottom:10px;" placeholder="Room Name">',
+    '<input ng-model="$ctrl.roomName" class="form-control" style="margin-bottom:10px; color:#FFF; background: #333; opacity: 0.8;" placeholder="Room Name">',
     '<a class="btn btn-white" ng-href="/mondai/{{$ctrl.getRoomName()}}">新規作成/入室</a>',
     '</div>'
   ].join(''),
