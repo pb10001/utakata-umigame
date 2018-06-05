@@ -28,61 +28,73 @@ app.factory('socket', function ($rootScope) {
     }
   };
 });
-var lobbyChatController= function($scope, socket){
-  $scope.allMessages = [];
-  $scope.messages = [];
-  $scope.text = '';
-  $scope.name = '';
-  $scope.removePass = '';
-  $scope.page = 0;
-  $scope.perPage = 10;
+var lobbyController= function lobbyController(socket){
+  var allMessages = [];
+  var self = this;
+  this.messages = [];
+  this.text = '';
+  this.name = '';
+  this.removePass = '';
+  this.page = 0;
+  this.perPage = 10;
   socket.on('connect', function() {
     socket.emit('join', 'LobbyChat');
     socket.emit('fetchLobby');
   });
-  socket.on('lobbyChat', function(msg){
-    $scope.allMessages = msg;
+  socket.on('lobbyChat',function(msg){
+    allMessages = msg;
     refresh(msg);
   });
-  $scope.send = function send() {
+  this.send = function send() {
     var data = {
       type: 'lobbyChat',
-      name: $scope.name,
-      content: $scope.text,
-      removePass: $scope.removePass
+      name: this.name,
+      content: this.text,
+      removePass: this.removePass
     };
     console.log('Sending message:', data);
     socket.emit('message', data);
-    $scope.text = '';
+    this.text = '';
   };
-  $scope.setName = function setName(){
-    socket.emit('identify', $scope.name);
+  this.setName = function setName(){
+    socket.emit('identify', this.name);
   };
-  $scope.remove = function remove(id){
+  this.remove = function remove(id){
     var data = {
       id: id,
-      removePass: $scope.removePass
+      removePass: this.removePass
     };
     socket.emit('removeLobby', data);
   };
-  $scope.zeroPage = function zeroPage(){
-      $scope.page = 0;
-      refresh($scope.allMessages);
+  this.zeroPage = function zeroPage(){
+    this.page = 0;
+    refresh(allMessages);
   }
-  $scope.nextPage = function nextPage(){
-    $scope.page += 1;
-    refresh($scope.allMessages);
+  this.nextPage = function nextPage(){
+    this.page += 1;
+    refresh(allMessages);
   }
-  $scope.prevPage = function prevPage(){
-    if($scope.page == 0) return;
-    $scope.page -= 1;
-    refresh($scope.allMessages);
+  this.prevPage = function prevPage(){
+    if(this.page == 0) return;
+    this.page -= 1;
+    refresh(allMessages);
   }
   function refresh(msg){
-    $scope.messages = [];
-    for(var i=0; i < $scope.perPage; i++){
-      $scope.messages.push(msg[$scope.page*$scope.perPage + i]);
+    var tmp = [];
+    for(var i=0; i < self.perPage; i++){
+      tmp.push(msg[self.page*self.perPage + i]);
     }
+    self.messages = tmp;
   }
 };
-app.controller("lobbyChatController", lobbyChatController);
+app.component("lobby", {
+  templateUrl:"lobby_chat.html",
+  binding:{
+    messages: "<",
+    text: "<",
+    name: "<",
+    removePass: "<",
+    page: "<",
+  },
+  controller: lobbyController
+});
