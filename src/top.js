@@ -34,7 +34,6 @@ function currentController() {
 }
 app.component('enter', {
   template: [
-    '<h3 class="sawarabi" style="color: #FFF; text-align: center;">チャットをはじめる</h3>',
     '<div class="input-append">',
     '<input ng-model="$ctrl.roomName" class="form-control" style="margin-bottom:10px;" placeholder="Room Name">',
     '<a class="btn btn-white" ng-href="/mondai/{{$ctrl.getRoomName()}}">新規作成/入室</a>',
@@ -44,7 +43,7 @@ app.component('enter', {
 });
 app.component('public', {
   template:
-    '<a class="btn btn-default" href="/lobby">ロビーへ</a>'
+    '<a class="btn btn-white" href="/lobby">ロビーへ</a>'
 });
 app.component('current', {
   template:

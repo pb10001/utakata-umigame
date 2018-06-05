@@ -14,7 +14,7 @@ body {
   height: 100%;
   font-family: 'Noto Sans Japanese', sans-serif;
   font-size: 16px;
-  background-color: #f0f0f0;
+  background-color: #000;
 }
 hr {
   height: 1px;
@@ -85,13 +85,15 @@ ul {
     margin-top: 0%;
   }
 }
-
+.content{
+  /*background:#8b342a;*/
+  background: #333;
+}
 .transparent {
   background: transparent;
 }
 .title {
   margin: 0 auto;
-  margin-top: 200px;
   text-align: center;
 }
 .contents{
@@ -120,15 +122,19 @@ links{
   right: 3%;
 }
 .header-area{
-  height: 100%;
+  height: 80vh;
+  min-height: 500px;
   background: #222;
 }
 .header-image{
-  width:100%;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
+  min-height: 500px;
+  margin: 0 auto;
   -moz-background-size:cover;
   background-size:cover;
   background-image: url('/img/top.jpg');
+  background-position: 50% 50%;
 }
 div.row {
   margin: 0;
@@ -173,7 +179,6 @@ div.row {
 }
 nav.navbar {
   border-radius: 1px;
-  /*background:#303F9F;*/
   background: #ffffff;
   font-weight: 300;
   margin-bottom: 0;
@@ -214,7 +219,6 @@ div.chat-box {
 }
 .multiline-box {
   font-size: 1em;
-  /*background:#FFFFFF;
   padding: 5px;
   border-radius:1px;
   border-bottom:#C5CAE9 solid 1px;
@@ -313,8 +317,6 @@ input.form-control {
   border-radius: 1px;
 }
 .btn.btn-default {
-  /*background:#c9ced1;
-  border:0;*/
   background: transparent;
   border: solid #665e51 1px;
   color: #665e51;
@@ -325,8 +327,6 @@ input.form-control {
   font-weight: lighter;
 }
 .btn.btn-default:hover {
-  /*background:#c9ced1;
-  border:0;*/
   background: #665e51;
   border: solid #665e51 1px;
   color: #fff;
@@ -395,34 +395,3 @@ button.btn.chat-id-button {
   max-height: 600px;
   overflow: auto;
 }
-/*#center-box {
-  position: absolute;
-  text-align: center;
-  vertical-align: middle;
-  width: 400px;
-  height: 150px;
-  border: 0;
-  -webkit-animation-duration: 3s;
-  -webkit-animation-delay: 2s;
-  background: #FFF;
-}
-#center-box.left {
-  top: 100px;
-  left: 50%;
-  background: #dbdf19;
-  border-radius: 20px 0 0 20px;
-  margin-left: -399px;
-}
-#center-box.right {
-  top: 250px;
-  left: 49.9%;
-  background: #665e51;
-  border-radius: 0 20px 20px 0;
-  margin-left: 0;
-}
-#center-box p {
-  margin-top: 25px;
-  font-size: 6rem;
-  -webkit-animation-duration: 2s;
-  -webkit-animation-delay: 1s;
-} */
