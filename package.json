@@ -9,7 +9,7 @@
     "bundle": "browserify src/main.js -o client/js/bundle.js",
     "top": "browserify src/top.js -o client/js/top.js",
     "uglify": "uglifyjs -c -o client/js/bundle.min.js client/js/bundle.js",
-    "postinstall": "webpack --mode production",
+    "postinstall": "webpack --mode development",
     "dev": "node-dev server.js",
     "build": "webpack --mode development"
   },
