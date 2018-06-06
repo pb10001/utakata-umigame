@@ -10,7 +10,7 @@
     "top": "browserify src/top.js -o client/js/top.js",
     "uglify": "uglifyjs -c -o client/js/bundle.min.js client/js/bundle.js",
     "postinstall": "npm run bundle && npm run top && npm run uglify && uglifyjs -c -o client/js/top.min.js client/js/top.js",
-    "dev": "node-dev server.js",
+    "dev": "node-dev server.js"
   },
   "dependencies": {
     "angular": "^1.6.8",
