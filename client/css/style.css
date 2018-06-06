@@ -14,7 +14,7 @@ body {
   height: 100%;
   font-family: 'Noto Sans Japanese', sans-serif;
   font-size: 16px;
-  background-color: #000;
+  background: #333 !important;
 }
 hr {
   height: 1px;
@@ -30,42 +30,6 @@ ul {
 /*参考:https://webdesign-trends.net/entry/2325*/
 * {
   box-sizing: border-box;
-}
-
-.split-box {
-  position: absolute;
-  padding: 1em;
-  border-bottom: #ddd solid 1px;
-}
-
-.left-box {
-  left: 0;
-  width: 50%;
-  height: 100%;
-  min-height: 700px;
-  border: 0;
-  color: #ffffff;
-  background: #665e51;
-}
-
-.right-box {
-  right: 0;
-  width: 50%;
-  height: 100%;
-  border: 0;
-  min-height: 700px;
-  color: #333;
-  background-color: #dbdf19;
-}
-.left-box h3 {
-  text-align: center;
-}
-.left-box h3 a {
-  color: #fff;
-}
-.right-box h3 a {
-  color: #333;
-  display: block;
 }
 
 @media screen and (max-width: 900px) {
