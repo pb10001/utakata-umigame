@@ -61,7 +61,7 @@ typings/
 .c9
 
 # package
-package-lock.json
+# package-lock.json
 *.db
 *.map
 client/app.ts
