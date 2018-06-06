@@ -32,7 +32,7 @@
     "prettier": "^1.10.2",
     "redis": "^2.8.0",
     "socket.io": "^0.9.19",
-    "uglify-es": "^3.3.9",
+    "uglify-es": "^3.3.9"
   },
   "license": "GPL-3.0",
   "devDependencies": {}
