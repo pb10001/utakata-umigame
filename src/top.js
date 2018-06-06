@@ -42,8 +42,7 @@ app.component('enter', {
   controller: enterController
 });
 app.component('public', {
-  template:
-    '<a class="btn btn-white" href="/lobby">ロビーへ</a>'
+  template: '<a class="btn btn-white" href="/lobby">ロビーへ</a>'
 });
 app.component('current', {
   template:

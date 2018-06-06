@@ -4,30 +4,29 @@ var lobbyController = require('./lobby');
 var http = require('http');
 //socket.ioの依存性注入
 var io = require('socket.io-client');
-app.factory('socket', function ($rootScope) {
+app.factory('socket', function($rootScope) {
   var socket = io.connect();
   return {
-    on: function (eventName, callback) {
-      socket.on(eventName, function () {
+    on: function(eventName, callback) {
+      socket.on(eventName, function() {
         var args = arguments;
-        $rootScope.$apply(function () {
+        $rootScope.$apply(function() {
           callback.apply(socket, args);
         });
       });
     },
-    emit: function (eventName, data, callback) {
-      socket.emit(eventName, data, function () {
+    emit: function(eventName, data, callback) {
+      socket.emit(eventName, data, function() {
         var args = arguments;
-        $rootScope.$apply(function () {
+        $rootScope.$apply(function() {
           if (callback) {
             callback.apply(socket, args);
           }
         });
-      })
+      });
     }
   };
 });
-
 
 app.component('links', {
   template: [
@@ -57,14 +56,14 @@ app.component('links', {
 });
 app.controller('ChatController', chatController);
 
-app.component("lobby", {
-  templateUrl:"lobby_chat.html",
-  binding:{
-    messages: "<",
-    text: "<",
-    name: "<",
-    removePass: "<",
-    page: "<",
+app.component('lobby', {
+  templateUrl: 'lobby_chat.html',
+  binding: {
+    messages: '<',
+    text: '<',
+    name: '<',
+    removePass: '<',
+    page: '<'
   },
   controller: lobbyController
 });

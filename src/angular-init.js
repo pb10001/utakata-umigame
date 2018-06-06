@@ -33,7 +33,7 @@ app.config([
         ].join(''),
         controller: ''
       })
-      .when('/lobby',{
+      .when('/lobby', {
         templateUrl: '/lobby.html',
         controller: ''
       })

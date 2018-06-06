@@ -2,7 +2,7 @@ var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
-var lobbyController= function lobbyController(socket){
+var lobbyController = function lobbyController(socket) {
   var allMessages = [];
   var self = this;
   this.messages = [];
@@ -15,7 +15,7 @@ var lobbyController= function lobbyController(socket){
     socket.emit('join', 'LobbyChat');
     socket.emit('fetchLobby');
   });
-  socket.on('lobbyChat',function(msg){
+  socket.on('lobbyChat', function(msg) {
     allMessages = msg;
     refresh(msg);
   });
@@ -30,37 +30,37 @@ var lobbyController= function lobbyController(socket){
     socket.emit('message', data);
     this.text = '';
   };
-  this.setName = function setName(){
+  this.setName = function setName() {
     socket.emit('identify', this.name);
   };
-  this.remove = function remove(id){
+  this.remove = function remove(id) {
     var data = {
       id: id,
       removePass: this.removePass
     };
     socket.emit('removeLobby', data);
   };
-  this.zeroPage = function zeroPage(){
+  this.zeroPage = function zeroPage() {
     this.page = 0;
     refresh(allMessages);
-  }
-  this.nextPage = function nextPage(){
+  };
+  this.nextPage = function nextPage() {
     this.page += 1;
     refresh(allMessages);
-  }
-  this.prevPage = function prevPage(){
-    if(this.page == 0) return;
+  };
+  this.prevPage = function prevPage() {
+    if (this.page == 0) return;
     this.page -= 1;
     refresh(allMessages);
-  }
+  };
   this.quit = function quit() {
     socket.emit('disconnect');
     location.href = '/';
   };
-  function refresh(msg){
+  function refresh(msg) {
     var tmp = [];
-    for(var i=0; i < self.perPage; i++){
-      tmp.push(msg[self.page*self.perPage + i]);
+    for (var i = 0; i < self.perPage; i++) {
+      tmp.push(msg[self.page * self.perPage + i]);
     }
     self.messages = tmp;
   }
