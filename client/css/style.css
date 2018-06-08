@@ -307,9 +307,11 @@ a.btn.btn-white {
   font-weight: lighter;
 }
 a.btn.btn-white:hover {
-  border: solid #eee 1px;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+  /* border: solid #eee 1px;
   background: #eee;
-  color: #333;
+  color: #333; */
 }
 button.btn.chat-id-button {
   background: #c9ced1;
