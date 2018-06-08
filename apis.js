@@ -61,20 +61,14 @@ router.get('/update', function(req, res){
         };
         mondai[room] = doc;
         client.hmset(room, doc);
-        for (var key in sockets) {
-          if (sockets[key].room != room) continue;
-          sockets[key].emit('mondai', mondai[room]);
-        }
+        sendMessages('mondai', sockets, room, mondai[room]);
       } else if (trueAns != '') {
         doc.sender = name;
         doc.trueAns = trueAns;
         mondai[room] = doc;
         trueAns[room] = doc.trueAns;
         client.hmset(room, doc);
-        for (var key in sockets) {
-          if (sockets[key].room != room) continue;
-          sockets[key].emit('trueAns', doc.trueAns);
-        }
+        sendMessages('trueAns', sockets, room, doc.trueAns);
       } else if (question != '') {
         var id = maxId(messages) + 1;
         var max = Math.max.apply(
@@ -98,7 +92,7 @@ router.get('/update', function(req, res){
         messages[id] = data;
         //messages.push(data);
         client.hset(questionKey, data.id, JSON.stringify(data));
-        sendMessages(sockets, room, messages);
+        sendMessages("messages", sockets, room, msgInRoom(room, messages));
       } else if (chat != '') {
         var max = Math.max.apply(null, chatMessages.map(x => x.id));
         if (max >= 0) var chatNum = max + 1;
@@ -121,7 +115,7 @@ router.get('/update', function(req, res){
         var id = parseInt(req.query.id);
         messages[id].answer = req.query.answer;
         messages[id].answerer = name;
-        sendMessages(sockets, room, messages);
+        sendMessages("messages", sockets, room, msgInRoom((room, messages)));
         var data = messages[id];
         console.log('data:', data);
         client.hset(questionKey, id, JSON.stringify(data));
@@ -141,11 +135,11 @@ function msgInRoom(room, messages) {
   }
   return array;
 }
-function sendMessages(sockets, room, messages){
+function sendMessages(type, sockets, room, messages){
   //質問を送信する
   for (var key in sockets) {
     if (sockets[key].room != room) continue;
-    sockets[key].emit('message', msgInRoom(room, messages));
+    sockets[key].emit(type , messages);
   }  
 }
 
