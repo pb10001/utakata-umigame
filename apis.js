@@ -98,10 +98,7 @@ router.get('/update', function(req, res){
         messages[id] = data;
         //messages.push(data);
         client.hset(questionKey, data.id, JSON.stringify(data));
-        for (var key in sockets) {
-          if (sockets[key].room != room) continue;
-          sockets[key].emit('message', msgInRoom(room, messages));
-        }
+        sendMessages(sockets, room, messages);
       } else if (chat != '') {
         var max = Math.max.apply(null, chatMessages.map(x => x.id));
         if (max >= 0) var chatNum = max + 1;
@@ -124,10 +121,7 @@ router.get('/update', function(req, res){
         var id = parseInt(req.query.id);
         messages[id].answer = req.query.answer;
         messages[id].answerer = name;
-        for (var key in sockets) {
-          if (sockets[key].room != room) continue;
-          sockets[key].emit('message', msgInRoom(room, messages));
-        }
+        sendMessages(sockets, room, messages);
         var data = messages[id];
         console.log('data:', data);
         client.hset(questionKey, id, JSON.stringify(data));
@@ -147,4 +141,12 @@ function msgInRoom(room, messages) {
   }
   return array;
 }
+function sendMessages(sockets, room, messages){
+  //質問を送信する
+  for (var key in sockets) {
+    if (sockets[key].room != room) continue;
+    sockets[key].emit('message', msgInRoom(room, messages));
+  }  
+}
+
 module.exports = router;
