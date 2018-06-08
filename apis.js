@@ -62,8 +62,8 @@ router.get('/update', function(req, res){
         mondai[room] = doc;
         client.hmset(room, doc);
         for (var key in sockets) {
-          if (sockets[key].room == room)
-            sockets[key].emit('mondai', mondai[room]);
+          if (sockets[key].room != room) continue;
+          sockets[key].emit('mondai', mondai[room]);
         }
       } else if (trueAns != '') {
         doc.sender = name;
@@ -72,8 +72,8 @@ router.get('/update', function(req, res){
         trueAns[room] = doc.trueAns;
         client.hmset(room, doc);
         for (var key in sockets) {
-          if (sockets[key].room == room)
-            sockets[key].emit('trueAns', doc.trueAns);
+          if (sockets[key].room != room) continue;
+          sockets[key].emit('trueAns', doc.trueAns);
         }
       } else if (question != '') {
         var id = maxId(messages) + 1;
@@ -99,8 +99,8 @@ router.get('/update', function(req, res){
         //messages.push(data);
         client.hset(questionKey, data.id, JSON.stringify(data));
         for (var key in sockets) {
-          if (sockets[key].room == room)
-            sockets[key].emit('message', msgInRoom(room, messages));
+          if (sockets[key].room != room) continue;
+          sockets[key].emit('message', msgInRoom(room, messages));
         }
       } else if (chat != '') {
         var max = Math.max.apply(null, chatMessages.map(x => x.id));
@@ -125,8 +125,8 @@ router.get('/update', function(req, res){
         messages[id].answer = req.query.answer;
         messages[id].answerer = name;
         for (var key in sockets) {
-          if (sockets[key].room == room)
-            sockets[key].emit('message', msgInRoom(room, messages));
+          if (sockets[key].room != room) continue;
+          sockets[key].emit('message', msgInRoom(room, messages));
         }
         var data = messages[id];
         console.log('data:', data);
