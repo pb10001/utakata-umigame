@@ -240,12 +240,7 @@ io.on('connection', function(socket) {
         }
       }
     }else if(msg.type = 'lobbyChat'){
-        if(lobbyChats != null)
-          var max = Math.max.apply(null, lobbyChats.map(x => x.id));
-        else{
-          var max = -1;
-          lobbyChats = [];
-        }
+        var max = lobbyChats != null ? Math.max.apply(null, lobbyChats.map(x => x.id)): 0;
         if (max >= 0) var chatNum = max + 1;
         else var chatNum = 1;
         var data = {
