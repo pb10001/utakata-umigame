@@ -266,18 +266,8 @@ io.on('connection', function(socket) {
     mondai[room] = null;
     trueAns[room] = null;
     client.del(room);
-    for (var key in messages) {
-      if (messages[key].room == room) {
-        client.hdel(questionKey, messages[key].id);
-        delete messages[key];
-      }
-    }
-    for (var key in chatMessages) {
-      if (chatMessages[key].room == room) {
-        client.hdel(chatKey, chatMessages[key].id);
-        delete chatMessages[key];
-      }
-    }
+    deleteMessages(room, messages);
+    deleteMessages(room, chatMessages);
     socket.emit('mondai', mondai[room]);
     socket.emit('trueAns', trueAns[room]);
     socket.emit('message', []);
@@ -304,7 +294,14 @@ function updateRoster() {
     }
   );
 }
-
+function deleteMessages(room, messages) {
+  for (var key in messages) {
+    if (messages[key].room == room) {
+      client.hdel(questionKey, messages[key].id);
+      delete messages[key];
+    }
+  }
+}
 function broadcast(event, data) {
   sockets.forEach(function(socket) {
     socket.emit(event, data);
