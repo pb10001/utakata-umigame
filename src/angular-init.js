@@ -18,7 +18,7 @@ app.config([
       })
       .when('/mondai/:room', {
         template: '<chat></chat>',
-        controller: 'ChatController'
+        controller: ''
       })
       .when('/privacy_policy', {
         templateUrl: 'privacy_policy.html',

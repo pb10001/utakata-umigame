@@ -1,5 +1,5 @@
 var app = require('./angular-init');
-var chatController = require('./chat');
+var chatComponent = require('./chat');
 var lobbyController = require('./lobby');
 var http = require('http');
 //socket.ioの依存性注入
@@ -54,28 +54,7 @@ app.component('links', {
   ].join(''),
   controller: ''
 });
-app.controller('ChatController', chatController);
-app.component('chat', {
-  templateUrl: 'mondai_beta.html',
-  binding: {
-    messages: '<',
-  privateMessages: '<',
-  roster : '<',
-  name : '<',
-  text : '<',
-  answer : '<',
-  sender : '<',
-  mondai : '<',
-  trueAns : '<',
-  ansContent : '<',
-  publicText : '<',
-  privateText : '<',
-  toId : '<',
-  currentRoom : '<',
-  isGoodSent : '<',
-  },
-  controller: chatController
-});
+app.component('chat', chatComponent);
 app.component('lobby', {
   templateUrl: 'lobby_chat.html',
   binding: {
