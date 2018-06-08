@@ -55,7 +55,27 @@ app.component('links', {
   controller: ''
 });
 app.controller('ChatController', chatController);
-
+app.component('chat', {
+  templateUrl: 'mondai_beta.html',
+  binding: {
+    messages: '<',
+  privateMessages: '<',
+  roster : '<',
+  name : '<',
+  text : '<',
+  answer : '<',
+  sender : '<',
+  mondai : '<',
+  trueAns : '<',
+  ansContent : '<',
+  publicText : '<',
+  privateText : '<',
+  toId : '<',
+  currentRoom : '<',
+  isGoodSent : '<',
+  },
+  controller: chatController
+});
 app.component('lobby', {
   templateUrl: 'lobby_chat.html',
   binding: {

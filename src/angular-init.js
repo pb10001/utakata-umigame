@@ -17,7 +17,7 @@ app.config([
         redirectTo: '/'
       })
       .when('/mondai/:room', {
-        templateUrl: '/mondai.html',
+        template: '<chat></chat>',
         controller: 'ChatController'
       })
       .when('/privacy_policy', {
