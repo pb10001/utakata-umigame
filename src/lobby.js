@@ -2,7 +2,16 @@ var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
-var lobbyController = function lobbyController(socket) {
+var lobbyComponent = {
+  templateUrl: 'lobby_chat.html',
+  binding: {
+    messages: '<',
+    text: '<',
+    name: '<',
+    removePass: '<',
+    page: '<'
+  },
+  controller: function(socket) {
   var allMessages = [];
   var self = this;
   this.messages = [];
@@ -64,5 +73,6 @@ var lobbyController = function lobbyController(socket) {
     }
     self.messages = tmp;
   }
-};
-module.exports = lobbyController;
+}
+}
+module.exports = lobbyComponent;
