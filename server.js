@@ -8,6 +8,7 @@ var express = require('express');
 var apis = require('./apis');
 
 var client = require('./redis_client');
+var moment = require('moment');
 
 var router = express();
 var server = http.createServer(router);
@@ -240,19 +241,37 @@ io.on('connection', function(socket) {
         }
       }
     }else if(msg.type = 'lobbyChat'){
-        var max = lobbyChats != null ? Math.max.apply(null, lobbyChats.map(x => x.id)): 0;
-        var chatNum = max >= 0 ? max + 1: 1;
-        var data = {
-          id: chatNum,
-          name: msg.name,
-          content: msg.content,
-          removePass: msg.removePass
-        };
-        client.hset('lobbyChats', data.id, JSON.stringify(data));
-        console.log("lobby", data);
-        lobbyChats.push(data);
+      /* ロビー */
+      var max = lobbyChats != null ? Math.max.apply(null, lobbyChats.map(x => x.id)): 0;
+      var chatNum = max >= 0 ? max + 1: 1;
+      var data = {
+        id: chatNum,
+        name: msg.name,
+        content: msg.content,
+        removePass: msg.removePass,
+        date: moment().format("YYYY/MM/DD HH:mm:ss")
+      };
+      client.hset('lobbyChats', data.id, JSON.stringify(data));
+      client.hgetall('lobbyChats', function(err, docs){
+        var tmp = [];
+        var rmv = [];
+        for(var key in docs){
+          var msg = JSON.parse(docs[key]);
+          var dif = (new Date() - new Date(msg.date))/24/60/60/1000;
+          if(dif < 3){
+            tmp.push(msg);
+          }
+          else{
+            rmv.push(msg);
+          }
+        }
+        for(var key in rmv){
+          client.hdel('lobbyChats', rmv[key].id);
+        }
+        lobbyChats = tmp;
         socket.emit('lobbyChat', reverseById(lobbyChats));
         socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
+      });
     }
   });
   socket.on('clear', function() {
@@ -260,8 +279,8 @@ io.on('connection', function(socket) {
     mondai[room] = null;
     trueAns[room] = null;
     client.del(room);
-    deleteMessages(room, messages);
-    deleteMessages(room, chatMessages);
+    deleteMessages(room, messages, questionKey);
+    deleteMessages(room, chatMessages, chatKey);
     socket.emit('mondai', mondai[room]);
     socket.emit('trueAns', trueAns[room]);
     socket.emit('message', []);
@@ -288,10 +307,10 @@ function updateRoster() {
     }
   );
 }
-function deleteMessages(room, messages) {
+function deleteMessages(room, messages, type) {
   for (var key in messages) {
     if (messages[key].room == room) {
-      client.hdel(questionKey, messages[key].id);
+      client.hdel(type, messages[key].id);
       delete messages[key];
     }
   }

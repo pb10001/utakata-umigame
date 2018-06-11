@@ -26,13 +26,13 @@
   <div class= "row chat-row" ng-repeat="msg in $ctrl.messages track by $index">
     <div ng-if="msg" class="chat-box">
       <small class="secondary-text" ng-bind="msg.name"></small>
-      <span class="primary-text message-text" ng-bind="msg.content"></span>
-      <form name="removeForm" ng-submit = "$ctrl.remove(msg.id)">
-        <input class="btn" type = "submit" value = "Remove">
-      </form>
+      <span class="primary-text message-text" ng-bind="msg.content"></span><br>
+      <span class="secondary-text" ng-bind="msg.date"></span>
+      <i class="fas fa-trash icon-button" ng-click="$ctrl.remove(msg.id)"></i>
     </div>
   </div>
 </div>
+<p>ログは3日で消えます。</p>
 <form ng-submit="$ctrl.quit()">
   <input class="btn btn-default" style="display: table; margin: 10px auto;"  type="submit" value="退室する">
 </form>
