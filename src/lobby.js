@@ -1,6 +1,7 @@
 var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
+var moment = require('moment');
 
 var lobbyComponent = {
   templateUrl: 'lobby_chat.html',
@@ -38,7 +39,8 @@ var lobbyComponent = {
       type: 'lobbyChat',
       name: this.name,
       content: this.text,
-      removePass: this.removePass
+      removePass: this.removePass,
+      date: moment().format("YYYY/MM/DD HH:mm:ss")
     };
     console.log('Sending message:', data);
     socket.emit('message', data);

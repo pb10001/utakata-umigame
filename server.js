@@ -8,7 +8,6 @@ var express = require('express');
 var apis = require('./apis');
 
 var client = require('./redis_client');
-var moment = require('moment');
 
 var router = express();
 var server = http.createServer(router);
@@ -249,7 +248,7 @@ io.on('connection', function(socket) {
         name: msg.name,
         content: msg.content,
         removePass: msg.removePass,
-        date: moment().format("YYYY/MM/DD HH:mm:ss")
+        date: msg.date
       };
       client.hset('lobbyChats', data.id, JSON.stringify(data));
       client.hgetall('lobbyChats', function(err, docs){
