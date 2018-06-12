@@ -9,7 +9,8 @@ var lobbyComponent = {
     text: '<',
     name: '<',
     removePass: '<',
-    page: '<'
+    page: '<',
+    roster: '<',
   },
   controller: function(socket) {
   var allMessages = [];
@@ -20,6 +21,7 @@ var lobbyComponent = {
   this.removePass = '';
   this.page = 0;
   this.perPage = 10;
+  this.roster = [];
   socket.on('connect', function() {
     socket.emit('join', 'LobbyChat');
     socket.emit('fetchLobby');
@@ -27,6 +29,9 @@ var lobbyComponent = {
   socket.on('lobbyChat', function(msg) {
     allMessages = msg;
     refresh(msg);
+  });
+  socket.on('roster', function(msg){
+    self.roster = msg;
   });
   this.send = function send() {
     var data = {

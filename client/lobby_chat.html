@@ -1,39 +1,75 @@
-<h1 style="text-align:center;">ロビー</h1>
-<!-- フォーム -->
-<div class="row control-row">
-  <p style="text-align:center;">名前</p>
-  <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
-  <p style="text-align:center;">削除用パス</p>
-  <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
-</div>
-<form ng-submit="$ctrl.send()">
-  <div class ="input-append">
-    <input type="text" class="form-control" ng-model="$ctrl.text" placeholder="Chat">
-    <input type="submit" class="btn btn-default" value="Send">
-  </div>
-</form>
-<!-- ページネーション -->
-<div class="row">
-  <ul class="pagination" style="display: table; margin: 0 auto;">
-    <li><span>ページ: {{$ctrl.page}}</span></li>
-    <li ng-click="$ctrl.zeroPage()"><a href=""><<</a></li>
-    <li ng-click="$ctrl.prevPage()"><a href="">Prev</a></li>
-    <li ng-click="$ctrl.nextPage()"><a href="">Next</a></li>
-  </ul>
-</div>
-<!-- チャット -->
-<div class="chat-area" style="width: 80%;">
-  <div class= "row chat-row" ng-repeat="msg in $ctrl.messages track by $index">
-    <div ng-if="msg" class="chat-box">
-      <small class="secondary-text" ng-bind="msg.name"></small>
-      <span class="primary-text message-text" ng-bind="msg.content"></span><br>
-      <span class="secondary-text" ng-bind="msg.date"></span>
-      <i class="fas fa-trash icon-button" ng-click="$ctrl.remove(msg.id)"></i>
+<h1 class="hannari" style="text-align:center;">ロビー</h1>
+<div class="col-md-9">
+  <div class="panel">
+    <div class="panel-heading">
+        <div class="panel-text">
+        チャット
+        </div>
+    </div>
+    <div class="panel-body">
+      <form ng-submit="$ctrl.send()">
+        <div class ="input-append">
+          <input type="text" class="form-control" ng-model="$ctrl.text" placeholder="Chat">
+          <input type="submit" class="btn btn-default" value="Send">
+        </div>
+      </form>
+      <!-- ページネーション -->
+      <div class="row">
+        <ul class="pagination" style="display: table; margin: 0 auto;">
+          <li><span>ページ: {{$ctrl.page}}</span></li>
+          <li ng-click="$ctrl.zeroPage()"><a href=""><<</a></li>
+          <li ng-click="$ctrl.prevPage()"><a href="">Prev</a></li>
+          <li ng-click="$ctrl.nextPage()"><a href="">Next</a></li>
+        </ul>
+      </div>
+      <!-- チャット -->
+      <div class="chat-area" style="width: 80%;">
+        <div class= "row chat-row" ng-repeat="msg in $ctrl.messages track by $index">
+          <div ng-if="msg" class="chat-box">
+            <small class="secondary-text" ng-bind="msg.name"></small>
+            <span class="primary-text message-text" ng-bind="msg.content"></span><br>
+            <span class="secondary-text" ng-bind="msg.date"></span>
+            <i class="fas fa-trash icon-button" ng-click="$ctrl.remove(msg.id)"></i>
+          </div>
+        </div>
+      </div>
+      <p style="text-align: center;">ログは3日で消えます。</p>
     </div>
   </div>
 </div>
-<p style="text-align: center;">ログは3日で消えます。</p>
-<form ng-submit="$ctrl.quit()">
-  <input class="btn btn-default" style="display: table; margin: 10px auto;"  type="submit" value="退室する">
-</form>
-<!--<a class="btn btn-default" style="display: table; margin: 10px auto;" href= '/'>Back</a>-->
+<div class="col-md-3">
+<div class="panel">
+  <div class="panel-heading">
+    <div class="panel-text">
+    登録
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row select-row">
+      <p style="text-align:center;">名前</p>
+      <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
+      <p style="text-align:center;">削除用パス</p>
+      <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
+      <form class="wide-button" ng-submit="$ctrl.quit()">
+        <input class="btn btn-default" type="submit" value="退室する">
+      </form>
+    </div>
+  </div>
+</div>
+  <div class="panel user-list">
+    <div class="panel-heading">
+      <div class="panel-text">
+      ユーザー一覧
+      </div>
+    </div>
+    <div class="panel-body">
+      <ul>
+        <li style="list-style:none;" ng-repeat="user in $ctrl.roster">
+          <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;document.getElementById('toIdLabel').textContent= this.name;">
+          <span ng-bind="user.name"></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
