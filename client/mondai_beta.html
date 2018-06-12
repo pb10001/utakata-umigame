@@ -97,7 +97,7 @@
           <div class="panel-body">
             <div class="row select-row">
               <form ng-submit="void(0)">
-                <label>現在の部屋: {{currentRoom}}</label>
+                <label>現在の部屋: {{$ctrl.currentRoom}}</label>
                 <div class="row control-row">
                   <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
                 </div>
