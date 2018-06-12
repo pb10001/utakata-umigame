@@ -121,7 +121,7 @@
             <div class="panel-body">
               <ul>
                 <li style="list-style:none;" ng-repeat="user in $ctrl.roster">
-                  <button class="btn transparent" value="{{$ctrl.user.id}}" name="{{$ctrl.user.name}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;document.getElementById('toIdLabel').textContent= this.name;">
+                  <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onClick="document.getElementById('toIdLabel').value= this.value; document.getElementById('toIdLabel').textContent= this.name;">
                   <span ng-bind="user.name"></span>
                   </button>
                 </li>
