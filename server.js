@@ -257,7 +257,7 @@ io.on('connection', function(socket) {
         for(var key in docs){
           var msg = JSON.parse(docs[key]);
           var dif = (new Date() - new Date(msg.date))/24/60/60/1000;
-          if(dif < 3){
+          if(dif =< 3){
             tmp.push(msg);
           }
           else{
