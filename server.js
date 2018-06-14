@@ -257,15 +257,13 @@ io.on('connection', function(socket) {
         for(var key in docs){
           var msg = JSON.parse(docs[key]);
           var dif = (new Date() - new Date(msg.date))/24/60/60/1000;
+          console.log(dif + 'days');
           if(dif <= 3){
             tmp.push(msg);
           }
           else{
-            rmv.push(msg);
+            client.hdel('lobbyChats', msg.id);
           }
-        }
-        for(var key in rmv){
-          client.hdel('lobbyChats', rmv[key].id);
         }
         lobbyChats = tmp;
         socket.emit('lobbyChat', reverseById(lobbyChats));
