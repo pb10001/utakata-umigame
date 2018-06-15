@@ -74,7 +74,6 @@ var lobbyComponent = {
     location.href = '/';
   };
   function refresh(msg) {
-    console.log(msg);
     var tmp = [];
     for (var i = 0; i < self.perPage; i++) {
       tmp.push(msg[self.page * self.perPage + i]);
@@ -87,7 +86,6 @@ var lobbyComponent = {
         callback(null, message);
       },
       function(err, res){
-        console.log(res);
         self.messages = res;
       });
   }
