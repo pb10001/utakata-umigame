@@ -6,7 +6,7 @@ var socketio = require('socket.io');
 var express = require('express');
 
 var apis = require('./apis');
-
+var socket = require('./socket');
 var client = require('./redis_client');
 var moment = require('moment');
 
@@ -34,21 +34,9 @@ router.get('/lobby', function(req, res){
   res.sendFile(__dirname + '/client/lobby.html');
 });
 
-var mondai = {};
-var trueAns = {};
-var messages = {};
-var questions = [];
-var chatMessages = [];
-var lobbyChats = [];
-var sockets = [];
-var user_id = 0;
-
-const chatKey = 'chats';
-const questionKey = 'questions';
-const lobbyChatKey = 'LobbyChat';
 
 //Socket.io
-io.on('connection', function(socket) {
+io.on('connection', socket/*function(socket) {
   user_id += 1;
   socket.user_id = user_id;
   sockets.push(socket);
@@ -241,7 +229,7 @@ io.on('connection', function(socket) {
         }
       }
     }else if(msg.type = 'lobbyChat'){
-      /* ロビー */
+      // ロビー
       var max = lobbyChats != null ? Math.max.apply(null, lobbyChats.map(x => x.id)): 0;
       var chatNum = max >= 0 ? max + 1: 1;
       var data = {
@@ -292,74 +280,9 @@ io.on('connection', function(socket) {
     socket.name = String(name || 'Anonymous');
     updateRoster();
   });
-});
+}*/);
 
-function updateRoster() {
-  async.map(
-    sockets,
-    function(socket, callback) {
-      callback(null, { id: socket.user_id, name: socket.name });
-    },
-    function(err, names) {
-      broadcast('roster', names);
-    }
-  );
-}
-function deleteMessages(room, messages, type) {
-  for (var key in messages) {
-    if (messages[key].room == room) {
-      client.hdel(type, messages[key].id);
-      delete messages[key];
-    }
-  }
-}
-function broadcast(event, data) {
-  sockets.forEach(function(socket) {
-    socket.emit(event, data);
-  });
-}
-function msgInRoom(room, messages) {
-  //部屋を指定して質問の配列を取り出す
-  var array = [];
-  for (var key in messages) {
-    if (messages[key].room == room) array.push(messages[key]);
-  }
-  return array;
-}
 
-function maxId(messages) {
-  var max = 0;
-  for (var key in messages) {
-    var id = parseInt(key);
-    if (id >= max) max = id;
-  }
-  return max;
-}
-function reverseById(array){
-  //降順で並び替え
-  return array.sort(function(a,b){
-    if(a.id < b.id) return 1;
-    else if(a.id > b.id) return -1;
-    else return 0;
-  });
-}
-function sendMessage(socket, msg, chatMessages, client) {
-  var max = Math.max.apply(null, chatMessages.map(x => x.id));
-  if (max >= 0) var chatNum = max + 1;
-  else var chatNum = 1;
-  var data = {
-    id: chatNum,
-    room: socket.room,
-    private: false,
-    sent_from: socket.name,
-    sent_to: 'All in ' + socket.room,
-    content: msg.content
-  };
-  client.hset(chatKey, data.id, JSON.stringify(data));
-  chatMessages.push(data);
-  socket.emit('chatMessage', data);
-  socket.broadcast.to(socket.room).emit('chatMessage', data);
-}
 server.listen(
   process.env.PORT || 5000,
   process.env.IP || '0.0.0.0',
