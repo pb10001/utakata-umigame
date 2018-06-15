@@ -1,19 +1,19 @@
 var async = require('async');
 var client = require('./redis_client');
 var moment = require('moment');
+var mondai = {};
+var trueAns = {};
+var messages = {};
+var questions = [];
+var chatMessages = [];
+var lobbyChats = [];
+var sockets = [];
+var user_id = 0;
+
+const chatKey = 'chats';
+const questionKey = 'questions';
+const lobbyChatKey = 'LobbyChat';
 module.exports = function(socket) {
-  var mondai = {};
-  var trueAns = {};
-  var messages = {};
-  var questions = [];
-  var chatMessages = [];
-  var lobbyChats = [];
-  var sockets = [];
-  var user_id = 0;
-  
-  const chatKey = 'chats';
-  const questionKey = 'questions';
-  const lobbyChatKey = 'LobbyChat';
   user_id += 1;
   socket.user_id = user_id;
   sockets.push(socket);
@@ -323,4 +323,4 @@ function sendMessage(socket, msg, chatMessages, client) {
   socket.emit('chatMessage', data);
   socket.broadcast.to(socket.room).emit('chatMessage', data);
 }
-}
+};
