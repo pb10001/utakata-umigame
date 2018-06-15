@@ -1,6 +1,7 @@
 var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
+var async = require('async');
 var moment = require('moment');
 
 var lobbyComponent = {
@@ -39,8 +40,7 @@ var lobbyComponent = {
       type: 'lobbyChat',
       name: this.name,
       content: this.text,
-      removePass: this.removePass,
-      date: moment().format("YYYY/MM/DD HH:mm:ss")
+      removePass: this.removePass
     };
     console.log('Sending message:', data);
     socket.emit('message', data);
@@ -74,11 +74,22 @@ var lobbyComponent = {
     location.href = '/';
   };
   function refresh(msg) {
+    console.log(msg);
     var tmp = [];
     for (var i = 0; i < self.perPage; i++) {
       tmp.push(msg[self.page * self.perPage + i]);
     }
-    self.messages = tmp;
+    async.map(
+      tmp,
+      function(message, callback){
+        if(message)
+          message.relDate = moment(message.date).fromNow();
+        callback(null, message);
+      },
+      function(err, res){
+        console.log(res);
+        self.messages = res;
+      });
   }
 }
 }

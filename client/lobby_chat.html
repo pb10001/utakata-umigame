@@ -28,8 +28,8 @@
           <div ng-if="msg" class="chat-box">
             <small class="secondary-text" ng-bind="msg.name"></small>
             <span class="primary-text message-text" ng-bind="msg.content"></span><br>
-            <span class="secondary-text" ng-bind="msg.date"></span>
             <i class="fas fa-trash icon-button" ng-click="$ctrl.remove(msg.id)"></i>
+            <span class="secondary-text" ng-bind="msg.relDate"></span>
           </div>
         </div>
       </div>
