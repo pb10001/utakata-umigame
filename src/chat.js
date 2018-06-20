@@ -3,7 +3,7 @@ var io = require('socket.io-client');
 var crypto = require('crypto');
 var chatComponent = {
   templateUrl: 'mondai_beta.html',
-  bindings: {
+  binding: {
     messages: '<',
     privateMessages: '<',
     roster: '<',
@@ -17,8 +17,7 @@ var chatComponent = {
     publicText: '<',
     privateText: '<',
     toId: '<',
-    currentRoom: '<',
-    isGoodSent: '<'
+    currentRoom: '<'
   },
   controller: function($routeParams, socket) {
     var self = this;
@@ -40,7 +39,6 @@ var chatComponent = {
     this.privateText = '';
     this.toId = -1;
     this.currentRoom = '-';
-    this.isGoodSent = false;
     socket.on('connect', function() {
       self.setName();
       socket.emit('join', room);
@@ -180,13 +178,7 @@ var chatComponent = {
         window.alert('キャンセルしました。');
       }
     };
-    this.onClick = function onClick() {
-      $('.heart-animation').toggleClass('active');
-      if (!this.isGoodSent) {
-        socket.emit('good');
-        this.isGoodSent = true;
-      }
-    };
+    this.onClick = function onClick() {};
   }
 };
 module.exports = chatComponent;
