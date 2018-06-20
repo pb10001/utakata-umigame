@@ -3,22 +3,22 @@ var io = require('socket.io-client');
 var crypto = require('crypto');
 var chatComponent = {
   templateUrl: 'mondai_beta.html',
-  binding: {
+  bindings: {
     messages: '<',
     privateMessages: '<',
-    roster : '<',
-    name : '<',
-    text : '<',
-    answer : '<',
-    sender : '<',
-    mondai : '<',
-    trueAns : '<',
-    ansContent : '<',
-    publicText : '<',
-    privateText : '<',
-    toId : '<',
-    currentRoom : '<',
-    isGoodSent : '<'
+    roster: '<',
+    name: '<',
+    text: '<',
+    answer: '<',
+    sender: '<',
+    mondai: '<',
+    trueAns: '<',
+    ansContent: '<',
+    publicText: '<',
+    privateText: '<',
+    toId: '<',
+    currentRoom: '<',
+    isGoodSent: '<'
   },
   controller: function($routeParams, socket) {
     var self = this;
@@ -59,11 +59,11 @@ var chatComponent = {
       var elem = document.getElementById('question-area');
       elem.scrollTop = elem.scrollHeight;
     });
-  
+
     socket.on('roster', function(names) {
       self.roster = names;
     });
-  
+
     socket.on('chatMessage', function(msg) {
       self.privateMessages.push(msg);
       var elem = document.getElementById('private-chat-area');
@@ -99,7 +99,7 @@ var chatComponent = {
         window.alert('キャンセルしました。');
       }
     };
-  
+
     this.sendTrueAns = function sendTrueAns() {
       if (window.confirm('正解が公開されます。続行しますか？')) {
         var data = {
@@ -111,7 +111,7 @@ var chatComponent = {
         window.alert('キャンセルしました。');
       }
     };
-  
+
     this.send = function send() {
       var data = {
         type: 'question',
@@ -122,7 +122,7 @@ var chatComponent = {
       socket.emit('message', data);
       this.text = '';
     };
-  
+
     this.sendAnswer = function sendAnswer() {
       var id = document.getElementById('ques_id_input').value || 0;
       var data = {
@@ -187,6 +187,6 @@ var chatComponent = {
         this.isGoodSent = true;
       }
     };
-}
-}
+  }
+};
 module.exports = chatComponent;

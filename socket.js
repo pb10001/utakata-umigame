@@ -81,36 +81,55 @@ module.exports = function(socket) {
     };
     sendMessage(socket, msg, chatMessages, client);
   });
-  socket.on('fetchLobby', function(){
-    client.hgetall('lobbyChats', function(err, docs){
+  socket.on('fetchLobby', function() {
+    client.hgetall('lobbyChats', function(err, docs) {
       lobbyChats = [];
       for (var key in docs) {
         lobbyChats.push(JSON.parse(docs[key]));
       }
     });
-    socket.emit("lobbyChat",reverseById(lobbyChats));
+    socket.emit('lobbyChat', reverseById(lobbyChats));
   });
-  socket.on('removeLobby', function(data){
-    client.hget('lobbyChats', data.id, function(err, res){
-      if(res != null){
+  socket.on('removeLobby', function(data) {
+    client.hget('lobbyChats', data.id, function(err, res) {
+      if (res != null) {
         var doc = JSON.parse(res);
         console.log(doc.removePass);
-        if(doc.removePass === data.removePass){
+        if (doc.removePass === data.removePass) {
           client.del('lobbyChats');
           var tmp = [];
-          for(var key in lobbyChats){
-            if(lobbyChats[key].id != data.id){
-              client.hset('lobbyChats', lobbyChats[key].id, JSON.stringify(lobbyChats[key]));
+          for (var key in lobbyChats) {
+            if (lobbyChats[key].id != data.id) {
+              client.hset(
+                'lobbyChats',
+                lobbyChats[key].id,
+                JSON.stringify(lobbyChats[key])
+              );
               tmp.push(lobbyChats[key]);
             }
           }
           lobbyChats = tmp;
           console.log(lobbyChats);
-          socket.emit("lobbyChat", reverseById(lobbyChats));
-          socket.broadcast.to("LobbyChat").emit("lobbyChat", reverseById(lobbyChats));
+          socket.emit('lobbyChat', reverseById(lobbyChats));
+          socket.broadcast
+            .to('LobbyChat')
+            .emit('lobbyChat', reverseById(lobbyChats));
         }
       }
     });
+  });
+  socket.on('editLobby', function(data) {
+    for (var key in lobbyChats) {
+      if (lobbyChats[key].id === data.id) {
+        console.log(data.removePass);
+        if (lobbyChats[key].removePass === data.removePass) {
+          lobbyChats[key] = data;
+          client.hset('lobbyChats', data.id, JSON.stringify(data));
+        }
+      }
+    }
+    socket.emit('lobbyChat', reverseById(lobbyChats));
+    socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
   });
   socket.on('message', function(msg) {
     if (msg.type == 'mondai') {
@@ -205,35 +224,42 @@ module.exports = function(socket) {
           sendTo.emit('chatMessage', receiveData);
         }
       }
-    }else if(msg.type = 'lobbyChat'){
+    } else if ((msg.type = 'lobbyChat')) {
       /* ロビー */
-      var max = lobbyChats != null ? Math.max.apply(null, lobbyChats.map(x => x.id)): 0;
-      var chatNum = max >= 0 ? max + 1: 1;
+      var max =
+        lobbyChats != null
+          ? Math.max.apply(null, lobbyChats.map(x => x.id))
+          : 0;
+      var chatNum = max >= 0 ? max + 1 : 1;
       var data = {
         id: chatNum,
         name: msg.name,
         content: msg.content,
         removePass: msg.removePass,
-        date: moment().zone("+09:00").format("YYYY/MM/DD HH:mm:ss")
+        date: moment()
+          .zone('+09:00')
+          .format('YYYY/MM/DD HH:mm:ss')
       };
       client.hset('lobbyChats', data.id, JSON.stringify(data));
-      client.hgetall('lobbyChats', function(err, docs){
+      client.hgetall('lobbyChats', function(err, docs) {
         var tmp = [];
         var rmv = [];
-        for(var key in docs){
+        for (var key in docs) {
           var msg = JSON.parse(docs[key]);
-          var dif = ((new Date() - new Date(msg.date))/1000/60/60 + 9)/24; //タイムゾーン
+          var dif =
+            ((new Date() - new Date(msg.date)) / 1000 / 60 / 60 + 9) / 24; //タイムゾーン
           console.log(dif + 'days');
-          if(dif <= 3){
+          if (dif <= 3) {
             tmp.push(msg);
-          }
-          else{
+          } else {
             client.hdel('lobbyChats', msg.id);
           }
         }
         lobbyChats = tmp;
         socket.emit('lobbyChat', reverseById(lobbyChats));
-        socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
+        socket.broadcast
+          .to('LobbyChat')
+          .emit('lobbyChat', reverseById(lobbyChats));
       });
     }
   });
@@ -258,69 +284,69 @@ module.exports = function(socket) {
     updateRoster();
   });
   function updateRoster() {
-  async.map(
-    sockets,
-    function(socket, callback) {
-      callback(null, { id: socket.user_id, name: socket.name });
-    },
-    function(err, names) {
-      broadcast('roster', names);
-    }
-  );
-}
-function deleteMessages(room, messages, type) {
-  for (var key in messages) {
-    if (messages[key].room == room) {
-      client.hdel(type, messages[key].id);
-      delete messages[key];
+    async.map(
+      sockets,
+      function(socket, callback) {
+        callback(null, { id: socket.user_id, name: socket.name });
+      },
+      function(err, names) {
+        broadcast('roster', names);
+      }
+    );
+  }
+  function deleteMessages(room, messages, type) {
+    for (var key in messages) {
+      if (messages[key].room == room) {
+        client.hdel(type, messages[key].id);
+        delete messages[key];
+      }
     }
   }
-}
-function broadcast(event, data) {
-  sockets.forEach(function(socket) {
-    socket.emit(event, data);
-  });
-}
-function msgInRoom(room, messages) {
-  //部屋を指定して質問の配列を取り出す
-  var array = [];
-  for (var key in messages) {
-    if (messages[key].room == room) array.push(messages[key]);
+  function broadcast(event, data) {
+    sockets.forEach(function(socket) {
+      socket.emit(event, data);
+    });
   }
-  return array;
-}
+  function msgInRoom(room, messages) {
+    //部屋を指定して質問の配列を取り出す
+    var array = [];
+    for (var key in messages) {
+      if (messages[key].room == room) array.push(messages[key]);
+    }
+    return array;
+  }
 
-function maxId(messages) {
-  var max = 0;
-  for (var key in messages) {
-    var id = parseInt(key);
-    if (id >= max) max = id;
+  function maxId(messages) {
+    var max = 0;
+    for (var key in messages) {
+      var id = parseInt(key);
+      if (id >= max) max = id;
+    }
+    return max;
   }
-  return max;
-}
-function reverseById(array){
-  //降順で並び替え
-  return array.sort(function(a,b){
-    if(a.id < b.id) return 1;
-    else if(a.id > b.id) return -1;
-    else return 0;
-  });
-}
-function sendMessage(socket, msg, chatMessages, client) {
-  var max = Math.max.apply(null, chatMessages.map(x => x.id));
-  if (max >= 0) var chatNum = max + 1;
-  else var chatNum = 1;
-  var data = {
-    id: chatNum,
-    room: socket.room,
-    private: false,
-    sent_from: socket.name,
-    sent_to: 'All in ' + socket.room,
-    content: msg.content
-  };
-  client.hset(chatKey, data.id, JSON.stringify(data));
-  chatMessages.push(data);
-  socket.emit('chatMessage', data);
-  socket.broadcast.to(socket.room).emit('chatMessage', data);
-}
+  function reverseById(array) {
+    //降順で並び替え
+    return array.sort(function(a, b) {
+      if (a.id < b.id) return 1;
+      else if (a.id > b.id) return -1;
+      else return 0;
+    });
+  }
+  function sendMessage(socket, msg, chatMessages, client) {
+    var max = Math.max.apply(null, chatMessages.map(x => x.id));
+    if (max >= 0) var chatNum = max + 1;
+    else var chatNum = 1;
+    var data = {
+      id: chatNum,
+      room: socket.room,
+      private: false,
+      sent_from: socket.name,
+      sent_to: 'All in ' + socket.room,
+      content: msg.content
+    };
+    client.hset(chatKey, data.id, JSON.stringify(data));
+    chatMessages.push(data);
+    socket.emit('chatMessage', data);
+    socket.broadcast.to(socket.room).emit('chatMessage', data);
+  }
 };

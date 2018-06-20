@@ -1,5 +1,6 @@
 var app = require('./angular-init');
 var chatComponent = require('./chat');
+var chatBoxComponent = require('./chat_box');
 var lobbyComponent = require('./lobby');
 var http = require('http');
 //socket.ioの依存性注入
@@ -55,4 +56,5 @@ app.component('links', {
   controller: ''
 });
 app.component('chat', chatComponent);
+app.component('chatbox', chatBoxComponent);
 app.component('lobby', lobbyComponent);

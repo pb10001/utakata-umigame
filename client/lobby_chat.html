@@ -25,12 +25,15 @@
       <!-- チャット -->
       <div class="chat-area" style="width: 80%;">
         <div class= "row chat-row" ng-repeat="msg in $ctrl.messages track by $index">
+          <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
+          <!--
           <div ng-if="msg" class="chat-box">
-            <small class="secondary-text" ng-bind="msg.name"></small>
-            <span class="primary-text message-text" ng-bind="msg.content"></span><br>
-            <i class="fas fa-trash icon-button" ng-click="$ctrl.remove(msg.id)"></i>
-            <span class="secondary-text" ng-bind="msg.relDate"></span>
+          <small class="secondary-text" ng-bind="msg.name"></small>
+          <span class="primary-text message-text" ng-bind="msg.content"></span><br>
+          <i class="fas fa-trash icon-button" ng-click="$ctrl.remove(msg.id)"></i>
+          <span class="secondary-text" ng-bind="msg.relDate"></span>
           </div>
+        -->
         </div>
       </div>
       <p style="text-align: center;">ログは3日で消えます。</p>
