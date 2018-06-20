@@ -121,7 +121,6 @@ module.exports = function(socket) {
   socket.on('editLobby', function(data) {
     for (var key in lobbyChats) {
       if (lobbyChats[key].id === data.id) {
-        console.log(data.removePass);
         if (lobbyChats[key].removePass === data.removePass) {
           lobbyChats[key] = data;
           client.hset('lobbyChats', data.id, JSON.stringify(data));
