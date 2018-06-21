@@ -3,23 +3,7 @@ var io = require('socket.io-client');
 var crypto = require('crypto');
 var chatComponent = {
   templateUrl: 'mondai_beta.html',
-  binding: {
-    messages: '<',
-    privateMessages: '<',
-    roster: '<',
-    name: '<',
-    text: '<',
-    answer: '<',
-    sender: '<',
-    mondai: '<',
-    trueAns: '<',
-    ansContent: '<',
-    publicText: '<',
-    privateText: '<',
-    toId: '<',
-    currentRoom: '<',
-    removePass: '<'
-  },
+  bindings: {},
   controller: function($routeParams, socket) {
     var self = this;
     var room = $routeParams.room;
@@ -65,7 +49,15 @@ var chatComponent = {
     });
 
     socket.on('chatMessage', function(msg) {
-      self.privateMessages.push(msg);
+      console.log(msg);
+      var isNew = true;
+      for (var key in self.privateMessages) {
+        if (self.privateMessages[key].id == msg.id) {
+          self.privateMessages[key] = msg;
+          isNew = false;
+        }
+      }
+      if (isNew) self.privateMessages.push(msg);
       var elem = document.getElementById('private-chat-area');
       elem.scrollTop = elem.scrollHeight;
     });
@@ -200,3 +192,21 @@ var chatComponent = {
   }
 };
 module.exports = chatComponent;
+//
+// binding: {
+//   messages: '<',
+//   privateMessages: '<',
+//   roster: '<',
+//   name: '<',
+//   text: '<',
+//   answer: '<',
+//   sender: '<',
+//   mondai: '<',
+//   trueAns: '<',
+//   ansContent: '<',
+//   publicText: '<',
+//   privateText: '<',
+//   toId: '<',
+//   currentRoom: '<',
+//   removePass: '<'
+// },
