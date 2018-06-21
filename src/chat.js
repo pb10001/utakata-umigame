@@ -17,7 +17,8 @@ var chatComponent = {
     publicText: '<',
     privateText: '<',
     toId: '<',
-    currentRoom: '<'
+    currentRoom: '<',
+    removePass: '<'
   },
   controller: function($routeParams, socket) {
     var self = this;
@@ -39,6 +40,7 @@ var chatComponent = {
     this.privateText = '';
     this.toId = -1;
     this.currentRoom = '-';
+    this.removePass = '';
     socket.on('connect', function() {
       self.setName();
       socket.emit('join', room);
@@ -136,6 +138,7 @@ var chatComponent = {
     this.sendPublicMessage = function sendPublicMessage() {
       var data = {
         type: 'publicMessage',
+        removePass: this.removePass,
         content: this.publicText
       };
       console.log('Sending message:', data);
@@ -151,6 +154,21 @@ var chatComponent = {
       console.log('Sending message:', data);
       socket.emit('message', data);
       this.privateText = '';
+    };
+    this.removeChat = function removeChat(id) {
+      var data = {
+        id: id,
+        removePass: this.removePass
+      };
+      socket.emit('removeMondaiChat', data);
+    };
+    this.editChat = function editChat(id, content) {
+      var data = {
+        id: id,
+        content: content,
+        removePass: this.removePass
+      };
+      socket.emit('editMondaiChat', data);
     };
     this.setName = function setName() {
       var doc = this.name.split('#');

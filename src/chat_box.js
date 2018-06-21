@@ -9,11 +9,11 @@ module.exports = {
       return '#' + this.msg.id;
     };
     this.remove = function() {
-      this.parent.remove(this.msg.id);
+      this.parent.removeChat(this.msg.id);
     };
     this.editLobby = function() {
       console.log(this.msg);
-      this.parent.edit(this.msg.id, this.msg.content);
+      this.parent.editChat(this.msg.id, this.msg.content);
     };
   }
 };

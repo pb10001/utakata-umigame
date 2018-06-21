@@ -102,6 +102,7 @@
                   <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
                 </div>
               </form>
+              <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
               <form class="wide-button" ng-submit="$ctrl.quit()">
                 <input class="btn btn-default" type="submit" value="退室する">
               </form>
@@ -144,12 +145,6 @@
               <div id="private-chat-area">
                 <div class="row chat-row" ng-repeat="msg in $ctrl.privateMessages">
                   <chatbox parent="$ctrl" msg="msg"></chatbox>
-                  <!--
-                  <div class="chat-box private-chat">
-                    <small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
-                    <span ng-bind="msg.content"></span>
-                  </div>
-                -->
                 </div>
               </div>
             </div>

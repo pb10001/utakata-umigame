@@ -132,6 +132,17 @@ module.exports = function(socket) {
     socket.emit('lobbyChat', reverseById(lobbyChats));
     socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
   });
+  socket.on('editMondaiChat', function(data) {
+    for (var key in chatMessages) {
+      var obj = chatMessages[key];
+      if (obj.id === data.id && obj.removePass === data.removePass) {
+        obj.content = data.content;
+        client.hset(chatKey, data.id, JSON.stringify(obj));
+        chatMessages[key] = obj;
+      }
+    }
+  });
+  socket.on('removeMondaiChat', function(data) {});
   socket.on('message', function(msg) {
     if (msg.type == 'mondai') {
       var doc = {
@@ -345,6 +356,7 @@ module.exports = function(socket) {
       name: socket.name + ' → All in ' + socket.room,
       sent_from: socket.name,
       sent_to: 'All in ' + socket.room,
+      removePass: msg.removePass,
       content: msg.content
     };
     client.hset(chatKey, data.id, JSON.stringify(data));

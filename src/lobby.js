@@ -49,7 +49,7 @@ var lobbyComponent = {
     this.setName = function setName() {
       socket.emit('identify', this.name);
     };
-    this.edit = function edit(id, content) {
+    this.editChat = function editChat(id, content) {
       var data = {
         id: id,
         content: content,
@@ -57,7 +57,7 @@ var lobbyComponent = {
       };
       socket.emit('editLobby', data);
     };
-    this.remove = function remove(id) {
+    this.removeChat = function removeChat(id) {
       var data = {
         id: id,
         removePass: this.removePass
