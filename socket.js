@@ -122,11 +122,12 @@ module.exports = function(socket) {
   });
   socket.on('editLobby', function(data) {
     for (var key in lobbyChats) {
-      if (lobbyChats[key].id === data.id) {
-        if (lobbyChats[key].removePass === data.removePass) {
-          lobbyChats[key].content = data.content;
-          client.hset('lobbyChats', data.id, JSON.stringify(data));
-        }
+      if (
+        lobbyChats[key].id == data.id &&
+        lobbyChats[key].removePass === data.removePass
+      ) {
+        lobbyChats[key].content = data.content;
+        client.hset('lobbyChats', data.id, JSON.stringify(lobbyChats[key]));
       }
     }
     socket.emit('lobbyChat', reverseById(lobbyChats));
