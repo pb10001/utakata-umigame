@@ -139,10 +139,10 @@ module.exports = function(socket) {
         obj.content = data.content;
         client.hset(chatKey, data.id, JSON.stringify(obj));
         chatMessages[key] = obj;
-        socket.emit('chatMessage', obj);
-        socket.broadcast.to(obj.room).emit('chatMessage', obj);
       }
     }
+    socket.emit('chatMessage', obj);
+    socket.broadcast.to(obj.room).emit('chatMessage', obj);
   });
   socket.on('removeMondaiChat', function(data) {});
   socket.on('message', function(msg) {
