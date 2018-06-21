@@ -8,18 +8,12 @@ module.exports = {
     this.getLink = function() {
       return '#' + this.msg.id;
     };
-    this.remove = function remove(id) {
-      var data = {
-        id: id,
-        removePass: this.parent.removePass
-      };
-      console.log(data);
-      socket.emit('removeLobby', data);
+    this.remove = function() {
+      this.parent.remove(this.msg.id);
     };
     this.editLobby = function() {
-      this.msg.removePass = this.parent.removePass;
       console.log(this.msg);
-      socket.emit('editLobby', this.msg);
+      this.parent.edit(this.msg.id, this.msg.content);
     };
   }
 };

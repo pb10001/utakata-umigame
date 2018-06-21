@@ -49,6 +49,14 @@ var lobbyComponent = {
     this.setName = function setName() {
       socket.emit('identify', this.name);
     };
+    this.edit = function edit(id, content) {
+      var data = {
+        id: id,
+        content: content,
+        removePass: this.removePass
+      };
+      socket.emit('editLobby', data);
+    };
     this.remove = function remove(id) {
       var data = {
         id: id,

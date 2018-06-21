@@ -122,7 +122,7 @@ module.exports = function(socket) {
     for (var key in lobbyChats) {
       if (lobbyChats[key].id === data.id) {
         if (lobbyChats[key].removePass === data.removePass) {
-          lobbyChats[key] = data;
+          lobbyChats[key].content = data.content;
           client.hset('lobbyChats', data.id, JSON.stringify(data));
         }
       }
@@ -236,7 +236,7 @@ module.exports = function(socket) {
         content: msg.content,
         removePass: msg.removePass,
         date: moment()
-          .zone('+09:00')
+          .utcOffset('+09:00')
           .format('YYYY/MM/DD HH:mm:ss')
       };
       client.hset('lobbyChats', data.id, JSON.stringify(data));
