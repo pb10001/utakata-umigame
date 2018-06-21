@@ -143,10 +143,13 @@
               </div>
               <div id="private-chat-area">
                 <div class="row chat-row" ng-repeat="msg in $ctrl.privateMessages">
+                  <chatbox parent="$ctrl" msg="msg"></chatbox>
+                  <!--
                   <div class="chat-box private-chat">
                     <small class="secondary-text">{{msg.sent_from}}→{{msg.sent_to}}</small>
                     <span ng-bind="msg.content"></span>
                   </div>
+                -->
                 </div>
               </div>
             </div>

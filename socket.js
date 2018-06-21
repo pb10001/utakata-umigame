@@ -35,7 +35,9 @@ module.exports = function(socket) {
     client.hgetall(chatKey, function(err, doc) {
       chatMessages = [];
       for (var key in doc) {
-        chatMessages.push(JSON.parse(doc[key]));
+        var msg = JSON.parse(doc[key]);
+        msg.name = msg.sent_from + ' → ' + msg.sent_to;
+        chatMessages.push(msg);
       }
       socket.emit(
         'loadChat',
@@ -208,6 +210,7 @@ module.exports = function(socket) {
           var sendData = {
             id: -1,
             private: true,
+            name: 'You → ' + sendTo.name,
             sent_from: 'You',
             sent_to: sendTo.name,
             content: msg.content
@@ -215,6 +218,7 @@ module.exports = function(socket) {
           var receiveData = {
             id: -1,
             private: true,
+            name: socket.name + ' → You',
             sent_from: socket.name,
             sent_to: 'You',
             content: msg.content
@@ -338,6 +342,7 @@ module.exports = function(socket) {
       id: chatNum,
       room: socket.room,
       private: false,
+      name: socket.name + ' → All in ' + socket.room,
       sent_from: socket.name,
       sent_to: 'All in ' + socket.room,
       content: msg.content
