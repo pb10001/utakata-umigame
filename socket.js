@@ -247,7 +247,6 @@ module.exports = function(socket) {
           var msg = JSON.parse(docs[key]);
           var dif =
             ((new Date() - new Date(msg.date)) / 1000 / 60 / 60 + 9) / 24; //タイムゾーン
-          console.log(dif + 'days');
           if (dif <= 3) {
             tmp.push(msg);
           } else {
