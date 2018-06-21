@@ -83,6 +83,7 @@ var lobbyComponent = {
     };
     function refresh(msg) {
       var tmp = [];
+      //ページネーション
       for (var i = 0; i < self.perPage; i++) {
         tmp.push(msg[self.page * self.perPage + i]);
       }
@@ -93,7 +94,10 @@ var lobbyComponent = {
           callback(null, message);
         },
         function(err, res) {
-          self.messages = res;
+          console.log(res);
+          self.messages = [];
+          for (var key in res)
+            if (res[key] !== undefined) self.messages.push(res[key]);
         }
       );
     }
