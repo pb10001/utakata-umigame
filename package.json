@@ -17,6 +17,7 @@
     "angular": "^1.6.8",
     "angular-route": "^1.6.8",
     "async": "^0.2.10",
+    "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.4",
