@@ -36,7 +36,6 @@
     "prettier": "^1.10.2",
     "redis": "^2.8.0",
     "socket.io": "^2.1.1",
-    "uglify-es": "^3.3.9",
     "uglify-js": "^3.4.1"
   },
   "license": "GPL-3.0",
