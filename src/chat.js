@@ -192,21 +192,3 @@ var chatComponent = {
   }
 };
 module.exports = chatComponent;
-//
-// binding: {
-//   messages: '<',
-//   privateMessages: '<',
-//   roster: '<',
-//   name: '<',
-//   text: '<',
-//   answer: '<',
-//   sender: '<',
-//   mondai: '<',
-//   trueAns: '<',
-//   ansContent: '<',
-//   publicText: '<',
-//   privateText: '<',
-//   toId: '<',
-//   currentRoom: '<',
-//   removePass: '<'
-// },

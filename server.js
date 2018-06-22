@@ -28,14 +28,12 @@ router.get('/privacy_policy', function(req, res) {
 router.get('/link', function(req, res) {
   res.sendFile(__dirname + '/client/template.html');
 });
-router.get('/lobby', function(req, res){
+router.get('/lobby', function(req, res) {
   res.sendFile(__dirname + '/client/lobby.html');
 });
 
-
 //Socket.io
 io.on('connection', socket);
-
 
 server.listen(
   process.env.PORT || 5000,
