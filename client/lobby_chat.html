@@ -2,6 +2,17 @@
 <div class="col-md-9">
   <div class="panel">
     <div class="panel-heading">
+      <div class="panel-text">入室</div>
+    </div>
+    <div class="panel-body">
+      <div class="input-append">
+        <input type="text" placeholder="Room Name" class="form-control" ng-model="$ctrl.roomName">
+        <a type="submit" class="btn btn-default" ng-href="/mondai/{{$ctrl.roomName}}">入室する</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
         <div class="panel-text">
         チャット
         </div>
@@ -45,9 +56,6 @@
       <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
       <p style="text-align:center;">削除用パス</p>
       <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
-      <form class="wide-button" ng-submit="$ctrl.quit()">
-        <input class="btn btn-default" type="submit" value="退室する">
-      </form>
     </div>
   </div>
 </div>

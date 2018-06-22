@@ -25,6 +25,9 @@ var chatComponent = {
     this.toId = -1;
     this.currentRoom = '-';
     this.removePass = '';
+    this.$onInit = function() {
+      socket.emit('join', room);
+    };
     socket.on('connect', function() {
       self.setName();
       socket.emit('join', room);

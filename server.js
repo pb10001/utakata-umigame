@@ -29,7 +29,7 @@ router.get('/link', function(req, res) {
   res.sendFile(__dirname + '/client/template.html');
 });
 router.get('/lobby', function(req, res) {
-  res.sendFile(__dirname + '/client/lobby.html');
+  res.sendFile(__dirname + '/client/template.html');
 });
 
 //Socket.io

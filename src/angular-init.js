@@ -14,7 +14,7 @@ app.config([
     });
     $routeProvider
       .when('/mondai', {
-        redirectTo: '/'
+        redirectTo: '/mondai/テスト'
       })
       .when('/mondai/:room', {
         template: '<chat></chat>',
@@ -28,13 +28,13 @@ app.config([
         template: [
           '<div class="row">',
           '<links></links>',
-          '<button class="btn btn-default" style="width:100%" onclick="location.href=\'/\'">Back</button>',
+          '<a class="btn btn-default" style="width:100%" ng-href="/lobby">Back</a>',
           '</div>'
         ].join(''),
         controller: ''
       })
       .when('/lobby', {
-        templateUrl: '/lobby.html',
+        template: '<lobby></lobby>',
         controller: ''
       })
       .otherwise({

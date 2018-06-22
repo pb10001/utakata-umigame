@@ -103,9 +103,9 @@
                 </div>
               </form>
               <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
-              <form class="wide-button" ng-submit="$ctrl.quit()">
-                <input class="btn btn-default" type="submit" value="退室する">
-              </form>
+              <div class="wide-button">
+                <a class="btn btn-default" type="submit" ng-href="/lobby">退室する</a>
+              </div>
               <form class="wide-button" ng-submit="$ctrl.clearAll()">
                 <input class="btn warning-btn btn-danger" type="submit" value="Clear This Room">
               </form>
