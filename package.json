@@ -6,10 +6,10 @@
   "repository": "https://github.com/pb10001/utakata-umigame.git",
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "scripts": {
-    "bundle": "browserify src/main.js -o client/js/bundle.js",
-    "top": "browserify src/top.js -o client/js/top.js",
-    "uglify": "uglifyjs -c -o client/js/bundle.min.js client/js/bundle.js",
-    "postinstall": "node babel.js && npm run uglify && uglifyjs -c -o client/js/top.min.js client/js/top.js",
+    "uglify_bundle": "uglifyjs -c -o client/js/bundle.min.js client/js/bundle.js",
+    "uglify_top": "uglifyjs -c -o client/js/top.min.js client/js/top.js",
+    "browserify": "node babel.js",
+    "postinstall": "npm-run-all browserify uglify_bundle uglify_top",
     "dev": "node-dev server.js",
     "lint": "eslint *.js --fix && eslint */*.js --fix"
   },
@@ -33,6 +33,7 @@
     "jquery": "^3.2.1",
     "moment": "^2.22.2",
     "node-dev": "^3.1.3",
+    "npm-run-all": "^4.1.3",
     "prettier": "^1.10.2",
     "redis": "^2.8.0",
     "socket.io": "^2.1.1",
