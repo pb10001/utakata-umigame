@@ -27,7 +27,6 @@ var lobbyComponent = {
       socket.emit('fetchLobby');
     });
     socket.on('lobbyChat', function(msg) {
-      self.setName();
       allMessages = msg;
       refresh(msg);
     });
