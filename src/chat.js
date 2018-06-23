@@ -25,6 +25,9 @@ var chatComponent = {
     this.toId = -1;
     this.currentRoom = '-';
     this.removePass = '';
+    this.$onInit = function() {
+      socket.emit('join', room);
+    };
     socket.on('connect', function() {
       this.name = userService.getName();
       self.setName();
@@ -193,21 +196,3 @@ var chatComponent = {
   }
 };
 module.exports = chatComponent;
-//
-// binding: {
-//   messages: '<',
-//   privateMessages: '<',
-//   roster: '<',
-//   name: '<',
-//   text: '<',
-//   answer: '<',
-//   sender: '<',
-//   mondai: '<',
-//   trueAns: '<',
-//   ansContent: '<',
-//   publicText: '<',
-//   privateText: '<',
-//   toId: '<',
-//   currentRoom: '<',
-//   removePass: '<'
-// },

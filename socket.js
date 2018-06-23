@@ -360,7 +360,10 @@ module.exports = function(socket) {
       sent_from: socket.name,
       sent_to: 'All in ' + socket.room,
       removePass: msg.removePass,
-      content: msg.content
+      content: msg.content,
+      date: moment()
+        .utcOffset('+09:00')
+        .format('YYYY/MM/DD HH:mm:ss')
     };
     client.hset(chatKey, data.id, JSON.stringify(data));
     chatMessages.push(data);

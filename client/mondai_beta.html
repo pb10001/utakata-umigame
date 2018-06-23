@@ -55,7 +55,7 @@
                   <div class ="input-append">
                     <p>質問を入力</p>
                     <input type="text" class="form-control" ng-model="$ctrl.text" placeholder="Question">
-                    <input type="submit" class="btn btn-default" value="Send">
+                    <input type="submit" class="btn btn-default" value="送信する">
                   </div>
                 </form>
               </div>
@@ -66,7 +66,7 @@
                     <p min=1 id="id_input" ng-model="id">質問の数字をクリックして回答先を選択</p>
                     <div style="display:none;" id="ques_id_input"></div>
                     <input type="text" class="form-control" ng-model="$ctrl.answer" placeholder="Answer" name="answerBox">
-                    <input type="submit" class="btn btn-default" value="Send">
+                    <input type="submit" class="btn btn-default" value="送信する">
                   </div>
                 </form>
               </div>
@@ -103,9 +103,9 @@
                 </div>
               </form>
               <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
-              <form class="wide-button" ng-submit="$ctrl.quit()">
-                <input class="btn btn-default" type="submit" value="退室する">
-              </form>
+              <div class="wide-button">
+                <a class="btn btn-default" type="submit" ng-href="/lobby">退室する</a>
+              </div>
               <form class="wide-button" ng-submit="$ctrl.clearAll()">
                 <input class="btn warning-btn btn-danger" type="submit" value="Clear This Room">
               </form>
@@ -139,7 +139,7 @@
               <div class="row chat-row input-append">
                 <form ng-submit="$ctrl.sendPublicMessage()">
                   <input type="text" class="form-control" ng-model="$ctrl.publicText" placeholder="Send message to all">
-                  <input type="submit" class="btn btn-default" value="Send">
+                  <input type="submit" class="btn btn-default" value="送信する">
                 </form>
               </div>
               <div id="private-chat-area">

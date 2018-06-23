@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 var express = require('express');
 var router = express();
 var client = require('./redis_client');
 const chatKey = 'chats';
 const questionKey = 'questions';
 
-router.get('/', function(req, res){
+router.get('/', function(req, res) {
   var response = {};
   const room = decodeURI(req.query.room);
   client.hgetall(room, function(err, doc) {
@@ -27,10 +27,7 @@ router.get('/', function(req, res){
         for (var key in doc) {
           messages[key] = JSON.parse(doc[key]);
         }
-        response.question = msgInRoom(room, messages).sort(function(
-          a,
-          b
-        ) {
+        response.question = msgInRoom(room, messages).sort(function(a, b) {
           if (a.id < b.id) return -1;
           if (a.id > b.id) return 1;
           return 0;
@@ -40,7 +37,7 @@ router.get('/', function(req, res){
     });
   });
 });
-router.get('/update', function(req, res){
+router.get('/update', function(req, res) {
   var room = decodeURI(req.query.room);
   var name = req.query.name || 'Anonymous on Desktop';
   var content = req.query.content || '';
@@ -92,7 +89,7 @@ router.get('/update', function(req, res){
         messages[id] = data;
         //messages.push(data);
         client.hset(questionKey, data.id, JSON.stringify(data));
-        sendMessages("messages", sockets, room, msgInRoom(room, messages));
+        sendMessages('messages', sockets, room, msgInRoom(room, messages));
       } else if (chat != '') {
         var max = Math.max.apply(null, chatMessages.map(x => x.id));
         if (max >= 0) var chatNum = max + 1;
@@ -115,7 +112,7 @@ router.get('/update', function(req, res){
         var id = parseInt(req.query.id);
         messages[id].answer = req.query.answer;
         messages[id].answerer = name;
-        sendMessages("messages", sockets, room, msgInRoom((room, messages)));
+        sendMessages('messages', sockets, room, msgInRoom((room, messages)));
         var data = messages[id];
         console.log('data:', data);
         client.hset(questionKey, id, JSON.stringify(data));
@@ -124,7 +121,7 @@ router.get('/update', function(req, res){
   }
   res.send('Done');
 });
-router.get('/lobby_chat', function(req, res){
+router.get('/lobby_chat', function(req, res) {
   /* Redisに追加する */
 });
 function msgInRoom(room, messages) {
@@ -135,12 +132,12 @@ function msgInRoom(room, messages) {
   }
   return array;
 }
-function sendMessages(type, sockets, room, messages){
+function sendMessages(type, sockets, room, messages) {
   //質問を送信する
   for (var key in sockets) {
     if (sockets[key].room != room) continue;
-    sockets[key].emit(type , messages);
-  }  
+    sockets[key].emit(type, messages);
+  }
 }
 
 module.exports = router;

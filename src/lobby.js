@@ -18,17 +18,24 @@ var lobbyComponent = {
     var allMessages = [];
     var self = this;
     this.messages = [];
+    this.roomName = '';
     this.text = '';
     this.name = '';
     this.removePass = '';
     this.page = 0;
     this.perPage = 10;
     this.roster = [];
+    this.$onInit = function() {
+      self.setName();
+      socket.emit('fetchLobby');
+    };
     socket.on('connect', function() {
+      self.setName();
       socket.emit('join', 'LobbyChat');
       socket.emit('fetchLobby');
     });
     socket.on('lobbyChat', function(msg) {
+      self.setName();
       allMessages = msg;
       refresh(msg);
     });
