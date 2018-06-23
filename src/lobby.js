@@ -21,6 +21,7 @@ var lobbyComponent = {
     this.$onInit = function() {
       this.name = userService.getName();
       this.removePass = userService.getRemovePass();
+      this.roomName = userService.getRoom();
       this.setName();
       socket.emit('fetchLobby');
     };

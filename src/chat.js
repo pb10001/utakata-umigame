@@ -29,6 +29,7 @@ var chatComponent = {
       socket.emit('join', room);
       this.name = userService.getName();
       this.removePass = userService.getRemovePass();
+      userService.setRoom(room);
       this.setName();
     };
     socket.on('connect', function() {
