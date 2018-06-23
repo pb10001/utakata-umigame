@@ -26,7 +26,6 @@ var lobbyComponent = {
       socket.emit('fetchLobby');
     };
     socket.on('connect', function() {
-      self.setName();
       socket.emit('join', 'LobbyChat');
       socket.emit('fetchLobby');
     });
