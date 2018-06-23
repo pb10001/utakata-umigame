@@ -4,7 +4,7 @@ var crypto = require('crypto');
 var chatComponent = {
   templateUrl: 'mondai_beta.html',
   bindings: {},
-  controller: function($routeParams, socket) {
+  controller: function($routeParams, socket, userService) {
     var self = this;
     var room = $routeParams.room;
     this.messages = [];
@@ -26,6 +26,7 @@ var chatComponent = {
     this.currentRoom = '-';
     this.removePass = '';
     socket.on('connect', function() {
+      this.name = userService.getName();
       self.setName();
       socket.emit('join', room);
     });
