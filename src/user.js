@@ -1,5 +1,5 @@
 module.exports = function() {
-  this.name = 'Anonymous';
+  this.name = '';
   this.removePass = '';
   this.currentRoom = '';
   this.getName = function() {
