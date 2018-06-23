@@ -2,7 +2,7 @@ var app = require('./angular-init');
 var chatComponent = require('./chat');
 var chatBoxComponent = require('./chat_box');
 var lobbyComponent = require('./lobby');
-var userService = require('./user');
+var user = require('./user');
 var http = require('http');
 //socket.ioの依存性注入
 var io = require('socket.io-client');

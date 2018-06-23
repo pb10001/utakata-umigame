@@ -6,15 +6,8 @@ var moment = require('moment');
 
 var lobbyComponent = {
   templateUrl: 'lobby_chat.html',
-  binding: {
-    messages: '<',
-    text: '<',
-    name: '<',
-    removePass: '<',
-    page: '<',
-    roster: '<'
-  },
-  controller: function(socket) {
+  binding: {},
+  controller: function(socket, userService) {
     var allMessages = [];
     var self = this;
     this.messages = [];
@@ -26,7 +19,9 @@ var lobbyComponent = {
     this.perPage = 10;
     this.roster = [];
     this.$onInit = function() {
-      self.setName();
+      this.name = userService.getName();
+      this.removePass = userService.getRemovePass();
+      this.setName();
       socket.emit('fetchLobby');
     };
     socket.on('connect', function() {
@@ -55,6 +50,10 @@ var lobbyComponent = {
     };
     this.setName = function setName() {
       socket.emit('identify', this.name);
+      userService.setName(this.name);
+    };
+    this.setRemovePass = function setRemovePass() {
+      userService.setRemovePass(this.removePass);
     };
     this.editChat = function editChat(id, content) {
       var data = {

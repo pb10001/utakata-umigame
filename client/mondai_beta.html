@@ -102,7 +102,7 @@
                   <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
                 </div>
               </form>
-              <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
+              <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change="$ctrl.setRemovePass()" placeholder="Remove Pass">
               <div class="wide-button">
                 <a class="btn btn-default" type="submit" ng-href="/lobby">退室する</a>
               </div>

@@ -55,7 +55,7 @@
       <p style="text-align:center;">名前</p>
       <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
       <p style="text-align:center;">削除用パス</p>
-      <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" placeholder="Remove Pass">
+      <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
     </div>
   </div>
 </div>

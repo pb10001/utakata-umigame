@@ -27,10 +27,11 @@ var chatComponent = {
     this.removePass = '';
     this.$onInit = function() {
       socket.emit('join', room);
+      this.name = userService.getName();
+      this.removePass = userService.getRemovePass();
+      this.setName();
     };
     socket.on('connect', function() {
-      this.name = userService.getName();
-      self.setName();
       socket.emit('join', room);
     });
     socket.on('join', function(roomNum) {
@@ -176,7 +177,11 @@ var chatComponent = {
       } else {
         var txt = doc[0];
       }
+      userService.setName(txt);
       socket.emit('identify', txt);
+    };
+    this.setRemovePass = function setRemovePass() {
+      userService.setRemovePass(this.removePass);
     };
     this.fetchData = function fetchData() {
       socket.emit('refresh', null);
