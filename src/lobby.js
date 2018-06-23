@@ -1,6 +1,3 @@
-/*var bootstrap = require('bootstrap');
-var angular = require('angular');
-var ngRoute = require('angular-route');*/
 var async = require('async');
 var moment = require('moment');
 
@@ -82,10 +79,6 @@ var lobbyComponent = {
       if (this.page == 0) return;
       this.page -= 1;
       refresh(allMessages);
-    };
-    this.quit = function quit() {
-      socket.emit('disconnect');
-      location.href = '/';
     };
     function refresh(msg) {
       var tmp = [];

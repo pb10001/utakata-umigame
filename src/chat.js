@@ -81,9 +81,6 @@ var chatComponent = {
         self.privateMessages.push(item);
       });
     });
-    socket.on('redirect', function(msg) {
-      location.href = '/';
-    });
     this.sendMondai = function sendMondai() {
       if (window.confirm('問題文が変更されます。続行しますか？')) {
         var data = {

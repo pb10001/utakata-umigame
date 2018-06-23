@@ -2,7 +2,8 @@ var app = require('./angular-init');
 var chatComponent = require('./chat');
 var chatBoxComponent = require('./chat_box');
 var lobbyComponent = require('./lobby');
-var user = require('./user');
+var mondaiLinkComponent = require('./mondai_link');
+var userService = require('./user');
 var http = require('http');
 //socket.ioの依存性注入
 var io = require('socket.io-client');
@@ -59,4 +60,5 @@ app.component('links', {
 app.component('chat', chatComponent);
 app.component('chatbox', chatBoxComponent);
 app.component('lobby', lobbyComponent);
-app.service('userService', user);
+app.component('mondailink', mondaiLinkComponent);
+app.service('userService', userService);
