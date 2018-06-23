@@ -6,7 +6,7 @@ var chatComponent = {
   bindings: {},
   controller: function($routeParams, socket, userService) {
     var self = this;
-    var room = $routeParams.room;
+    var room = $routeParams.room || userService.getRoom();
     this.messages = [];
     this.privateMessages = [];
     this.roster = [];
