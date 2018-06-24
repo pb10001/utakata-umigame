@@ -39,10 +39,10 @@ var chatComponent = {
       self.currentRoom = roomNum;
     });
     socket.on('mondai', function(msg) {
-      self.mondai = msg || { sender: '-', content: 'クリックして問題文を入力' };
+      self.mondai = msg || { sender: '-', content: '問題文' };
     });
     socket.on('trueAns', function(msg) {
-      self.trueAns = msg || 'クリックして解説を入力';
+      self.trueAns = msg || '解説';
     });
     socket.on('message', function(msg) {
       self.messages = msg;

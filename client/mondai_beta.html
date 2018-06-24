@@ -2,16 +2,19 @@
   <div class="container-fluid">
     <div class= "col-xs-12 col-sm-8 col-md-9">
       <div class="row">
-        <div>
-          <div class="panel-body multiline-box">
-            <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text">{{$ctrl.mondai.content}}</p></a>
-            <div class="row">
-              <div class="col-xs-12" style="text-align: right;">
-                <span data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{$ctrl.mondai.sender}} </span>
-                <span data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{$ctrl.mondai.created_month}}月{{$ctrl.mondai.created_date}}日</span>
-                <span ng-click="$ctrl.addLink()"><a><i class="fas fa-link"></i>ロビーにリンクを貼る</a></span>
-              </div>
-            </div>
+        <div class="panel">
+          <div class="panel-heading">
+            <span>{{$ctrl.currentRoom}}</span>
+          </div>
+          <div class="panel-body">
+            <p id="mondai-text" class="pre-line primary-text">{{$ctrl.mondai.content}}</p>
+          </div>
+          <div class="panel-footer">
+            <span data-toggle="collapse" href="#mondai-input" id="mondai-text"><i class="fas fa-edit icon-button"></i></span>
+            <span ng-click="$ctrl.addLink()"><i class="fas fa-bell icon-button"></i></span>
+            <span ng-click="$ctrl.clearAll()"><i class="fas fa-trash icon-button"></i></span>
+            <span data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{$ctrl.mondai.sender}} </span>
+            <span data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{$ctrl.mondai.created_month}}月{{$ctrl.mondai.created_date}}日</span>
             <form class="collapse" id="mondai-input" ng-submit="$ctrl.sendMondai()">
               <textarea class="form-control" placeholder="Content" ng-model="$ctrl.content"></textarea><br>
               <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
@@ -76,9 +79,12 @@
         </div>
       </div>
       <div class="row">
-        <div>
-          <div class="multiline-box panel-body">
-            <a class="clear-deco"><p id="trueAns-text" data-toggle="collapse" href="#trueAns-input" class="pre-line primary-text" ng-bind="$ctrl.trueAns"></p></a>
+        <div class="panel">
+          <div class="panel-body">
+            <p id="trueAns-text" class="pre-line primary-text" ng-bind="$ctrl.trueAns"></p>
+          </div>
+          <div class="panel-footer">
+            <span data-toggle="collapse" href="#trueAns-input"><i class="fas fa-edit icon-button"></i></span>
             <form class="collapse" id="trueAns-input" ng-submit="$ctrl.sendTrueAns()">
               <textarea class="form-control" placeholder="True answer" ng-model="$ctrl.ansContent"></textarea><br>
               <input class="btn warning-btn btn-danger" type="submit" value="Put the True Answer">
@@ -92,24 +98,17 @@
         <div class="panel">
           <div class="panel-heading">
             <div class="panel-text">
-            部屋
+            設定
             </div>
           </div>
           <div class="panel-body">
             <div class="row select-row">
               <form ng-submit="void(0)">
-                <label>現在の部屋: {{$ctrl.currentRoom}}</label>
                 <div class="row control-row">
                   <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
                 </div>
               </form>
               <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change="$ctrl.setRemovePass()" placeholder="Remove Pass">
-              <div class="wide-button">
-                <a class="btn btn-default" type="submit" ng-href="/lobby">退室する</a>
-              </div>
-              <form class="wide-button" ng-submit="$ctrl.clearAll()">
-                <input class="btn warning-btn btn-danger" type="submit" value="Clear This Room">
-              </form>
             </div>
           </div>
         </div>
