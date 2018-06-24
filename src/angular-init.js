@@ -16,6 +16,9 @@ app.config([
       .when('/mondai', {
         template: '<chat></chat>'
       })
+      .when('/mondai/lobbyChats', {
+        redirectTo: '/mondai'
+      })
       .when('/mondai/:room', {
         template: '<chat></chat>',
         controller: ''

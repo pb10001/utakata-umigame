@@ -5,7 +5,6 @@ var lobbyComponent = require('./lobby');
 var mondaiLinkComponent = require('./mondai_link');
 var userService = require('./user');
 var http = require('http');
-//socket.ioの依存性注入
 var io = require('socket.io-client');
 app.factory('socket', function($rootScope) {
   var socket = io.connect();

@@ -15,10 +15,10 @@
       <!-- ページネーション -->
       <div class="row">
         <ul class="pagination" style="display: table; margin: 0 auto;">
-          <li><span>ページ: {{$ctrl.page}}</span></li>
-          <li ng-click="$ctrl.zeroPage()"><a href=""><<</a></li>
-          <li ng-click="$ctrl.prevPage()"><a href="">Prev</a></li>
-          <li ng-click="$ctrl.nextPage()"><a href="">Next</a></li>
+          <li ng-click="$ctrl.zeroPage()"><a class="item-edge font-light" href=""><<</a></li>
+          <li ng-click="$ctrl.prevPage()"><a class="font-light" href="">Prev</a></li>
+          <li><span class="font-light" >ページ: {{$ctrl.page}}</span></li>
+          <li ng-click="$ctrl.nextPage()"><a class="item-edge font-light" href="">Next</a></li>
         </ul>
       </div>
       <!-- チャット -->
