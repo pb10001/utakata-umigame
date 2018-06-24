@@ -23,8 +23,8 @@
       </div>
       <!-- チャット -->
       <div class="chat-area" style="width: 100%;">
-        <div class= "col-xs-12 col-sm-4 chat-row" ng-repeat="msg in $ctrl.messages">
-          <chatbox class="lobby-chat-box" ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
+        <div class= "chat-row" ng-repeat="msg in $ctrl.messages">
+          <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
         </div>
       </div>
       <p style="text-align: center;">ログは3日で消えます。</p>
