@@ -226,7 +226,7 @@ div.chat-box {
 .panel {
   border: 0;
   background: #ffffff;
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 .panel-heading {
   background: #ffffff;
