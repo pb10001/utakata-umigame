@@ -186,8 +186,6 @@ div.chat-box {
   background: #ffffff;
   padding: 5px;
   border-radius: 1px;
-  border-right: #ddd solid 1px;
-  border-bottom: #ddd solid 1px;
   margin-bottom: 2px;
   min-height: 50px;
   display: grid;
