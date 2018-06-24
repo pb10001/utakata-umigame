@@ -27,7 +27,7 @@
           <div id="question-area" class ="chat-area">
             <div class= "row chat-row" ng-repeat="msg in $ctrl.messages">
               <div class="col-xs-12 col-md-6">
-                <div class="chat-box panel-body">
+                <div class="chat-box panel">
                   <div style="grid-row: 1/2; grid-column: 1;">
                     <button class="btn chat-id-button" name= "{{msg.id}}" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">Q{{msg.questionNum}}</button>
                   </div>
