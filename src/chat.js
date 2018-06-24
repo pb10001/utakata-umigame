@@ -195,7 +195,21 @@ var chatComponent = {
         window.alert('キャンセルしました。');
       }
     };
-    this.onClick = function onClick() {};
+    this.addLink = function addLink() {
+      if (window.confirm('ルーム名が公開されます。リンクを貼りますか？')) {
+        var data = {
+          type: 'lobbyChat',
+          name: this.name,
+          content: '【出題中】',
+          removePass: this.removePass,
+          link: userService.getRoom()
+        };
+        console.log('Sending message:', data);
+        socket.emit('message', data);
+      } else {
+        window.alert('キャンセルしました。');
+      }
+    };
   }
 };
 module.exports = chatComponent;

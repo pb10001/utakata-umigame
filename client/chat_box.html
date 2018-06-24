@@ -1,5 +1,7 @@
+
 <small class="secondary-text" ng-bind="$ctrl.msg.name"></small>
-<span class="primary-text message-text" ng-bind="$ctrl.msg.content"></span><br>
+<span class="primary-text message-text" ng-bind="$ctrl.msg.content"></span>
+<a ng-if="$ctrl.msg.link" ng-href="/mondai/{{$ctrl.msg.link}}">{{$ctrl.msg.link}}</a><br>
 <i class="fas fa-edit icon-button" data-toggle="collapse" href= {{$ctrl.getLink()}}></i>
 <i class="fas fa-trash icon-button" ng-click="$ctrl.remove($ctrl.msg.id)"></i>
 <span class="secondary-text" ng-bind="$ctrl.msg.relDate"></span>

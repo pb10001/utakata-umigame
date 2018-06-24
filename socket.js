@@ -77,12 +77,6 @@ module.exports = function(socket) {
     socket.emit('loadChat', chatMessages);
     updateRoster();
   });
-  socket.on('good', function() {
-    var msg = {
-      content: '「Good!」を送信しました。'
-    };
-    sendMessage(socket, msg, chatMessages, client);
-  });
   socket.on('fetchLobby', function() {
     client.hgetall('lobbyChats', function(err, docs) {
       lobbyChats = [];
@@ -253,6 +247,7 @@ module.exports = function(socket) {
         name: msg.name,
         content: msg.content,
         removePass: msg.removePass,
+        link: msg.link,
         date: moment()
           .utcOffset('+09:00')
           .format('YYYY/MM/DD HH:mm:ss')

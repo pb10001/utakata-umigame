@@ -6,9 +6,10 @@
           <div class="panel-body multiline-box">
             <a class="clear-deco"><p data-toggle="collapse" href="#mondai-input" id="mondai-text" class="pre-line primary-text">{{$ctrl.mondai.content}}</p></a>
             <div class="row">
-              <div class="col-xs-12">
-                <p data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{$ctrl.mondai.sender}}</p>
-                <p data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{$ctrl.mondai.created_month}}月{{$ctrl.mondai.created_date}}日</p>
+              <div class="col-xs-12" style="text-align: right;">
+                <span data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{$ctrl.mondai.sender}} </span>
+                <span data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{$ctrl.mondai.created_month}}月{{$ctrl.mondai.created_date}}日</span>
+                <span ng-click="$ctrl.addLink()"><a><i class="fas fa-link"></i>ロビーにリンクを貼る</a></span>
               </div>
             </div>
             <form class="collapse" id="mondai-input" ng-submit="$ctrl.sendMondai()">
