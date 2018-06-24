@@ -108,9 +108,6 @@ div.row {
   text-align: center;
   margin: 0 auto;
 }
-.lobby-chat-box{
-  min-height: 150px;
-}
 .pre-line {
   white-space: pre-line;
 }
