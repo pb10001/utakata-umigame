@@ -6,8 +6,8 @@
     <a ng-if="$ctrl.msg.link" ng-href="/mondai/{{$ctrl.msg.link}}">{{$ctrl.msg.link}}</a><br>
   </div>
   <div class="panel-footer">
-    <i class="fas fa-edit icon-button" data-toggle="collapse" href= {{$ctrl.getLink()}}></i>
-    <i class="fas fa-trash icon-button" ng-click="$ctrl.remove($ctrl.msg.id)"></i>
+    <i title="編集" class="fas fa-edit icon-button" data-toggle="collapse" href= {{$ctrl.getLink()}}></i>
+    <i title="削除" class="fas fa-trash icon-button" ng-click="$ctrl.remove($ctrl.msg.id)"></i>
     <span class="secondary-text" ng-bind="$ctrl.msg.relDate"></span>
     <form class="collapse" id={{$ctrl.msg.id}} ng-submit="$ctrl.editLobby($ctrl.msg.id)">
       <textarea class="form-control" placeholder="Content" ng-model="$ctrl.msg.content"></textarea><br>
