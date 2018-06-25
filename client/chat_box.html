@@ -8,7 +8,8 @@
   <div class="panel-footer">
     <i title="編集" class="fas fa-edit icon-button" data-toggle="collapse" href= {{$ctrl.getLink()}}></i>
     <i title="削除" class="fas fa-trash icon-button" ng-click="$ctrl.remove($ctrl.msg.id)"></i>
-    <span ng-bind="$ctrl.msg.relDate"></span>
+    <span ng-bind="$ctrl.msg.date"></span>
+    <span id="date{{$ctrl.msg.id}}"></span>
     <form class="collapse" id={{$ctrl.msg.id}} ng-submit="$ctrl.editLobby($ctrl.msg.id)">
       <textarea class="form-control" placeholder="Content" ng-model="$ctrl.msg.content"></textarea><br>
       <input class="btn warning-btn btn-danger" type="submit" value="編集する">
