@@ -3,7 +3,7 @@ var moment = require('moment');
 
 var lobbyComponent = {
   templateUrl: 'lobby_chat.html',
-  binding: {},
+  bindings: {},
   controller: function(socket, userService) {
     var allMessages = [];
     var self = this;
@@ -12,13 +12,13 @@ var lobbyComponent = {
     this.text = '';
     this.name = '';
     this.removePass = '';
-    this.page = 0;
-    this.perPage = 20;
     this.roster = [];
     this.$onInit = function() {
       this.name = userService.getName();
       this.removePass = userService.getRemovePass();
       this.roomName = userService.getRoom();
+      this.page = 0;
+      this.perPage = 10;
       this.setName();
       socket.emit('fetchLobby');
     };
@@ -77,6 +77,12 @@ var lobbyComponent = {
     this.prevPage = function prevPage() {
       if (this.page == 0) return;
       this.page -= 1;
+      refresh(allMessages);
+    };
+    this.movePage = function movePage(num) {
+      if (num < 0) return;
+      this.page = num;
+      console.log(num);
       refresh(allMessages);
     };
     function refresh(msg) {
