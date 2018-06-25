@@ -6,6 +6,10 @@ var mondaiLinkComponent = require('./mondai_link');
 var userService = require('./user');
 var http = require('http');
 var io = require('socket.io-client');
+
+//Load scss
+require('./panel.scss');
+
 app.factory('socket', function($rootScope) {
   var socket = io.connect();
   return {

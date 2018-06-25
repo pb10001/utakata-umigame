@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/earlyaccess/notosansjapanese.css');
 @import url('https://fonts.googleapis.com/earlyaccess/hannari.css');
 @import url('https://fonts.googleapis.com/earlyaccess/sawarabimincho.css');
+@import url('https://fonts.googleapis.com/earlyaccess/sawarabigothic.css');
 @import url('https://fonts.googleapis.com/css?family=Bellefair');
 
 html {
@@ -186,7 +187,7 @@ div.chat-box {
   background: #ffffff;
   padding: 5px;
   border-radius: 1px;
-  margin-bottom: 2px!important;
+  margin-bottom: 2px !important;
   min-height: 50px;
   display: grid;
   grid-template-rows: 20px 1fr;
@@ -222,21 +223,6 @@ div.chat-box {
 }
 .message-text {
   word-wrap: break-word;
-}
-.panel {
-  border: 0;
-  background: #ffffff;
-  margin: 0 auto !important;
-}
-.panel-heading {
-  background: #ffffff;
-  border-radius: 1px;
-  border-bottom: solid 1px rgba(173, 146, 88, 1) !important;
-  font-weight: lighter;
-  font-family: 'Noto Sans Japanese', sans-serif;
-}
-.panel-body {
-  background: #ffffff;
 }
 .item-edge {
   border-radius: 1px !important;
@@ -350,10 +336,6 @@ a.btn.btn-white:hover {
   right: 30px;
   bottom: 10px;
   position: fixed;
-}
-#mondai-text {
-  word-wrap: break-word;
-  font-family: 'Noto Sans Japanese', sans-serif;
 }
 #trueAns-text {
   word-wrap: break-word;

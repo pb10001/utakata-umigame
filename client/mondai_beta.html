@@ -13,8 +13,8 @@
             <span data-toggle="collapse" href="#mondai-input" id="mondai-text"><i title="編集" class="fas fa-edit icon-button"></i></span>
             <span ng-click="$ctrl.addLink()"><i title="ロビーにリンクを貼る" class="fas fa-bell icon-button"></i></span>
             <span ng-click="$ctrl.clearAll()"><i title="削除" class="fas fa-trash icon-button"></i></span>
-            <span data-toggle="collapse" id="sender-text" class="secondary-text">出題者:{{$ctrl.mondai.sender}} </span>
-            <span data-toggle="collapse" id="sender-text" class="secondary-text">出題日:{{$ctrl.mondai.created_month}}月{{$ctrl.mondai.created_date}}日</span>
+            <span data-toggle="collapse" id="sender-text" class="">出題者:{{$ctrl.mondai.sender}} </span>
+            <span data-toggle="collapse" id="sender-text" class="">出題日:{{$ctrl.mondai.created_month}}月{{$ctrl.mondai.created_date}}日</span>
             <form class="collapse" id="mondai-input" ng-submit="$ctrl.sendMondai()">
               <textarea class="form-control" placeholder="Content" ng-model="$ctrl.content"></textarea><br>
               <input class="btn warning-btn btn-danger" type="submit" value="Start a New Soup">
