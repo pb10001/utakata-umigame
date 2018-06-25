@@ -23,7 +23,7 @@
       </div>
       <!-- チャット -->
       <div class="chat-area" style="width: 100%;">
-        <div class= "row chat-row" ng-repeat="msg in $ctrl.messages">
+        <div class= "chat-row" ng-repeat="msg in $ctrl.messages">
           <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
         </div>
       </div>
