@@ -29,7 +29,7 @@
       </div>
       <p style="text-align: center;">ログは3日で消えます。</p>
       <form class="form-inline">
-          <label>表示数</label>
+          <label>表示数: {{$ctrl.perPage}}</label>
           <select class="form-control" ng-model="$ctrl.perPage" ng-change="$ctrl.movePage($ctrl.page)">
             <option value=5>5</option>
             <option value=10 selected>10</option>
