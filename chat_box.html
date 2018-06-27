@@ -1,0 +1,17 @@
+
+<div class="panel">
+  <div class="panel-body">
+    <small class="secondary-text" ng-bind="$ctrl.msg.name"></small>
+    <span class="primary-text message-text" ng-bind="$ctrl.msg.content"></span>
+    <a ng-if="$ctrl.msg.link" ng-href="/mondai/{{$ctrl.msg.link}}">{{$ctrl.msg.link}}</a><br>
+  </div>
+  <div class="panel-footer">
+    <i title="編集" class="fas fa-edit icon-button" data-toggle="collapse" href= {{$ctrl.getLink()}}></i>
+    <i title="削除" class="fas fa-trash icon-button" ng-click="$ctrl.remove($ctrl.msg.id)"></i>
+    <span ng-bind="$ctrl.msg.date"></span>
+    <form class="collapse" id={{$ctrl.msg.id}} ng-submit="$ctrl.editLobby($ctrl.msg.id)">
+      <textarea class="form-control" placeholder="Content" ng-model="$ctrl.msg.content"></textarea><br>
+      <input class="btn warning-btn btn-danger" type="submit" value="編集する">
+    </form>
+  </div>
+</div>

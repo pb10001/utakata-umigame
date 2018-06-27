@@ -1,0 +1,87 @@
+<div class="col-md-9">
+  <div class="panel">
+    <div class="panel-heading">
+        <div class="panel-text">
+        ロビーチャット
+        </div>
+    </div>
+    <div class="panel-body">
+      <form ng-submit="$ctrl.send()">
+        <div class ="input-append">
+          <input type="text" class="form-control" ng-model="$ctrl.text" placeholder="Chat">
+          <input type="submit" class="btn btn-default" value="送信する">
+        </div>
+      </form>
+      <!-- ページネーション -->
+      <div class="row">
+        <ul class="pagination" style="display: table; margin: 0 auto;">
+          <li ng-click="$ctrl.zeroPage()"><a class="item-edge font-light" href=""><<</a></li>
+          <li ng-click="$ctrl.prevPage()"><a class="font-light" href="">Prev</a></li>
+          <li><span class="font-light" >ページ: {{$ctrl.page}}</span></li>
+          <li ng-click="$ctrl.nextPage()"><a class="item-edge font-light" href="">Next</a></li>
+        </ul>
+      </div>
+      <!-- チャット -->
+      <div class="chat-area" style="width: 100%;">
+        <div class= "chat-row" ng-repeat="msg in $ctrl.messages">
+          <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
+        </div>
+      </div>
+      <p style="text-align: center;">ログは3日で消えます。</p>
+      <form class="form-inline">
+          <label>表示数: {{$ctrl.perPage}}</label>
+          <select class="form-control" ng-model="$ctrl.perPage" ng-change="$ctrl.movePage($ctrl.page)">
+            <option value=5>5</option>
+            <option value=10 selected>10</option>
+            <option value=50>50</option>
+            <option value=100>100</option>
+          </select>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="panel">
+    <div class="panel-heading">
+      <div class="panel-text">問題を解く</div>
+    </div>
+    <div class="panel-body">
+      <div class="input-append">
+        <p>部屋名を入力して入室</p>
+        <input type="text" placeholder="Room Name" class="form-control" ng-model="$ctrl.roomName">
+        <a type="submit" class="btn btn-default" ng-href="/mondai/{{$ctrl.roomName}}">入室する</a>
+      </div>
+    </div>
+  </div>
+<div class="panel">
+  <div class="panel-heading">
+    <div class="panel-text">
+    設定
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row select-row">
+      <p style="text-align:center;">名前</p>
+      <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
+      <p style="text-align:center;">削除用パス</p>
+      <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
+    </div>
+  </div>
+</div>
+  <div class="panel user-list">
+    <div class="panel-heading">
+      <div class="panel-text">
+      ユーザー一覧
+      </div>
+    </div>
+    <div class="panel-body">
+      <ul>
+        <li style="list-style:none;" ng-repeat="user in $ctrl.roster">
+          <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;document.getElementById('toIdLabel').textContent= this.name;">
+          <span ng-bind="user.name"></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
