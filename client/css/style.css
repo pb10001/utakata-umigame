@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/earlyaccess/mplus1p.css');
+@import url('https://fonts.googleapis.com/earlyaccess/kokoro.css');
+@import url('https://fonts.googleapis.com/earlyaccess/notosansjapanese.css');
+@import url('https://fonts.googleapis.com/earlyaccess/hannari.css');
+@import url('https://fonts.googleapis.com/earlyaccess/sawarabimincho.css');
+@import url('https://fonts.googleapis.com/earlyaccess/sawarabigothic.css');
+@import url('https://fonts.googleapis.com/css?family=Bellefair');
+
+html {
+  width: 100%;
+  height: 100%;
+}
+body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Noto Sans Japanese', sans-serif;
+  font-size: 16px;
+  background: #fff;
+}
+hr {
+  height: 1px;
+  border: 0;
+  background-color: #665e51;
+}
+ul {
+  padding: 0;
+}
+.svg-logo {
+  width: 100%;
+}
+/*参考:https://webdesign-trends.net/entry/2325*/
+* {
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 900px) {
+  .split-box {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+  }
+  #center-box {
+    visibility: hidden;
+    z-index: 0;
+  }
+  div.title {
+    margin-top: 0%;
+  }
+}
+.content {
+  /*background:#8b342a;*/
+  background: #333;
+}
+.transparent {
+  background: transparent;
+}
+.title {
+  margin: 0 auto;
+  text-align: center;
+}
+.contents {
+  height: 100%;
+  margin-top: 100%;
+}
+links {
+  text-align: center;
+}
+.logo {
+  position: absolute;
+  font-family: 'Bellefair', serif;
+  font-size: 32px;
+  top: 10px;
+  padding-left: 3%;
+  color: #ffffff;
+}
+.link {
+  position: absolute;
+  border-bottom: rgba(173, 146, 88, 1) solid 1px;
+  width: 100%;
+  height: 40px;
+  top: 10px;
+}
+.link a {
+  position: absolute;
+  right: 3%;
+}
+.header-area {
+  height: 100vh;
+  min-height: 600px;
+  background: #222;
+}
+.header-image {
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  margin: 0 auto;
+  -moz-background-size: cover;
+  background-size: cover;
+  background-image: url('/img/top.jpg');
+  background-position: 50% 50%;
+}
+div.row {
+  margin: 0;
+}
+.select-row {
+  text-align: center;
+  margin: 0 auto;
+}
+.pre-line {
+  white-space: pre-line;
+}
+.btn.warning-btn {
+  background: #ff9800;
+  border: 0;
+  width: 80%;
+  letter-spacing: 0.1em;
+  border-radius: 0;
+  font-family: 'Noto Sans Japanese', sans-serif;
+  font-weight: lighter;
+}
+.font-light {
+  font-family: 'Noto Sans Japanese', sans-serif;
+  font-weight: lighter;
+}
+.hannari {
+  font-family: 'Hannari', 'Sawarabi Mincho', serif;
+}
+.sawarabi {
+  color: #333;
+  font-family: 'Sawarabi Mincho', serif;
+}
+.primary-text {
+  color: #212121;
+}
+.secondary-text {
+  color: #757575;
+}
+#myContainer {
+}
+.container-fluid {
+  padding-right: 0;
+}
+.right-controls {
+  padding-right: 0;
+}
+nav.navbar {
+  border-radius: 1px;
+  background: #ffffff;
+  font-weight: 300;
+  margin-bottom: 0;
+  border-bottom: solid 1px rgba(173, 146, 88, 1);
+}
+.navabar-nav > li > mondailink {
+  height: 100%;
+}
+.navbar-nav > li > mondailink > a {
+  text-decoration: none;
+  display: block;
+  line-height: 20px;
+  padding: 15px 15px;
+  color: #777;
+}
+.item {
+  font-weight: lighter;
+  color: #333;
+  font-family: 'Noto Sans Japanese', sans-serif;
+}
+.navbar-nav > li:hover {
+  background: #eee;
+}
+.navbar-header {
+  margin: 0 auto;
+  background: #ffffff;
+}
+.navbar-collapse {
+  margin: 0 auto;
+  background: #ffffff;
+}
+#caption-text {
+  color: #333;
+  font-family: 'Kokoro', serif;
+}
+div.chat-box {
+  background: #ffffff;
+  padding: 5px;
+  border-radius: 1px;
+  margin-bottom: 2px !important;
+  min-height: 50px;
+  display: grid;
+  grid-template-rows: 20px 1fr;
+  grid-template-columns: 60px 1fr;
+}
+.chat-box.private-chat {
+  border-right: #ddd solid 1px;
+  border-bottom: #ddd solid 1px;
+}
+.multiline-box {
+  font-size: 1em;
+  padding: 5px;
+  border-radius: 1px;
+  border-bottom: #c5cae9 solid 1px;
+  border-right: #c5cae9 solid 1px;
+  background: transparent;
+  border: solid rgba(173, 146, 88, 1) 1px;
+  color: #665e51;
+  font-family: 'Noto Sans Japanese', sans-serif;
+  margin: 10px auto;
+  cursor: pointer;
+}
+.chat-area {
+  padding: 20px 0;
+  max-height: 500px;
+  overflow: auto;
+  margin: 0 auto;
+}
+.chat-row {
+  margin-bottom: 10px;
+  width: 100%;
+  margin: 0 auto 5px;
+}
+.message-text {
+  word-wrap: break-word;
+}
+.item-edge {
+  border-radius: 1px !important;
+}
+.fixed-area {
+  display: block;
+  position: fixed;
+}
+input.form-control {
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 0;
+}
+.btn {
+  border-radius: 1px;
+  font-size: 1em;
+}
+.input-append {
+  text-align: center;
+  border-radius: 1px;
+  margin-bottom: 10px;
+}
+.nav.user-list {
+  background: #c5cae9;
+  padding: 10px 0px;
+  border: 0;
+  box-shadow: #888 0px 5px 5px;
+}
+.icon-bar {
+  border: #fff;
+  background: #ff9800;
+}
+.controls {
+  border-radius: 1px;
+  background: #f7fcfe;
+  padding: 5px;
+  margin: 0 auto 30px;
+}
+.control-row {
+  margin: 0 auto;
+}
+.wide-button {
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.footer {
+  position: absolute;
+  bottom: 10px;
+  margin-top: 20px;
+}
+.modal-content {
+  border-radius: 1px;
+}
+.users-row {
+  margin: 0 auto;
+}
+.form-control {
+  border-radius: 1px;
+}
+.btn.btn-default {
+  background: transparent;
+  border: solid #665e51 1px;
+  color: #665e51;
+  letter-spacing: 0.1em;
+  width: 80%;
+  border-radius: 0;
+  font-family: 'Noto Sans Japanese', sans-serif;
+  font-weight: lighter;
+}
+.btn.btn-default:hover {
+  background: #665e51;
+  border: solid #665e51 1px;
+  color: #fff;
+}
+a.btn.btn-white {
+  background: transparent;
+  border: solid #eee 1px;
+  color: #eee;
+  letter-spacing: 0.1em;
+  width: 80%;
+  border-radius: 0;
+  font-family: 'Noto Sans Japanese', sans-serif;
+  font-weight: lighter;
+}
+a.btn.btn-white:hover {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+  /* border: solid #eee 1px;
+  background: #eee;
+  color: #333; */
+}
+.btn.chat-id-button {
+  background: #c9ced1;
+  border: 0;
+  border-radius: 0;
+  color: #333;
+}
+.icon-button {
+  color: #aaa;
+}
+.icon-button:hover {
+  color: #d9534f;
+}
+#name-box {
+  margin-top: 5px;
+}
+#caption-box {
+  margin-left: 10px;
+}
+#pageTop {
+  right: 30px;
+  bottom: 10px;
+  position: fixed;
+}
+#trueAns-text {
+  word-wrap: break-word;
+  font-family: 'Noto Sans Japanese', sans-serif;
+}
+.clear-deco {
+  text-decoration: none;
+}
+#mondai-input {
+  text-align: center;
+  margin-top: 10px;
+}
+#mondai-input textarea {
+  border-radius: 1px;
+}
+#trueAns-input {
+  text-align: center;
+  margin-top: 10px;
+}
+#trueAns-input textarea {
+  border-radius: 1px;
+}
+#sender-text {
+  text-align: right;
+}
+#private-chat-area {
+  max-height: 600px;
+  overflow: auto;
+}
