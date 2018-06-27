@@ -19,6 +19,9 @@ router.use('/puzzles', apis);
 router.get('/', function(req, res) {
   res.sendFile(__dirname + '/client/top_page.html');
 });
+router.get('/mondai', function(req, res) {
+  res.sendFile(__dirname + '/client/template.html');
+});
 router.get('/mondai/:room', function(req, res) {
   res.sendFile(__dirname + '/client/template.html');
 });
