@@ -81,6 +81,9 @@ var chatComponent = {
         self.privateMessages.push(item);
       });
     });
+    socket.on('disconnect', function() {
+      console.log('WTF the connection was aborted');
+    });
     this.sendMondai = function sendMondai() {
       if (window.confirm('問題文が変更されます。続行しますか？')) {
         var data = {

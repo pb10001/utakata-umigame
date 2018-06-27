@@ -33,6 +33,9 @@ var lobbyComponent = {
     socket.on('roster', function(msg) {
       self.roster = msg;
     });
+    socket.on('disconnect', function() {
+      console.log('WTF the connection is aborted');
+    });
     this.send = function send() {
       var data = {
         type: 'lobbyChat',
