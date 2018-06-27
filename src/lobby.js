@@ -41,7 +41,7 @@ var lobbyComponent = {
         removePass: this.removePass
       };
       console.log('Sending message:', data);
-      socket.emit('message', data);
+      socket.emit('lobbyMessage', data);
       this.text = '';
     };
     this.setName = function setName() {

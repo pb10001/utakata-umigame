@@ -89,7 +89,7 @@ var chatComponent = {
           created_month: new Date().getMonth() + 1,
           created_date: new Date().getDate()
         };
-        socket.emit('message', data);
+        socket.emit('mondaiMessage', data);
       } else {
         window.alert('キャンセルしました。');
       }
@@ -101,7 +101,7 @@ var chatComponent = {
           type: 'trueAns',
           content: this.ansContent
         };
-        socket.emit('message', data);
+        socket.emit('trueAnsMessage', data);
       } else {
         window.alert('キャンセルしました。');
       }
@@ -114,7 +114,7 @@ var chatComponent = {
         answer: 'waiting an answer'
       };
       console.log('Sending message:', data);
-      socket.emit('message', data);
+      socket.emit('questionMessage', data);
       this.text = '';
     };
 
@@ -127,7 +127,7 @@ var chatComponent = {
         answer: this.answer
       };
       console.log('Sending message:', data);
-      socket.emit('message', data);
+      socket.emit('answerMessage', data);
       this.answer = '';
     };
     this.sendPublicMessage = function sendPublicMessage() {
@@ -137,7 +137,7 @@ var chatComponent = {
         content: this.publicText
       };
       console.log('Sending message:', data);
-      socket.emit('message', data);
+      socket.emit('publicChatMessage', data);
       this.publicText = '';
     };
     this.sendPrivateMessage = function sendPrivateMessage() {
@@ -147,7 +147,7 @@ var chatComponent = {
         content: this.privateText
       };
       console.log('Sending message:', data);
-      socket.emit('message', data);
+      socket.emit('privateChatMessage', data);
       this.privateText = '';
     };
     this.removeChat = function removeChat(id) {
@@ -205,7 +205,7 @@ var chatComponent = {
           link: userService.getRoom()
         };
         console.log('Sending message:', data);
-        socket.emit('message', data);
+        socket.emit('lobbyMessage', data);
       } else {
         window.alert('キャンセルしました。');
       }

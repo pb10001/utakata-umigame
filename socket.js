@@ -81,10 +81,16 @@ module.exports = function(socket) {
     client.hgetall('lobbyChats', function(err, docs) {
       lobbyChats = [];
       for (var key in docs) {
-        lobbyChats.push(JSON.parse(docs[key]));
+        var msg = JSON.parse(docs[key]);
+        var dif = ((new Date() - new Date(msg.date)) / 1000 / 60 / 60 + 9) / 24; //タイムゾーン
+        if (dif <= 3) {
+          lobbyChats.push(msg);
+        } else {
+          client.hdel('lobbyChats', msg.id);
+        }
+        socket.emit('lobbyChat', reverseById(lobbyChats));
       }
     });
-    socket.emit('lobbyChat', reverseById(lobbyChats));
   });
   socket.on('removeLobby', function(data) {
     client.hget('lobbyChats', data.id, function(err, res) {
@@ -140,139 +146,135 @@ module.exports = function(socket) {
     socket.broadcast.to(obj.room).emit('chatMessage', obj);
   });
   socket.on('removeMondaiChat', function(data) {});
-  socket.on('message', function(msg) {
-    if (msg.type == 'mondai') {
-      var doc = {
-        room: socket.room,
-        sender: socket.name,
-        content: String(msg.content || 'クリックして問題文を入力'),
-        trueAns: trueAns[socket.room] || 'クリックして解説を入力',
-        created_month: msg.created_month.toString(),
-        created_date: msg.created_date.toString()
-      };
-      client.hmset(socket.room, doc);
-      mondai[socket.room] = doc;
-      console.log('room', socket.room);
-      socket.emit('mondai', mondai[socket.room]);
-      socket.broadcast.to(socket.room).emit('mondai', mondai[socket.room]);
-    } else if (msg.type == 'trueAns') {
-      trueAns[socket.room] = String(msg.content || 'クリックして解説を入力');
-      socket.emit('trueAns', trueAns[socket.room]);
-      client.hgetall(socket.room, function(err, doc) {
-        if (doc == null) {
-        } else {
-          doc.trueAns = msg.content;
-          client.hmset(socket.room, doc);
-        }
-      });
-      socket.broadcast.to(socket.room).emit('trueAns', trueAns[socket.room]);
-    } else if (msg.type == 'question') {
-      var id = maxId(messages) + 1;
-      var max = Math.max.apply(
-        null,
-        msgInRoom(socket.room, messages).map(x => x.questionNum)
-      );
-      if (max >= 0) var questionNum = max + 1;
-      else var questionNum = 1;
-      var text = msg.question;
-      var answer = 'waiting';
-      var answerer = '-';
-      var data = {
-        room: socket.room,
-        id: id,
-        questionNum: questionNum,
-        name: socket.name,
-        text: text,
-        answerer: answerer,
-        answer: answer
-      };
-      messages[id] = data;
-      client.hset('questions', data.id, JSON.stringify(data));
+
+  socket.on('mondaiMessage', function(msg) {
+    var doc = {
+      room: socket.room,
+      sender: socket.name,
+      content: String(msg.content || 'クリックして問題文を入力'),
+      trueAns: trueAns[socket.room] || 'クリックして解説を入力',
+      created_month: msg.created_month.toString(),
+      created_date: msg.created_date.toString()
+    };
+    client.hmset(socket.room, doc);
+    mondai[socket.room] = doc;
+    console.log('room', socket.room);
+    socket.emit('mondai', mondai[socket.room]);
+    socket.broadcast.to(socket.room).emit('mondai', mondai[socket.room]);
+  });
+  socket.on('trueAnsMessage', function(msg) {
+    trueAns[socket.room] = String(msg.content || 'クリックして解説を入力');
+    socket.emit('trueAns', trueAns[socket.room]);
+    client.hgetall(socket.room, function(err, doc) {
+      if (doc == null) {
+      } else {
+        doc.trueAns = msg.content;
+        client.hmset(socket.room, doc);
+      }
+    });
+    socket.broadcast.to(socket.room).emit('trueAns', trueAns[socket.room]);
+  });
+  socket.on('questionMessage', function(msg) {
+    var id = maxId(messages) + 1;
+    var max = Math.max.apply(
+      null,
+      msgInRoom(socket.room, messages).map(x => x.questionNum)
+    );
+    if (max >= 0) var questionNum = max + 1;
+    else var questionNum = 1;
+    var text = msg.question;
+    var answer = 'waiting';
+    var answerer = '-';
+    var data = {
+      room: socket.room,
+      id: id,
+      questionNum: questionNum,
+      name: socket.name,
+      text: text,
+      answerer: answerer,
+      answer: answer
+    };
+    messages[id] = data;
+    client.hset('questions', data.id, JSON.stringify(data));
+    socket.emit('message', msgInRoom(socket.room, messages));
+    socket.broadcast
+      .to(socket.room)
+      .emit('message', msgInRoom(socket.room, messages));
+  });
+  socket.on('answerMessage', function(msg) {
+    console.log('answer: ', msg);
+    if (msg.id != 0) {
+      var id = parseInt(msg.id);
+      messages[id].answer = msg.answer;
+      messages[id].answerer = msg.answerer;
       socket.emit('message', msgInRoom(socket.room, messages));
       socket.broadcast
         .to(socket.room)
         .emit('message', msgInRoom(socket.room, messages));
-    } else if (msg.type == 'answer') {
-      console.log('answer: ', msg);
-      if (msg.id != 0) {
-        var id = parseInt(msg.id);
-        messages[id].answer = msg.answer;
-        messages[id].answerer = msg.answerer;
-        socket.emit('message', msgInRoom(socket.room, messages));
-        socket.broadcast
-          .to(socket.room)
-          .emit('message', msgInRoom(socket.room, messages));
-        var data = messages[id];
-        client.hset(questionKey, id, JSON.stringify(data));
-      }
-    } else if (msg.type == 'publicMessage') {
-      sendMessage(socket, msg, chatMessages, client);
-    } else if (msg.type == 'privateMessage') {
-      console.log(msg.to);
-      var sendTo =
-        sockets.filter(function(elem) {
-          return elem.user_id == msg.to;
-        })[0] || null;
-      if (sendTo != null) {
-        if (socket.user_id != sendTo.user_id) {
-          var sendData = {
-            id: -1,
-            private: true,
-            name: 'You → ' + sendTo.name,
-            sent_from: 'You',
-            sent_to: sendTo.name,
-            content: msg.content
-          };
-          var receiveData = {
-            id: -1,
-            private: true,
-            name: socket.name + ' → You',
-            sent_from: socket.name,
-            sent_to: 'You',
-            content: msg.content
-          };
-          socket.emit('chatMessage', sendData);
-          sendTo.emit('chatMessage', receiveData);
-        }
-      }
-    } else if ((msg.type = 'lobbyChat')) {
-      /* ロビー */
-      var max =
-        lobbyChats != null
-          ? Math.max.apply(null, lobbyChats.map(x => x.id))
-          : 0;
-      var chatNum = max >= 0 ? max + 1 : 1;
-      var data = {
-        id: chatNum,
-        name: msg.name,
-        content: msg.content,
-        removePass: msg.removePass,
-        link: msg.link,
-        date: moment()
-          .utcOffset('+09:00')
-          .format('YYYY/MM/DD HH:mm:ss')
-      };
-      client.hset('lobbyChats', data.id, JSON.stringify(data));
-      client.hgetall('lobbyChats', function(err, docs) {
-        var tmp = [];
-        var rmv = [];
-        for (var key in docs) {
-          var msg = JSON.parse(docs[key]);
-          var dif =
-            ((new Date() - new Date(msg.date)) / 1000 / 60 / 60 + 9) / 24; //タイムゾーン
-          if (dif <= 3) {
-            tmp.push(msg);
-          } else {
-            client.hdel('lobbyChats', msg.id);
-          }
-        }
-        lobbyChats = tmp;
-        socket.emit('lobbyChat', reverseById(lobbyChats));
-        socket.broadcast
-          .to('LobbyChat')
-          .emit('lobbyChat', reverseById(lobbyChats));
-      });
+      var data = messages[id];
+      client.hset(questionKey, id, JSON.stringify(data));
     }
+  });
+  socket.on('publicChatMessage', function(msg) {
+    sendMessage(socket, msg, chatMessages, client);
+  });
+  socket.on('privateChatMessage', function(msg) {
+    console.log(msg.to);
+    var sendTo =
+      sockets.filter(function(elem) {
+        return elem.user_id == msg.to;
+      })[0] || null;
+    if (sendTo != null) {
+      if (socket.user_id != sendTo.user_id) {
+        var sendData = {
+          id: -1,
+          private: true,
+          name: 'You → ' + sendTo.name,
+          sent_from: 'You',
+          sent_to: sendTo.name,
+          content: msg.content
+        };
+        var receiveData = {
+          id: -1,
+          private: true,
+          name: socket.name + ' → You',
+          sent_from: socket.name,
+          sent_to: 'You',
+          content: msg.content
+        };
+        socket.emit('chatMessage', sendData);
+        sendTo.emit('chatMessage', receiveData);
+      }
+    }
+  });
+
+  socket.on('lobbyMessage', function(msg) {
+    /* ロビー */
+    var max =
+      lobbyChats != null ? Math.max.apply(null, lobbyChats.map(x => x.id)) : 0;
+    var chatNum = max >= 0 ? max + 1 : 1;
+    var data = {
+      id: chatNum,
+      name: msg.name,
+      content: msg.content,
+      removePass: msg.removePass,
+      link: msg.link,
+      date: moment()
+        .utcOffset('+09:00')
+        .format('YYYY/MM/DD HH:mm:ss')
+    };
+    client.hset('lobbyChats', data.id, JSON.stringify(data));
+    client.hgetall('lobbyChats', function(err, docs) {
+      lobbyChats = [];
+      for (var key in docs) {
+        var msg = JSON.parse(docs[key]);
+        lobbyChats.push(msg);
+      }
+      socket.emit('lobbyChat', reverseById(lobbyChats));
+      socket.broadcast
+        .to('LobbyChat')
+        .emit('lobbyChat', reverseById(lobbyChats));
+    });
   });
   socket.on('clear', function() {
     var room = socket.room;
@@ -294,6 +296,8 @@ module.exports = function(socket) {
     socket.name = String(name || 'Anonymous');
     updateRoster();
   });
+
+  /* utility functions */
   function updateRoster() {
     async.map(
       sockets,
