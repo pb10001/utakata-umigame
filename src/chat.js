@@ -88,6 +88,7 @@ var chatComponent = {
       if (window.confirm('問題文が変更されます。続行しますか？')) {
         var data = {
           type: 'mondai',
+          removePass: this.removePass,
           content: this.content,
           created_month: new Date().getMonth() + 1,
           created_date: new Date().getDate()
@@ -193,7 +194,7 @@ var chatComponent = {
     };
     this.clearAll = function clearAll() {
       if (window.confirm('問題、質問、回答がすべて消えます。続行しますか？')) {
-        socket.emit('clear');
+        socket.emit('clear', this.removePass);
       } else {
         window.alert('キャンセルしました。');
       }
