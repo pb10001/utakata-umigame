@@ -12,8 +12,7 @@
     "watch": "watchify src/main.js -t babelify -t scssify -o client/js/bundle.min.js",
     "postinstall": "npm-run-all browserify uglify_bundle uglify_top",
     "dev": "node-dev server.js",
-    "lint": "eslint *.js --fix && eslint */*.js --fix",
-    "electron": "electron ."
+    "lint": "eslint *.js --fix && eslint */*.js --fix"
   },
   "dependencies": {
     "angular": "^1.6.8",
@@ -44,8 +43,6 @@
   },
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^2.0.3",
-    "electron-packager": "^12.1.0",
     "watchify": "^3.11.0"
   }
 }

@@ -10,7 +10,7 @@ app.on("ready", () => {
   mainWindow.loadURL('https://www.utakata-umigame.com');
 
   //ビルド時はコメントアウト
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
   mainWindow.on("closed", function() {
     mainWindow = null;
   });

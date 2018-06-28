@@ -1,6 +1,12 @@
 {
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack_win": "electron-packager . utakata --platform=win32 --arch=x64 --overwrite --electron-version=2.0.3",
+    "pack_mac": "electron-packager . utakata --platform=darwin --arch=x64 --overwrite --electron-version=2.0.3"
+  },
+  "devDependencies": {
+    "electron": "^2.0.3",
+    "electron-packager": "^12.1.0"
   }
 }

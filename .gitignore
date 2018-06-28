@@ -73,3 +73,6 @@ client/js/top.js
 client/js/top.min.js
 client/js/bundle.js
 client/js/lobby.js
+
+#electron
+client/utakata-win32-x64
