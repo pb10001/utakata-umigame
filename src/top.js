@@ -5,6 +5,10 @@ var angular = require('angular');
 var ngRoute = require('angular-route');
 var app = angular.module('App', []);
 var http = require('http');
+
+//Load scss
+require('./top.scss');
+
 function enterController() {
   this.roomName = '';
   this.getRoomName = function() {

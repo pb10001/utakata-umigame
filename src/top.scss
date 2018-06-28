@@ -1,0 +1,8 @@
+@import 'fonts';
+.title{
+  .caption{
+    @include Hannari;
+    color: #f9ebd1;
+    text-align: center;
+  }
+}
