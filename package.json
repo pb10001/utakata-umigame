@@ -2,7 +2,6 @@
   "name": "utakata-umigame",
   "version": "2.0.1",
   "description": "Q&A-based web chat application by node.js",
-  "main": "electron.js",
   "repository": "https://github.com/pb10001/utakata-umigame.git",
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "scripts": {
