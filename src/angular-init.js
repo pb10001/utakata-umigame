@@ -28,10 +28,7 @@ app.config([
         controller: ''
       })
       .when('/link', {
-        template: [
-          '<links></links>',
-          '<a class="btn btn-default" style="width:80%" ng-href="/lobby">Back</a>'
-        ].join(''),
+        template: '<links></links>', 
         controller: ''
       })
       .when('/lobby', {
