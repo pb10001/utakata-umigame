@@ -3,6 +3,9 @@ window.jQuery = $;
 var bootstrap = require('bootstrap');
 var angular = require('angular');
 var ngRoute = require('angular-route');
+
+/* Load scss */
+require("./nav.scss");
 var app = angular.module('App', ['ngRoute']);
 app.config([
   '$routeProvider',
