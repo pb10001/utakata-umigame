@@ -3,6 +3,7 @@
     <div class="panel">
       <div class="panel-heading">
           <div class="panel-text">
+          <i class="fas fa-comments"></i>ロビーチャット
           </div>
       </div>
       <div class="panel-body">
@@ -27,6 +28,7 @@
             <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
           </div>
         </div>
+        <p style="text-align: center;"><i class="fas fa-exclamation-triangle"></i>ログは3日で消えます。</p>
         <form class="form-inline">
             <label>表示数: {{$ctrl.perPage}}</label>
             <select class="form-control" ng-model="$ctrl.perPage" ng-change="$ctrl.movePage($ctrl.page)">
@@ -42,6 +44,7 @@
   <div class="col-md-3">
     <div class="panel">
       <div class="panel-heading">
+        <div class="panel-text"><i class="fas fa-door-open"></i>問題を解く</div>
       </div>
       <div class="panel-body">
         <div class="input-append">
@@ -54,6 +57,7 @@
   <div class="panel">
     <div class="panel-heading">
       <div class="panel-text">
+      <i class="fas fa-user-cog"></i>設定
       </div>
     </div>
     <div class="panel-body">
@@ -68,6 +72,7 @@
     <div class="panel user-list">
       <div class="panel-heading">
         <div class="panel-text">
+        <i class="fas fa-users"></i>ユーザー一覧
         </div>
       </div>
       <div class="panel-body">
