@@ -12,6 +12,7 @@ browserify({
 })
   .transform(babelify)
   .transform(scssify)
+  .transform('uglifyify', {global: true})
   .require('./src/main.js', { entry: true })
   .bundle()
   .on('error', function(err) {
@@ -30,6 +31,7 @@ browserify({
 })
   .transform(babelify)
   .transform(scssify)
+  .transform('uglifyify', {global: true})
   .require('./src/top.js', { entry: true })
   .bundle()
   .on('error', function(err) {
