@@ -1,7 +1,3 @@
-/* ---- reset ---- */
-body {
-  margin: 0;
-}
 canvas {
   position: absolute;
   top: 0;
@@ -13,8 +9,7 @@ canvas {
 #particles-js {
   position: absolute;
   width: 100%;
-  height: 60vh;
-  min-height: 600px;
+  height: 80vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;

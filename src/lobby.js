@@ -1,6 +1,6 @@
 var async = require('async');
 var moment = require('moment');
-
+require('./lobby.scss');
 var lobbyComponent = {
   templateUrl: 'lobby_chat.html',
   bindings: {},

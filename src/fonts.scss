@@ -7,3 +7,15 @@
 @mixin Hannari{
   font-family: 'Hannari', cursive;
 }
+@mixin Bellefair{
+  font-family: 'Bellefair', serif;
+}
+.text-white{
+  color:#FFF;
+}
+.text-main{
+  color:#333;
+}
+.text-accent{
+  color: rgba(173, 146, 88, 1) !important;
+}
