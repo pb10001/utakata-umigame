@@ -2,6 +2,7 @@ module.exports = function() {
   this.name = '';
   this.removePass = '';
   this.currentRoom = '';
+  this.perPage = 10;
   this.getName = function() {
     return this.name;
   };
@@ -20,4 +21,10 @@ module.exports = function() {
   this.setRoom = function(room) {
     this.currentRoom = room;
   };
+  this.getPerPage = function(){
+    return this.perPage;
+  };
+  this.setPerPage = function(value){
+    this.perPage = value;
+  }
 };

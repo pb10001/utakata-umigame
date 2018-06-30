@@ -13,12 +13,13 @@ var lobbyComponent = {
     this.name = '';
     this.removePass = '';
     this.roster = [];
+    this.perPages = [5,10,20,50,100,200,1000];
     this.$onInit = function() {
       this.name = userService.getName();
       this.removePass = userService.getRemovePass();
       this.roomName = userService.getRoom();
       this.page = 0;
-      this.perPage = 10;
+      this.perPage = userService.getPerPage();
       this.setName();
       socket.emit('fetchLobby');
     };
@@ -87,6 +88,10 @@ var lobbyComponent = {
       this.page = num;
       console.log(num);
       refresh(allMessages);
+    };
+    this.onPerPageChanged = function onPerPageChanged(num){
+      userService.setPerPage(this.perPage);
+      this.movePage(num);
     };
     function refresh(msg) {
       var tmp = [];
