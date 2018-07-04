@@ -16,13 +16,13 @@ var lobbyComponent = {
     this.perPages = [5, 10, 20, 50, 100, 200, 500, 1000];
     this.status = '再接続';
     this.$onInit = function() {
+      socket.emit('join', 'LobbyChat');
       this.name = userService.getName();
       this.removePass = userService.getRemovePass();
       this.roomName = userService.getRoom();
       this.page = 0;
       this.perPage = userService.getPerPage();
       this.setName();
-      socket.emit('fetchLobby');
     };
     socket.on('connect', function() {
       socket.emit('join', 'LobbyChat');
