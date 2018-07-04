@@ -31,6 +31,7 @@ var lobbyComponent = {
     });
     socket.on('join', function() {
       self.status = '通信中';
+      socket.emit('fetchLobby');
     });
     socket.on('lobbyChat', function(msg) {
       allMessages = msg;
