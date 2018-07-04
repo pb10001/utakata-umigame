@@ -74,7 +74,7 @@ module.exports = function(socket) {
     socket.emit('mondai', mondai[socket.room]);
     socket.emit('trueAns', trueAns[socket.room]);
     socket.emit('message', msgInRoom(socket.room, messages));
-    socket.emit('loadChat', chatMessages);
+    socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
     updateRoster();
   });
   socket.on('fetchLobby', function() {

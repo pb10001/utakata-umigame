@@ -24,6 +24,7 @@
       </div>
       <div class="row">
         <div>
+          <button class="btn" ng-click="$ctrl.fetchData()">{{$ctrl.status}}</button>
           <div id="question-area" class ="chat-area">
             <div class= "row chat-row" ng-repeat="msg in $ctrl.messages">
               <div class="col-xs-12 col-md-6">

@@ -14,6 +14,7 @@ var lobbyComponent = {
     this.removePass = '';
     this.roster = [];
     this.perPages = [5, 10, 20, 50, 100, 200, 500, 1000];
+    this.status = '再接続';
     this.$onInit = function() {
       this.name = userService.getName();
       this.removePass = userService.getRemovePass();
@@ -21,10 +22,12 @@ var lobbyComponent = {
       this.page = 0;
       this.perPage = userService.getPerPage();
       this.setName();
+      self.status = '通信中';
       socket.emit('fetchLobby');
     };
     socket.on('connect', function() {
       socket.emit('join', 'LobbyChat');
+      self.status = '通信中';
       socket.emit('fetchLobby');
     });
     socket.on('lobbyChat', function(msg) {
@@ -36,6 +39,7 @@ var lobbyComponent = {
     });
     socket.on('disconnect', function() {
       console.log('WTF the connection is aborted');
+      self.status = '再接続';
     });
     this.send = function send() {
       var data = {
@@ -92,6 +96,9 @@ var lobbyComponent = {
     this.onPerPageChanged = function onPerPageChanged(num) {
       userService.setPerPage(this.perPage);
       this.movePage(num);
+    };
+    this.reload = function(){
+      socket.emit('fetchLobby');
     };
     function refresh(msg) {
       var tmp = [];

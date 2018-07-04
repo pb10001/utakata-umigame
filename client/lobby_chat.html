@@ -21,6 +21,7 @@
             <li><span class="font-light" >ページ: {{$ctrl.page}}</span></li>
             <li ng-click="$ctrl.nextPage()"><a class="item-edge font-light" href="">Next</a></li>
           </ul>
+          <button class="btn" ng-click="$ctrl.reload()">{{$ctrl.status}}</button>
         </div>
         <!-- チャット -->
         <div class="chat-area" style="width: 100%;">

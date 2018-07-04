@@ -25,6 +25,7 @@ var chatComponent = {
     this.toId = -1;
     this.currentRoom = '-';
     this.removePass = '';
+    this.status = '再接続';
     this.$onInit = function() {
       socket.emit('join', room);
       this.name = userService.getName();
@@ -34,9 +35,11 @@ var chatComponent = {
     };
     socket.on('connect', function() {
       socket.emit('join', room);
+      self.status = '通信中';
     });
     socket.on('join', function(roomNum) {
       self.currentRoom = roomNum;
+      self.status = '通信中';
     });
     socket.on('mondai', function(msg) {
       self.mondai = msg || { sender: '-', content: '問題文' };
@@ -83,6 +86,7 @@ var chatComponent = {
     });
     socket.on('disconnect', function() {
       console.log('WTF the connection was aborted');
+      self.status = '再接続';
     });
     this.sendMondai = function sendMondai() {
       if (window.confirm('問題文が変更されます。続行しますか？')) {
