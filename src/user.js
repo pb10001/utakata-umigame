@@ -21,10 +21,10 @@ module.exports = function() {
   this.setRoom = function(room) {
     this.currentRoom = room;
   };
-  this.getPerPage = function(){
+  this.getPerPage = function() {
     return this.perPage;
   };
-  this.setPerPage = function(value){
+  this.setPerPage = function(value) {
     this.perPage = value;
-  }
+  };
 };

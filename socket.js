@@ -148,11 +148,11 @@ module.exports = function(socket) {
   socket.on('removeMondaiChat', function(data) {});
 
   socket.on('mondaiMessage', function(msg) {
-    if(mondai[socket.room])
-      if(mondai[socket.room].removePass !== msg.removePass){
+    if (mondai[socket.room])
+      if (mondai[socket.room].removePass !== msg.removePass) {
         console.log('Invalid removepass');
         return;
-      } 
+      }
     var doc = {
       room: socket.room,
       sender: socket.name,
@@ -284,15 +284,13 @@ module.exports = function(socket) {
   });
   socket.on('clear', function(removePass) {
     var room = socket.room;
-    if(!mondai[room]){
+    if (!mondai[room]) {
       console.log('no room');
       return;
+    } else if (mondai[room].removePass !== removePass) {
+      console.log('invalid removepass');
+      return;
     }
-    else
-      if(mondai[room].removePass !== removePass){
-        console.log('invalid removepass');
-        return;
-      }
     mondai[room] = null;
     trueAns[room] = null;
     client.del(room);
