@@ -22,13 +22,15 @@ var lobbyComponent = {
       this.page = 0;
       this.perPage = userService.getPerPage();
       this.setName();
-      self.status = '通信中';
       socket.emit('fetchLobby');
     };
     socket.on('connect', function() {
       socket.emit('join', 'LobbyChat');
       self.status = '通信中';
       socket.emit('fetchLobby');
+    });
+    socket.on('join', function() {
+      self.status = '通信中';
     });
     socket.on('lobbyChat', function(msg) {
       allMessages = msg;
@@ -90,14 +92,13 @@ var lobbyComponent = {
     this.movePage = function movePage(num) {
       if (num < 0) return;
       this.page = num;
-      console.log(num);
       refresh(allMessages);
     };
     this.onPerPageChanged = function onPerPageChanged(num) {
       userService.setPerPage(this.perPage);
       this.movePage(num);
     };
-    this.reload = function(){
+    this.reload = function() {
       socket.emit('fetchLobby');
     };
     function refresh(msg) {
@@ -113,7 +114,6 @@ var lobbyComponent = {
           callback(null, message);
         },
         function(err, res) {
-          console.log(res);
           self.messages = [];
           for (var key in res)
             if (res[key] !== undefined) self.messages.push(res[key]);
