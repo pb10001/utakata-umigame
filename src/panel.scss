@@ -13,10 +13,14 @@
   .primary-text{
     white-space: pre-wrap;
   }
+  .panel-body{
+    padding: 5px;
+  }
   .panel-footer {
     background: #f5f5f5;
     border-top: #0f5ca0 solid 1px;
     color: #0f5ca0;
     border-radius: 1px;
+    padding:5px;
   }
 }
