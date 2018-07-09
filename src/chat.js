@@ -25,6 +25,8 @@ var chatComponent = {
     this.toId = -1;
     this.currentRoom = '-';
     this.removePass = '';
+    this.isGood = false;
+    this.isTrueAns = false;
     this.status = '再接続';
     this.$onInit = function() {
       socket.emit('join', room);
@@ -132,6 +134,8 @@ var chatComponent = {
         type: 'answer',
         answerer: String(this.name || 'Anonymous'),
         id: id,
+        isGood: this.isGood,
+        isTrueAns: this.isTrueAns,
         answer: this.answer
       };
       console.log('Sending message:', data);

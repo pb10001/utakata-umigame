@@ -213,6 +213,8 @@ module.exports = function(socket) {
       var id = parseInt(msg.id);
       messages[id].answer = msg.answer;
       messages[id].answerer = msg.answerer;
+      messages[id].isGood = msg.isGood;
+      messages[id].isTrueAns = msg.isTrueAns;
       socket.emit('message', msgInRoom(socket.room, messages));
       socket.broadcast
         .to(socket.room)
