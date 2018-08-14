@@ -1,5 +1,34 @@
 <div class="lobby-chat">
-  <div class="col-md-9">
+  <div class="col-md-2">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="panel-text"><i class="fas fa-door-open"></i>問題を解く</div>
+      </div>
+      <div class="panel-body">
+        <div class="input-append">
+          <p>部屋名を入力して入室</p>
+          <input type="text" placeholder="Room Name" class="form-control" ng-model="$ctrl.roomName">
+          <a type="submit" class="btn btn-default" ng-href="/mondai/{{$ctrl.roomName}}">入室する</a>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="panel-text">
+        <i class="fas fa-user-cog"></i>設定
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="row select-row">
+          <p style="text-align:center;">名前</p>
+          <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
+          <p style="text-align:center;">削除用パス</p>
+          <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
     <div class="panel">
       <div class="panel-heading">
           <div class="panel-text">
@@ -37,34 +66,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    <div class="panel">
-      <div class="panel-heading">
-        <div class="panel-text"><i class="fas fa-door-open"></i>問題を解く</div>
-      </div>
-      <div class="panel-body">
-        <div class="input-append">
-          <p>部屋名を入力して入室</p>
-          <input type="text" placeholder="Room Name" class="form-control" ng-model="$ctrl.roomName">
-          <a type="submit" class="btn btn-default" ng-href="/mondai/{{$ctrl.roomName}}">入室する</a>
-        </div>
-      </div>
-    </div>
-  <div class="panel">
-    <div class="panel-heading">
-      <div class="panel-text">
-      <i class="fas fa-user-cog"></i>設定
-      </div>
-    </div>
-    <div class="panel-body">
-      <div class="row select-row">
-        <p style="text-align:center;">名前</p>
-        <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
-        <p style="text-align:center;">削除用パス</p>
-        <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
-      </div>
-    </div>
-  </div>
+  <div class="col-md-2">
     <div class="panel user-list">
       <div class="panel-heading">
         <div class="panel-text">
