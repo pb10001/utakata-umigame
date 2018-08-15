@@ -83,7 +83,8 @@ module.exports = function(socket) {
       for (var key in docs) {
         var msg = JSON.parse(docs[key]);
         var dif = ((new Date() - new Date(msg.date)) / 1000 / 60 / 60 + 9) / 24; //タイムゾーン
-        if (dif <= 3) {
+        if (dif <= 7) {
+          //7日以内のログを残す
           lobbyChats.push(msg);
         } else {
           client.hdel('lobbyChats', msg.id);

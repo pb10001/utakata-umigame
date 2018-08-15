@@ -53,7 +53,7 @@
             <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
           </div>
         </div>
-        <p style="text-align: center;"><i class="fas fa-exclamation-triangle"></i>ログは3日で消えます。</p>
+        <p style="text-align: center;"><i class="fas fa-exclamation-triangle"></i>ログは7日で消えます。</p>
         <form class="form-inline">
             <label>表示数: {{$ctrl.perPage}}</label>
             <select class="form-control" ng-model="$ctrl.perPage" ng-options="p for p in $ctrl.perPages" ng-change="$ctrl.onPerPageChanged($ctrl.page)"></select>
