@@ -107,7 +107,7 @@
     <div>
         <div class="">
           <dialog id="settingDialog" class="panel drag-and-drop">
-            <div class="panel-heading">
+            <div class="panel-heading drag-header">
               <div class="panel-text">
               <i class="fas fa-user-cog"></i>設定
               <button id="closeSetting" class="btn btn-danger close-button">×</button>
@@ -126,7 +126,7 @@
           </dialog>
           <div class="users-row">
             <dialog class="drag-and-drop panel user-list" id="userDialog">
-              <div class="panel-heading">
+              <div class="panel-heading drag-header">
                 <div class="panel-text">
                 <i class="fas fa-users"></i>ユーザー一覧
                 <button id="closeUser" class="btn btn-danger close-button">×</button>
@@ -146,7 +146,7 @@
         </div>
         <div class="">
           <dialog class="panel drag-and-drop" id="chatDialog">
-            <div class= "panel-heading">
+            <div class= "panel-heading drag-header">
               <div class="panel-text">
               <i class="fas fa-comments"></i>チャット
               <button id="closeChat" class="btn btn-danger close-button">×</button>
@@ -214,34 +214,38 @@
     userDialog.show();
   });
   closeChatButton.addEventListener('click', function() {
+    chatDialog.classList.remove("drag");
     chatDialog.close();
   });
   closeSettingButton.addEventListener('click', function() {
+    settingDialog.classList.remove("drag");
     settingDialog.close();
   });
   closeUserButton.addEventListener('click', function() {
+    userDialog.classList.remove("drag");
     userDialog.close();
   });
   
     //参考URL:https://q-az.net/elements-drag-and-drop/
     //要素の取得
     var elements = document.getElementsByClassName("drag-and-drop");
-
+    var headers = document.getElementsByClassName("drag-header");
     //要素内のクリックされた位置を取得するグローバル（のような）変数
     var x;
     var y;
 
     //マウスが要素内で押されたとき、又はタッチされたとき発火
     for(var i = 0; i < elements.length; i++) {
-        elements[i].addEventListener("mousedown", mdown, false);
-        elements[i].addEventListener("touchstart", mdown, false);
+        headers[i].addEventListener("mousedown", mdown, false);
+        headers[i].addEventListener("touchstart", mdown, false);
+        headers[i].element = elements[i];
     }
 
     //マウスが押された際の関数
     function mdown(e) {
 
         //クラス名に .drag を追加
-        this.classList.add("drag");
+        this.element.classList.add("drag");
 
         //タッチデイベントとマウスのイベントの差異を吸収
         if(e.type === "mousedown") {
@@ -251,8 +255,7 @@
         }
 
         //要素内の相対座標を取得
-        x = event.pageX;
-        y = event.pageY - this.offsetTop;
+        y = event.pageY - this.element.offsetTop;
 
         //ムーブイベントにコールバック
         document.body.addEventListener("mousemove", mmove, false);
@@ -276,7 +279,6 @@
         e.preventDefault();
 
         //マウスが動いた場所に要素を動かす
-        drag.style.left = event.pageX - x + "px";
         drag.style.top = event.pageY - y + "px";
 
         //マウスボタンが離されたとき、またはカーソルが外れたとき発火
@@ -293,7 +295,7 @@
 
         //ムーブベントハンドラの消去
         document.body.removeEventListener("mousemove", mmove, false);
-        drag.removeEventListener("mouseup", mup, false);
+        drags.removeEventListener("mouseup", mup, false);
         document.body.removeEventListener("touchmove", mmove, false);
         drag.removeEventListener("touchend", mup, false);
 
