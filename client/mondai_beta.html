@@ -33,7 +33,7 @@
               <div class="col-xs-12 col-md-6">
                 <div class="chat-box panel">
                   <div style="grid-row: 1/2; grid-column: 1;">
-                    <button class="btn chat-id-button" name= "{{msg.id}}" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">Q{{msg.questionNum}}</button>
+                    <button class="btn btn-default" name= "{{msg.id}}" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">Q{{msg.questionNum}}</button>
                   </div>
                   <small class="secondary-text" style="grid-row: 1; grid-column: 2;">{{msg.name}}</small>
                   <span class="primary-text message-text" style="grid-row: 2; grid-column: 2;">{{msg.text}} <span class="label label-info" ng-if="msg.isGood">良い質問</span> <span class="label label-success" ng-if="msg.isTrueAns">正解</span></span>
@@ -42,7 +42,7 @@
               <div class="col-xs-12 col-md-6">
                 <div class="chat-box panel">
                   <div style="grid-row: 1/2; grid-column: 1;">
-                    <button class="btn chat-id-button" name= "{{msg.id}}" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">A{{msg.questionNum}}</button>
+                    <button class="btn btn-default" name= "{{msg.id}}" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">A{{msg.questionNum}}</button>
                   </div>
                   <small class="secondary-text" ng-bind="msg.answerer" style="grid-row: 1; grid-column: 2;"></small><br>
                   <span class="primary-text message-text" ng-bind="msg.answer" style="grid-row: 2; grid-column: 2;"></span>
