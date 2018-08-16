@@ -9,6 +9,7 @@ var io = require('socket.io-client');
 
 //Load scss
 require('./panel.scss');
+require('./dialog.scss');
 
 app.factory('socket', function($rootScope) {
   var socket = io.connect();
