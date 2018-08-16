@@ -255,8 +255,8 @@
         }
 
         //要素内の相対座標を取得
+        x = event.pageX - this.element.offsetLeft + this.element.clientWidth/2;
         y = event.pageY - this.element.offsetTop;
-
         //ムーブイベントにコールバック
         document.body.addEventListener("mousemove", mmove, false);
         document.body.addEventListener("touchmove", mmove, false);
@@ -279,8 +279,8 @@
         e.preventDefault();
 
         //マウスが動いた場所に要素を動かす
+        drag.style.left = event.pageX - x + "px";
         drag.style.top = event.pageY - y + "px";
-
         //マウスボタンが離されたとき、またはカーソルが外れたとき発火
         drag.addEventListener("mouseup", mup, false);
         document.body.addEventListener("mouseleave", mup, false);
