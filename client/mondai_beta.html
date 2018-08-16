@@ -110,6 +110,7 @@
             <div class="panel-heading">
               <div class="panel-text">
               <i class="fas fa-user-cog"></i>設定
+              <button id="closeSetting" class="btn btn-danger close-button">×</button>
               </div>
             </div>
             <div class="panel-body">
@@ -122,13 +123,13 @@
                 <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change="$ctrl.setRemovePass()" placeholder="Remove Pass">
               </div>
             </div>
-            <button id="closeSetting" class="btn btn-default">閉じる</button>
           </dialog>
           <div class="users-row">
             <dialog class="panel user-list" id="userDialog">
               <div class="panel-heading">
                 <div class="panel-text">
                 <i class="fas fa-users"></i>ユーザー一覧
+                <button id="closeUser" class="btn btn-danger close-button">×</button>
                 </div>
               </div>
               <div class="panel-body">
@@ -139,7 +140,6 @@
                     </button>
                   </li>
                 </ul>
-                <button id="closeUser" class="btn btn-default">閉じる</button>
               </div>
             </dialog>
           </div>
@@ -149,6 +149,7 @@
             <div class= "panel-heading">
               <div class="panel-text">
               <i class="fas fa-comments"></i>チャット
+              <button id="closeChat" class="btn btn-danger close-button">×</button>
               </div>
             </div>
             <div class= "panel-body">
@@ -164,7 +165,6 @@
                 </div>
               </div>
             </div>
-            <button id="closeChat" class="btn btn-default">閉じる</button>
           </dialog>
         </div>
       
