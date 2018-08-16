@@ -25,8 +25,8 @@
       <div class="row">
         <div>
           <button class="btn btn-default" ng-click="$ctrl.fetchData()">{{$ctrl.status}}</button>
-          <button id="openChat" class="btn btn-default">チャット</button>
           <button id="openSetting" class="btn btn-default">設定</button>
+          <button id="openChat" class="btn btn-default">チャット</button>
           <button id="openUser" class="btn btn-default">ユーザー一覧</button>
           <div id="question-area" class ="chat-area">
             <div class= "row chat-row" ng-repeat="msg in $ctrl.messages">
@@ -106,7 +106,7 @@
     </div>
     <div>
         <div class="">
-          <dialog id="settingDialog" class="panel drag-and-drop">
+          <dialog open id="settingDialog" class="panel drag-and-drop">
             <div class="panel-heading drag-header">
               <div class="panel-text">
               <i class="fas fa-user-cog"></i>設定
@@ -115,12 +115,16 @@
             </div>
             <div class="panel-body">
               <div class="row select-row">
+                <p>名前を変更</p></p>
                 <form ng-submit="void(0)">
                   <div class="row control-row">
                     <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
                   </div>
                 </form>
                 <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change="$ctrl.setRemovePass()" placeholder="Remove Pass">
+                <p>部屋を移動</p>
+                <input class="form-control" type="text" placeholder="Room" ng-model="$ctrl.nextRoom">
+                <a ng-href="/mondai/{{$ctrl.nextRoom}}" class="btn btn-default">移動</a>
               </div>
             </div>
           </dialog>
@@ -190,119 +194,119 @@
     </div>
   </div>
 </div>
-<script>
-(function() {
-  var openChatButton = document.getElementById('openChat');
-  var openSettingButton = document.getElementById('openSetting');
-  var openUserButton = document.getElementById('openUser');
-  
-  var closeChatButton = document.getElementById('closeChat');
-  var closeSettingButton = document.getElementById('closeSetting');
-  var closeUserButton = document.getElementById('closeUser');
-  
-  var chatDialog = document.getElementById('chatDialog');
-  var settingDialog = document.getElementById('settingDialog');
-  var userDialog = document.getElementById('userDialog');
-
-  openChatButton.addEventListener('click', function() {
-    chatDialog.show();
-  });
-  openSettingButton.addEventListener('click', function() {
-    settingDialog.show();
-  });
-  openUserButton.addEventListener('click', function() {
-    userDialog.show();
-  });
-  closeChatButton.addEventListener('click', function() {
-    chatDialog.classList.remove("drag");
-    chatDialog.close();
-  });
-  closeSettingButton.addEventListener('click', function() {
-    settingDialog.classList.remove("drag");
-    settingDialog.close();
-  });
-  closeUserButton.addEventListener('click', function() {
-    userDialog.classList.remove("drag");
-    userDialog.close();
-  });
-  
-    //参考URL:https://q-az.net/elements-drag-and-drop/
-    //要素の取得
-    var elements = document.getElementsByClassName("drag-and-drop");
-    var headers = document.getElementsByClassName("drag-header");
-    //要素内のクリックされた位置を取得するグローバル（のような）変数
-    var x;
-    var y;
-
-    //マウスが要素内で押されたとき、又はタッチされたとき発火
-    for(var i = 0; i < elements.length; i++) {
-        headers[i].addEventListener("mousedown", mdown, false);
-        headers[i].addEventListener("touchstart", mdown, false);
-        headers[i].element = elements[i];
-    }
-
-    //マウスが押された際の関数
-    function mdown(e) {
-
-        //クラス名に .drag を追加
-        this.element.classList.add("drag");
-
-        //タッチデイベントとマウスのイベントの差異を吸収
-        if(e.type === "mousedown") {
-            var event = e;
-        } else {
-            var event = e.changedTouches[0];
+    <script>
+    (function() {
+      var openChatButton = document.getElementById('openChat');
+      var openSettingButton = document.getElementById('openSetting');
+      var openUserButton = document.getElementById('openUser');
+      
+      var closeChatButton = document.getElementById('closeChat');
+      var closeSettingButton = document.getElementById('closeSetting');
+      var closeUserButton = document.getElementById('closeUser');
+      
+      var chatDialog = document.getElementById('chatDialog');
+      var settingDialog = document.getElementById('settingDialog');
+      var userDialog = document.getElementById('userDialog');
+    
+      openChatButton.addEventListener('click', function() {
+        chatDialog.show();
+      });
+      openSettingButton.addEventListener('click', function() {
+        settingDialog.show();
+      });
+      openUserButton.addEventListener('click', function() {
+        userDialog.show();
+      });
+      closeChatButton.addEventListener('click', function() {
+        chatDialog.classList.remove("drag");
+        chatDialog.close();
+      });
+      closeSettingButton.addEventListener('click', function() {
+        settingDialog.classList.remove("drag");
+        settingDialog.close();
+      });
+      closeUserButton.addEventListener('click', function() {
+        userDialog.classList.remove("drag");
+        userDialog.close();
+      });
+      
+        //参考URL:https://q-az.net/elements-drag-and-drop/
+        //要素の取得
+        var elements = document.getElementsByClassName("drag-and-drop");
+        var headers = document.getElementsByClassName("drag-header");
+        //要素内のクリックされた位置を取得するグローバル（のような）変数
+        var x;
+        var y;
+    
+        //マウスが要素内で押されたとき、又はタッチされたとき発火
+        for(var i = 0; i < elements.length; i++) {
+            headers[i].addEventListener("mousedown", mdown, false);
+            headers[i].addEventListener("touchstart", mdown, false);
+            headers[i].element = elements[i];
         }
-
-        //要素内の相対座標を取得
-        x = event.pageX - this.element.offsetLeft + this.element.clientWidth/2;
-        y = event.pageY - this.element.offsetTop;
-        //ムーブイベントにコールバック
-        document.body.addEventListener("mousemove", mmove, false);
-        document.body.addEventListener("touchmove", mmove, false);
-    }
-
-    //マウスカーソルが動いたときに発火
-    function mmove(e) {
-
-        //ドラッグしている要素を取得
-        var drag = document.getElementsByClassName("drag")[0];
-        if(drag == null) return;
-        //同様にマウスとタッチの差異を吸収
-        if(e.type === "mousemove") {
-            var event = e;
-        } else {
-            var event = e.changedTouches[0];
+    
+        //マウスが押された際の関数
+        function mdown(e) {
+    
+            //クラス名に .drag を追加
+            this.element.classList.add("drag");
+    
+            //タッチデイベントとマウスのイベントの差異を吸収
+            if(e.type === "mousedown") {
+                var event = e;
+            } else {
+                var event = e.changedTouches[0];
+            }
+    
+            //要素内の相対座標を取得
+            x = event.pageX - this.element.offsetLeft + this.element.clientWidth/2;
+            y = event.pageY - this.element.offsetTop;
+            //ムーブイベントにコールバック
+            document.body.addEventListener("mousemove", mmove, false);
+            document.body.addEventListener("touchmove", mmove, false);
         }
-
-        //フリックしたときに画面を動かさないようにデフォルト動作を抑制
-        e.preventDefault();
-
-        //マウスが動いた場所に要素を動かす
-        drag.style.left = event.pageX - x + "px";
-        drag.style.top = event.pageY - y + "px";
-        //マウスボタンが離されたとき、またはカーソルが外れたとき発火
-        drag.addEventListener("mouseup", mup, false);
-        document.body.addEventListener("mouseleave", mup, false);
-        drag.addEventListener("touchend", mup, false);
-        document.body.addEventListener("touchleave", mup, false);
-
-    }
-
-    //マウスボタンが上がったら発火
-    function mup(e) {
-        var drag = document.getElementsByClassName("drag")[0];
-        if(drag == null) return;
-        //ムーブベントハンドラの消去
-        document.body.removeEventListener("mousemove", mmove, false);
-        drag.removeEventListener("mouseup", mup, false);
-        document.body.removeEventListener("touchmove", mmove, false);
-        drag.removeEventListener("touchend", mup, false);
-
-        //クラス名 .drag も消す
-        drag.classList.remove("drag");
-    }
-
-})();
-</script>
+    
+        //マウスカーソルが動いたときに発火
+        function mmove(e) {
+    
+            //ドラッグしている要素を取得
+            var drag = document.getElementsByClassName("drag")[0];
+            if(drag == null) return;
+            //同様にマウスとタッチの差異を吸収
+            if(e.type === "mousemove") {
+                var event = e;
+            } else {
+                var event = e.changedTouches[0];
+            }
+    
+            //フリックしたときに画面を動かさないようにデフォルト動作を抑制
+            e.preventDefault();
+    
+            //マウスが動いた場所に要素を動かす
+            drag.style.left = event.pageX - x + "px";
+            drag.style.top = event.pageY - y + "px";
+            //マウスボタンが離されたとき、またはカーソルが外れたとき発火
+            drag.addEventListener("mouseup", mup, false);
+            document.body.addEventListener("mouseleave", mup, false);
+            drag.addEventListener("touchend", mup, false);
+            document.body.addEventListener("touchleave", mup, false);
+    
+        }
+    
+        //マウスボタンが上がったら発火
+        function mup(e) {
+            var drag = document.getElementsByClassName("drag")[0];
+            if(drag == null) return;
+            //ムーブベントハンドラの消去
+            document.body.removeEventListener("mousemove", mmove, false);
+            drag.removeEventListener("mouseup", mup, false);
+            document.body.removeEventListener("touchmove", mmove, false);
+            drag.removeEventListener("touchend", mup, false);
+    
+            //クラス名 .drag も消す
+            drag.classList.remove("drag");
+        }
+    
+    })();
+    </script>
 
