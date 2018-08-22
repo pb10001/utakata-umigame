@@ -28,6 +28,7 @@ var chatComponent = {
     this.isGood = false;
     this.isTrueAns = false;
     this.status = '再接続';
+    this.refresh = 0;
     this.$onInit = function() {
       socket.emit('join', room);
       this.name = userService.getName();
@@ -50,15 +51,24 @@ var chatComponent = {
       self.trueAns = msg || '解説';
     });
     socket.on('message', function(msg) {
-      self.messages = msg;
+      //self.messages = msg;
+      var btn = document.getElementById('refreshButton');
+      btn.style.visibility = 'visible';
+      btn.style.display = 'block';
+      self.refresh++;
       var elem = document.getElementById('question-area');
       elem.scrollTop = elem.scrollHeight;
     });
-
+    socket.on('refreshMessage', function(msg) {
+      self.messages = msg;
+      var elem = document.getElementById('question-area');
+      elem.scrollTop = elem.scrollHeight;
+      var btn = document.getElementById('refreshButton');
+      btn.style.display = 'none';
+    });
     socket.on('roster', function(names) {
       self.roster = names;
     });
-
     socket.on('chatMessage', function(msg) {
       console.log(msg);
       var isNew = true;
@@ -195,6 +205,7 @@ var chatComponent = {
     };
     this.fetchData = function fetchData() {
       socket.emit('refresh', null);
+      this.refresh = 0;
     };
     this.quit = function quit() {
       socket.emit('disconnect');

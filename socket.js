@@ -54,7 +54,7 @@ module.exports = function(socket) {
         messages[key] = JSON.parse(doc[key]);
       }
       socket.emit(
-        'message',
+        'refreshMessage',
         msgInRoom(socket.room, messages).sort(function(a, b) {
           if (a.id < b.id) return -1;
           if (a.id > b.id) return 1;
@@ -73,7 +73,7 @@ module.exports = function(socket) {
   socket.on('refresh', function() {
     socket.emit('mondai', mondai[socket.room]);
     socket.emit('trueAns', trueAns[socket.room]);
-    socket.emit('message', msgInRoom(socket.room, messages));
+    socket.emit('refreshMessage', msgInRoom(socket.room, messages));
     socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
     updateRoster();
   });
