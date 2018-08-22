@@ -105,8 +105,8 @@
       </div>
     </div>
     <div>
-        <div class="drag-and-drop" style="position:absolute; visibility:hidden;">
-          <div id="settingDialog" class="panel" style="position:absolute; width: 50vw; min-width:200px;">
+        <div class="drag-and-drop">
+          <div id="settingDialog" class="panel dialog">
             <div class="panel-heading drag-header">
               <div class="panel-text">
               <i class="fas fa-user-cog"></i>設定
@@ -129,8 +129,8 @@
             </div>
           </div>
           </div>
-          <div class="drag-and-drop" style="position:absolute; visibility:hidden;">
-            <div class="panel user-list" id="userDialog" style="position:absolute; width: 50vw; min-width:200px;">
+          <div class="drag-and-drop">
+            <div class="panel dialog user-list" id="userDialog">
               <div class="panel-heading drag-header">
                 <div class="panel-text">
                 <i class="fas fa-users"></i>ユーザー一覧
@@ -149,8 +149,8 @@
             </div>
           </div>
         </div>
-        <div class="drag-and-drop" style="position:absolute; visibility:hidden;">
-          <div class="panel" id="chatDialog" style="position:absolute; width: 50vw; min-width:200px;">
+        <div class="drag-and-drop">
+          <div class="panel dialog" id="chatDialog">
             <div class= "panel-heading drag-header">
               <div class="panel-text">
               <i class="fas fa-comments"></i>チャット
@@ -233,6 +233,8 @@
         //要素の取得
         var elements = document.getElementsByClassName("drag-and-drop");
         var headers = document.getElementsByClassName("drag-header");
+        console.log(elements);
+        console.log(headers);
         //要素内のクリックされた位置を取得するグローバル（のような）変数
         var x;
         var y;
@@ -246,8 +248,6 @@
     
         //マウスが押された際の関数
         function mdown(e) {
-    
-            //クラス名に .drag を追加
             this.element.classList.add("drag");
     
             //タッチデイベントとマウスのイベントの差異を吸収
@@ -258,7 +258,7 @@
             }
     
             //要素内の相対座標を取得
-            x = event.pageX - this.element.offsetLeft + this.element.clientWidth/2;
+            x = event.pageX - this.element.offsetLeft;
             y = event.pageY - this.element.offsetTop;
             //ムーブイベントにコールバック
             document.body.addEventListener("mousemove", mmove, false);
