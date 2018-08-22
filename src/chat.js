@@ -51,7 +51,6 @@ var chatComponent = {
       self.trueAns = msg || '解説';
     });
     socket.on('message', function(msg) {
-      //self.messages = msg;
       var btn = document.getElementById('refreshButton');
       btn.style.visibility = 'visible';
       btn.style.display = 'block';
