@@ -223,7 +223,7 @@ input.form-control {
 }
 .controls {
   border-radius: 1px;
-  background: #f7fcfe;
+  background: transparent;
   padding: 5px;
   margin: 0 auto 30px;
 }
@@ -263,7 +263,6 @@ a.btn.btn-white {
   border: solid #eee 1px;
   color: #eee;
   letter-spacing: 0.1em;
-  width: 80%;
   border-radius: 0;
   font-family: 'Noto Sans Japanese', sans-serif;
   font-weight: lighter;
@@ -271,9 +270,6 @@ a.btn.btn-white {
 a.btn.btn-white:hover {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-  /* border: solid #eee 1px;
-  background: #eee;
-  color: #333; */
 }
 .btn.chat-id-button {
   background: #fff;
