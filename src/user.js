@@ -5,7 +5,7 @@ module.exports = function() {
   this.getName = function() {
     if(this.name) return this.name;
     else if(sessionStorage.name) return sessionStorage.name;
-    else return 'Anonymous';
+    else return '';
   };
   this.setName = function(name) {
     this.name = name;
