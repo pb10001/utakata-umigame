@@ -2,7 +2,6 @@ module.exports = function() {
   this.name = '';
   this.removePass = '';
   this.currentRoom = '';
-  this.perPage = 10;
   this.getName = function() {
     if(this.name) return this.name;
     else return sessionStorage.name;
