@@ -4,7 +4,8 @@ module.exports = function() {
   this.currentRoom = '';
   this.getName = function() {
     if(this.name) return this.name;
-    else return sessionStorage.name;
+    else if(sessionStorage.name) return sessionStorage.name;
+    else return 'Anonymous';
   };
   this.setName = function(name) {
     this.name = name;
@@ -12,7 +13,8 @@ module.exports = function() {
   };
   this.getRemovePass = function() {
     if(this.removePass) return this.removePass;
-    else return sessionStorage.removePass;
+    else if(sessionStorage.removePass) return sessionStorage.removePass;
+    else return '';
   };
   this.setRemovePass = function(removePass) {
     this.removePass = removePass;
@@ -26,7 +28,8 @@ module.exports = function() {
   };
   this.getPerPage = function() {
     if(this.perPage) return this.perPage;
-    else return sessionStorage.perPage;
+    else if(sessionStorage.perPage) return sessionStorage.perPage;
+    else return 10;
   };
   this.setPerPage = function(value) {
     this.perPage = value;
