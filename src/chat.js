@@ -232,6 +232,9 @@ var chatComponent = {
         window.alert('キャンセルしました。');
       }
     };
+    this.ques = function ques(txt){
+      document.getElementById('ques').textContent = txt;
+    };
   }
 };
 module.exports = chatComponent;

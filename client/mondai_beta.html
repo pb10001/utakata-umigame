@@ -31,7 +31,7 @@
           <div id="question-area" class ="chat-area">
             <div class= "row chat-row" ng-repeat="msg in $ctrl.messages">
               <div class="col-xs-12">
-              <a class="" name= "{{msg.id}}" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">No. {{msg.questionNum}}</a>
+              <a class="" name= "{{msg.id}}" ng-click="$ctrl.ques(msg.text)" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">No. {{msg.questionNum}}</a>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="chat-box">
@@ -79,6 +79,7 @@
                 <form ng-submit="$ctrl.sendAnswer()" name="answerForm">
                   <div class="input-append">
                     <p min=1 id="id_input" ng-model="id">質問の数字をクリックして回答先を選択</p>
+                    <p id="ques"></p>
                     <div style="display:none;" id="ques_id_input"></div>
                     <input type="text" class="form-control" ng-model="$ctrl.answer" placeholder="Answer" name="answerBox">
                     <input type="checkbox" ng-model="$ctrl.isGood">良い質問
