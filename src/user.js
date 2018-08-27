@@ -21,10 +21,13 @@ module.exports = function() {
     sessionStorage.removePass = removePass;
   };
   this.getRoom = function() {
-    return this.currentRoom;
+    if(this.currentRoom) return this.currentRoom;
+    else if(sessionStorage.currentRoom) return sessionStorage.currentRoom;
+    else return '';
   };
   this.setRoom = function(room) {
     this.currentRoom = room;
+    sessionStorage.currentRoom = room;
   };
   this.getPerPage = function() {
     if(this.perPage) return this.perPage;
