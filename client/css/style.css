@@ -181,7 +181,7 @@ nav.navbar {
   margin: 0 auto 5px;
 }
 .message-text {
-  white-space: pre;
+  white-space: pre-wrap;
   word-wrap: break-word;
 }
 .item-edge {
