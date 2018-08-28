@@ -11,6 +11,7 @@ var io = require('socket.io-client');
 //Load scss
 require('./panel.scss');
 require('./dialog.scss');
+require('./chatbox.scss');
 
 app.factory('socket', function($rootScope) {
   var socket = io.connect();
