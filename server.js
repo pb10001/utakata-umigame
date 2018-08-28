@@ -34,7 +34,9 @@ router.get('/link', function(req, res) {
 router.get('/lobby', function(req, res) {
   res.sendFile(__dirname + '/client/template.html');
 });
-
+router.get('/config', function(req, res) {
+  res.sendFile(__dirname + '/client/template.html');
+});
 //Socket.io
 io.on('connection', socket);
 

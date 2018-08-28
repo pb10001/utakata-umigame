@@ -3,15 +3,18 @@
     <div class="panel">
       <div class="panel-heading">
         <div class="panel-text">
-          <i class="fas fa-comments"></i>ロビーチャット
+          <i class="fas fa-user"></i>ユーザー
         </div>
       </div>
       <div class="panel-body">
         <div class="row select-row">
-          <p style="text-align:center;">名前</p>
-          <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
-          <p style="text-align:center;">削除用パス</p>
-          <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
+          <p><b>名前</b></p>
+          <p>{{$ctrl.name}}</p>
+          <p><b>削除用パス</b></p>
+          <p>{{$ctrl.removePass}}</p>
+          <a class="btn btn-default" href="/config">設定する</a>
+          <!--<input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
+          <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">-->
         </div>
       </div>
     </div>

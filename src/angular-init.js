@@ -38,6 +38,10 @@ app.config([
         template: '<lobby></lobby>',
         controller: ''
       })
+      .when('/config', {
+        template: '<config></config>',
+        controller: ''
+      })
       .otherwise({
         redirectTo: '/'
       });

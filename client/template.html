@@ -46,11 +46,17 @@ gtag('config', 'UA-110000496-1');
 			<div class="collapse navbar-collapse" id="navbarEexample7">
 				<ul class="nav navbar-nav">
 					<li><a class="item" ng-href="/lobby">ロビー</a></li>
+					<li><a class="item" ng-href="/config">設定</a></li>
 					<li><mondailink style="padding: 20px auto;"></mondailink></li>
-					<li><a class="item" ng-href="/privacy_policy">プライバシーポリシー</a></li>
-					<li><a class="item" ng-href="/link">リンク</a></li>
-					<li><a class="item" target="_blank" href="https://github.com/pb10001/utakata-umigame/wiki">遊び方 <small><i class="fas fa-external-link-alt"></i></small></a></li>
-					<li><a class="item" target="_blank" href="https://github.com/pb10001/utakata-umigame">GitHub <small><i class="fas fa-external-link-alt"></i></small></a></li>
+					<li class="dropdown">
+					    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">その他<span class="caret"></span></a>
+					    <ul class="dropdown-menu" role="menu">
+        					<li><a class="item" ng-href="/privacy_policy">プライバシーポリシー</a></li>
+        					<li><a class="item" ng-href="/link">リンク</a></li>
+        					<li><a class="item" target="_blank" href="https://github.com/pb10001/utakata-umigame/wiki">遊び方 <small><i class="fas fa-external-link-alt"></i></small></a></li>
+        					<li><a class="item" target="_blank" href="https://github.com/pb10001/utakata-umigame">GitHub <small><i class="fas fa-external-link-alt"></i></small></a></li>
+				        </ul>
+				    </li>
 				</ul>
 			</div>
 		</div>

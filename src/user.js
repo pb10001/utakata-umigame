@@ -1,5 +1,6 @@
 /* global localStorage */
 module.exports = function() {
+  /* ユーザー設定をカプセル化 */
   this.name = '';
   this.removePass = '';
   this.currentRoom = '';
