@@ -3,5 +3,7 @@
   "name": "UTAKATA UMIGAME うたかたウミガメ",
   "icons": [
   ],
+  "display": "standalone",
+  "theme_color": "#fafafa",
   "start_url": "/lobby"
 }
