@@ -3,7 +3,12 @@
   "name": "UTAKATA UMIGAME うたかたウミガメ",
   "icons": [
     {
-      "src": "/img/icon.png",
+      "src": "/img/icon-192px.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/icon-512px.png",
       "type": "image/png",
       "sizes": "512x512"
     }
