@@ -12,6 +12,14 @@ var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
 
+var compression = require('compression');
+
+router.use(compression({
+  threshold: 0,
+  level: 9,
+  memLevel: 9
+}));
+
 router.use(express.static(path.resolve(__dirname, 'client')));
 router.use(express.static(path.resolve(__dirname, 'client/js')));
 router.use(express.static(path.resolve(__dirname, 'client/css')));
