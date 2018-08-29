@@ -35,6 +35,17 @@
     <div class="col-md-6">
       <div class="" style="margin-top:20px;">
         <div class="">
+          <button class="btn btn-default" ng-click="$ctrl.reload()" style="">{{$ctrl.status}}</button>
+          <form class="form-inline" style="display: inline;">
+              <label>表示数: {{$ctrl.perPage}}</label>
+              <select class="form-control" ng-model="$ctrl.perPage" ng-options="p for p in $ctrl.perPages" ng-change="$ctrl.onPerPageChanged($ctrl.page)"></select>
+          </form>
+          <!-- チャット -->
+          <div class="chat-area" style="width: 100%;">
+            <div class= "chat-row" ng-repeat="msg in $ctrl.messages">
+              <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
+            </div>
+          </div>
           <!-- ページネーション -->
           <div class="row">
             <ul class="pagination" style="display: table; margin: 0 auto;">
@@ -43,19 +54,8 @@
               <li><span class="font-light" >ページ: {{$ctrl.page}}</span></li>
               <li ng-click="$ctrl.nextPage()"><a class="item-edge font-light" href="">Next</a></li>
             </ul>
-            <button class="btn btn-default" ng-click="$ctrl.reload()">{{$ctrl.status}}</button>
-          </div>
-          <!-- チャット -->
-          <div class="chat-area" style="width: 100%;">
-            <div class= "chat-row" ng-repeat="msg in $ctrl.messages">
-              <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
-            </div>
           </div>
           <p style="text-align: center;"><i class="fas fa-exclamation-triangle"></i>ログは7日で消えます。</p>
-          <form class="form-inline">
-              <label>表示数: {{$ctrl.perPage}}</label>
-              <select class="form-control" ng-model="$ctrl.perPage" ng-options="p for p in $ctrl.perPages" ng-change="$ctrl.onPerPageChanged($ctrl.page)"></select>
-          </form>
         </div>
       </div>
     </div>
