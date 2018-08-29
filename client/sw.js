@@ -1,77 +1,28 @@
-/* global caches */
-// sw.js
-/* Service Workerのグローバルオブジェクトでは外部スクリプト読み込みの関数がデフォルトで存在する。 */
-importScripts("/index.js");
+var CACHE_DYNAMIC_VERSION = 'dynamic-v1';
 
-/**
- * Service Workerインストール時の関数
- * ==========
- * オフライン時、キャッシュに登録されていないURLにアクセスした場合に表示するHTMLを取得する。
- * オンライン時にこのファイルにアクセスすることがないため。
- */
-addEventListener("install", function(event)
-{
-  event.waitUntil(
-    caches.open("myCache")
-      .then(function(cache)
-      {
-        return cache.addAll(["/nodata.html"]);
+self.addEventListener('fetch', function(event) {
+  console.log('[Service Worker] Fetching something ...');
+  event.respondWith(
+    // キャッシュの存在チェック
+    caches.match(event.request)
+      .then(function(response) {
+        if (response) {
+          return response;
+        } else {
+          // キャッシュがなければリクエストを投げて、レスポンスをキャッシュに入れる
+          return fetch(event.request)
+            .then(function(res) {
+              return caches.open(CACHE_DYNAMIC_VERSION)
+                .then(function(cache) {
+                  // 最後に res を返せるように、ここでは clone() する必要がある
+                  cache.put(event.request.url, res.clone());
+                  return res;
+                })
+            })
+            .catch(function() {
+              // エラーが発生しても何もしない
+            });
+        }
       })
   );
-});
-
-/**
- * スコープ内でファイル取得のリクエストが飛んだ時の関数
- * スコープはService Workerのjsファイル以下のディレクトリになる。
- * serviceWorker.register()時に明示的に指定することもできる。
- * ==========
- * 1. オンライン時は普通にファイルを取得させ、キャッシュにも保存させる。
- * 2. オフライン時はキャッシュされているファイルを返すようにする。
- * 3. リクエストしたURLに対応するファイルがキャッシュにない場合は、インストール時に登録したnodata.htmlを返す。
- */
-
-addEventListener("fetch", function(event)
-{
-  var online = navigator.onLine;
-
-  if(online)
-  {
-    /* 1 */
-    event.respondWith(
-      fetch(event.request)
-        .then(function(response)
-        {
-          if(!response || response.status != 200) return;
-
-          caches.open("myCache")
-            .then(function(cache)
-            {
-              cache.put(event.request, response);
-            });
-        })
-    );
-  }
-  else
-  {
-    event.respondWith(
-      caches.match(event.request)
-        .then(function(response)
-        {
-          /* 2 */
-          if(response)
-          {
-            return response;
-          }
-          /* 3 */
-          else if(event.request.context == "internal")
-          {
-            return caches.match("/nodata.html")
-              .then(function(responseNodata)
-              {
-                return responseNodata;
-              });
-          }
-        })
-    );
-  }
 });
