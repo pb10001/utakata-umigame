@@ -1,7 +1,7 @@
 /* global caches */
 // sw.js
 /* Service Workerのグローバルオブジェクトでは外部スクリプト読み込みの関数がデフォルトで存在する。 */
-importScripts("https://raw.githubusercontent.com/coonsta/cache-polyfill/master/index.js");
+importScripts("/index.js");
 
 /**
  * Service Workerインストール時の関数
