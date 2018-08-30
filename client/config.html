@@ -11,9 +11,13 @@
       <p style="text-align:center;">削除用パス: {{$ctrl.removePass}}</p>
       <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
       <p>部屋を移動</p>
-      <input class="form-control" type="text" placeholder="Room" ng-model="$ctrl.nextRoom">
-      <a ng-href="/mondai/{{$ctrl.nextRoom}}" class="btn btn-default">移動</a>
+      <form class="form-inline">
+        <div class="input-append">
+          <input class="form-control" type="text" placeholder="Room" ng-model="$ctrl.nextRoom">
+          <a ng-href="/mondai/{{$ctrl.nextRoom}}" class="btn btn-default form-control">移動</a>
+        </div>
+      </form>
     </div>
-    <a class="btn btn-default" href="/lobby">戻る</a>
+    <a class="btn btn-default form-control" href="/lobby">戻る</a>
   </div>
 </div>

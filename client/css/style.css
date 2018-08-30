@@ -191,10 +191,10 @@ nav.navbar {
   display: block;
   position: fixed;
 }
-input.form-control {
+.form-control {
   width: 80%;
   margin: 0 auto;
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 .btn {
   border-radius: 1px;

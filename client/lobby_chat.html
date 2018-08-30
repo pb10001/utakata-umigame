@@ -13,7 +13,7 @@
             <p>{{$ctrl.name}}</p>
             <p><b>削除用パス</b></p>
             <p>{{$ctrl.removePass}}</p>
-            <a class="btn btn-default" href="/config">設定する</a>
+            <a class="btn btn-default form-control" href="/config">設定</a>
             <!--<input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
             <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">-->
           </div>
@@ -23,11 +23,11 @@
         <div class="panel-heading">
           <div class="panel-text"><i class="fas fa-door-open"></i>問題を解く</div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body form-inline">
+          <p>部屋名を入力して入室</p>
           <div class="input-append">
-            <p>部屋名を入力して入室</p>
             <input type="text" placeholder="Room Name" class="form-control" ng-model="$ctrl.roomName">
-            <a type="submit" class="btn btn-default" ng-href="/mondai/{{$ctrl.roomName}}">入室する</a>
+            <a type="submit" class="btn btn-default form-control" ng-href="/mondai/{{$ctrl.roomName}}">入室</a>
           </div>
         </div>
       </div>
@@ -78,11 +78,10 @@
       </div>
     </div>
   </div>
-  <form ng-submit="$ctrl.send()" style="position:fixed; background:#fff; left: 0; bottom: 0; width: 100vw; z-index: 150; padding: 5px;">
+  <form class="form-inline" ng-submit="$ctrl.send()" style="position:fixed; background:#fff; left: 0; bottom: 0; width: 100vw; z-index: 150; padding: 5px;">
     <div class ="input-append">
-      <label>チャットを送信</label>
       <input type="text" class="form-control" ng-model="$ctrl.text" placeholder="Chat">
-      <input type="submit" class="btn btn-default" style="width:80%;" value="送信する">
+      <input type="submit" class="btn btn-default form-control" value="送信">
     </div>
   </form>
 </div>

@@ -1,6 +1,7 @@
+/* global caches */
 var CACHE_DYNAMIC_VERSION = 'dynamic-v1';
 // キャッシュにバージョンを付けておくと、古いキャッシュを消す時に便利
-var CACHE_STATIC_VERSION = 'static-v1';
+var CACHE_STATIC_VERSION = 'static-v11';
 
 // サービスワーカーのインストール
 self.addEventListener('install', function(event) {
@@ -13,8 +14,6 @@ self.addEventListener('install', function(event) {
         console.log('[Service Worker] Precaching App...');
         // 何でもキャッシュできる。cssとかの中で更にリクエストが発生する場合は、動的にキャッシュする必要がある（後述）
         cache.addAll([
-          '/',
-          '/mondai',
           '/template.html',
           '/mondai_beta.html',
           '/lobby_chat.html',
