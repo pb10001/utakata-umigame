@@ -59,9 +59,6 @@ var lobbyComponent = {
       socket.emit('identify', this.name);
       userService.setName(this.name);
     };
-    /*this.setRemovePass = function setRemovePass() {
-      userService.setRemovePass(this.removePass);
-    };*/
     this.editChat = function editChat(id, content) {
       var data = {
         id: id,

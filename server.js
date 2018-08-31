@@ -55,6 +55,7 @@ var sendFile = function(url, path){
 
 sendFile('/edit_mondai', '/client/template.html');
 sendFile('/edit_answer', '/client/template.html');
+sendFile('/lobby/edit', '/client/template.html');
 //Socket.io
 io.on('connection', socket);
 

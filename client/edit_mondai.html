@@ -3,8 +3,8 @@
   <div class="panel-body">
     <form>
       <textarea class="form-control" placeholder="Content" ng-model="$ctrl.content" style="height:70vh; min-height: 200px;"></textarea><br>
-      <a ng-href="/mondai/{{$ctrl.room}}" class="btn btn-danger form-control" ng-click="$ctrl.send()">編集する</a>
-      <a ng-href="/mondai/{{$ctrl.room}}" class="btn btn-default form-control">キャンセル</a>
+      <a ng-href="{{$ctrl.callback}}" class="btn btn-danger form-control" ng-click="$ctrl.send()">編集する</a>
+      <a ng-href="{{$ctrl.callback}}" class="btn btn-default form-control">キャンセル</a>
     </form>
   </div>
 </div>

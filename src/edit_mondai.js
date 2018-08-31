@@ -6,6 +6,7 @@ var editComponent = {
       this.room = userService.getRoom();
       this.subject = '問題文';
       this.content = userService.getCurrentContent();
+      this.callback = '/mondai/' + this.room;
     };
     this.send = function send() {
       if (window.confirm('問題文が変更されます。続行しますか？')) {

@@ -48,4 +48,10 @@ module.exports = function() {
   this.getCurrentContent = function() {
     return this.currentContent;
   };
+  this.setId = function(value) {
+    this.id = value;
+  };
+  this.getId = function() {
+    return this.id;
+  }
 };

@@ -4,7 +4,7 @@ module.exports = {
     msg: '<',
     parent: '<'
   },
-  controller: function(socket) {
+  controller: function(socket, userService) {
     this.$onInit = function() {};
     this.getLink = function() {
       return '#' + this.msg.id;
@@ -15,6 +15,10 @@ module.exports = {
     this.editLobby = function() {
       console.log(this.msg);
       this.parent.editChat(this.msg.id, this.msg.content);
+    };
+    this.setId = function(id) {
+      userService.setId(id);
+      userService.setCurrentContent(this.msg.content);
     };
   }
 };

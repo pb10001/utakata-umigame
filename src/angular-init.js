@@ -46,6 +46,10 @@ app.config([
         template: '<lobby></lobby>',
         controller: ''
       })
+      .when('/lobby/edit', {
+        template: '<editlobby></editlobby>',
+        controller: ''
+      })
       .when('/config', {
         template: '<config></config>',
         controller: ''
