@@ -17,7 +17,7 @@ app.config([
     });
     $routeProvider
       .when('/mondai', {
-        template: '<chat></chat>'
+        template: '<config></config>'
       })
       .when('/mondai/lobbyChats', {
         redirectTo: '/mondai'

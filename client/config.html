@@ -6,18 +6,24 @@
   </div>
   <div class="panel-body">
     <div class="row select-row">
-      <p style="text-align:center;">名前: {{$ctrl.name}}</p>
-      <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
-      <p style="text-align:center;">削除用パス: {{$ctrl.removePass}}</p>
-      <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
-      <p>部屋を移動</p>
+      <label style="text-align:center;">名前</label>
+      <div class="form-inline">
+        <input id="name-box" type="text" class="form-control" ng-model="$ctrl.name" ng-change="$ctrl.setName()" placeholder="Your Name">
+      </div>
+      <label style="text-align:center;">削除用パス</label>
+      <div class="form-inline">
+        <input id="pass-box" type="text" class="form-control" ng-model="$ctrl.removePass" ng-change= "$ctrl.setRemovePass()" placeholder="Remove Pass">
+      </div>
+      <label>部屋を移動</label>
       <form class="form-inline">
         <div class="input-append">
           <input class="form-control" type="text" placeholder="Room" ng-model="$ctrl.nextRoom">
-          <a ng-href="/mondai/{{$ctrl.nextRoom}}" class="btn btn-default form-control">移動</a>
+          <a ng-href="/mondai/{{$ctrl.nextRoom}}" class="btn btn-default form-control">入室</a>
         </div>
       </form>
     </div>
-    <a class="btn btn-default form-control" href="/lobby">戻る</a>
+    <div class="form-inline">
+      <a class="form-inline btn btn-default form-control" href="/lobby">戻る</a>
+    </div>
   </div>
 </div>

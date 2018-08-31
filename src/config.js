@@ -5,6 +5,7 @@ var configComponent = {
     this.$onInit = function() {
       this.name = userService.getName();
       this.removePass = userService.getRemovePass();
+      this.nextRoom = userService.getRoom();
     };
     this.setName = function setName() {
       userService.setName(this.name);
