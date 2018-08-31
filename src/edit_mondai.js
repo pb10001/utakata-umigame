@@ -4,6 +4,8 @@ var editComponent = {
   controller: function(socket, userService) {
     this.$onInit = function() {
       this.room = userService.getRoom();
+      this.subject = '問題文';
+      this.content = userService.getCurrentContent();
     };
     this.send = function send() {
       if (window.confirm('問題文が変更されます。続行しますか？')) {

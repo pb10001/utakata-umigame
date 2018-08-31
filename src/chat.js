@@ -209,6 +209,9 @@ var chatComponent = {
     this.ques = function ques(txt) {
       document.getElementById('ques').textContent = txt;
     };
+    this.setContent = function setContent(content) {
+      userService.setCurrentContent(content);
+    };
   }
 };
 module.exports = chatComponent;

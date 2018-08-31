@@ -5,6 +5,7 @@ module.exports = function() {
   this.removePass = '';
   this.currentRoom = '';
   this.storage = localStorage;
+  this.currentContent = '';
   this.getName = function() {
     if (this.name) return this.name;
     else if (this.storage.name) return this.storage.name;
@@ -40,5 +41,11 @@ module.exports = function() {
   this.setPerPage = function(value) {
     this.perPage = value;
     this.storage.perPage = value;
+  };
+  this.setCurrentContent = function(value) {
+    this.currentContent = value;
+  };
+  this.getCurrentContent = function() {
+    return this.currentContent;
   };
 };

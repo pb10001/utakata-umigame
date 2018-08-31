@@ -155,9 +155,6 @@ nav.navbar {
   color: #333;
   font-family: 'Kokoro', serif;
 }
-.chat-area{
-  padding: 5px;
-}
 .chat-box.private-chat {
   border-right: #ddd solid 1px;
   border-bottom: #ddd solid 1px;

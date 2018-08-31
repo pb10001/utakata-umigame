@@ -4,6 +4,8 @@ var editComponent = {
   controller: function(socket, userService) {
     this.$onInit = function() {
       this.room = userService.getRoom();
+      this.subject = '解説';
+      this.content = userService.getCurrentContent();
     };
     this.send = function send() {
       if (window.confirm('正解が公開されます。続行しますか？')) {
