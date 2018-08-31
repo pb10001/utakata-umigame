@@ -3,8 +3,8 @@ var configComponent = {
   bindings: {},
   controller: function(userService) {
     this.$onInit = function() {
-        this.name = userService.getName();
-        this.removePass = userService.getRemovePass();
+      this.name = userService.getName();
+      this.removePass = userService.getRemovePass();
     };
     this.setName = function setName() {
       userService.setName(this.name);

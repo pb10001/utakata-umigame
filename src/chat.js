@@ -99,32 +99,6 @@ var chatComponent = {
       console.log('WTF the connection was aborted');
       self.status = '再接続';
     });
-    this.sendMondai = function sendMondai() {
-      if (window.confirm('問題文が変更されます。続行しますか？')) {
-        var data = {
-          type: 'mondai',
-          removePass: this.removePass,
-          content: this.content,
-          created_month: new Date().getMonth() + 1,
-          created_date: new Date().getDate()
-        };
-        socket.emit('mondaiMessage', data);
-      } else {
-        window.alert('キャンセルしました。');
-      }
-    };
-
-    this.sendTrueAns = function sendTrueAns() {
-      if (window.confirm('正解が公開されます。続行しますか？')) {
-        var data = {
-          type: 'trueAns',
-          content: this.ansContent
-        };
-        socket.emit('trueAnsMessage', data);
-      } else {
-        window.alert('キャンセルしました。');
-      }
-    };
 
     this.send = function send() {
       var data = {

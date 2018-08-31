@@ -26,6 +26,14 @@ app.config([
         template: '<chat></chat>',
         controller: ''
       })
+      .when('/edit_mondai',{
+        template: '<editmondai></editmondai>',
+        controller: ''
+      })
+      .when('/edit_answer',{
+        template: '<editanswer></editanswer>',
+        controller: ''
+      })
       .when('/privacy_policy', {
         templateUrl: 'privacy_policy.html',
         controller: ''

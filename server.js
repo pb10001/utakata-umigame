@@ -14,11 +14,13 @@ var io = socketio.listen(server);
 
 var compression = require('compression');
 
-router.use(compression({
-  threshold: 0,
-  level: 9,
-  memLevel: 9
-}));
+router.use(
+  compression({
+    threshold: 0,
+    level: 9,
+    memLevel: 9
+  })
+);
 
 router.use(express.static(path.resolve(__dirname, 'client')));
 router.use(express.static(path.resolve(__dirname, 'client/js')));
@@ -45,6 +47,14 @@ router.get('/lobby', function(req, res) {
 router.get('/config', function(req, res) {
   res.sendFile(__dirname + '/client/template.html');
 });
+var sendFile = function(url, path){
+  router.get(url, function(req,res){
+    res.sendFile(__dirname + path);
+  });
+};
+
+sendFile('/edit_mondai', '/client/template.html');
+sendFile('/edit_answer', '/client/template.html');
 //Socket.io
 io.on('connection', socket);
 
