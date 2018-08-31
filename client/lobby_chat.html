@@ -40,7 +40,9 @@
             <p>{{$ctrl.name}}</p>
             <p><b>削除用パス</b></p>
             <p>{{$ctrl.removePass}}</p>
-            <a class="btn btn-default form-control" ng-href="/mondai">変更</a>
+            <div class="form-inline">
+              <a class="btn btn-default form-control" ng-href="/mondai">変更</a>
+            </div>
           </div>
         </div>
       </div>
@@ -49,7 +51,7 @@
           <div class="panel-text"><i class="fas fa-door-open"></i>問題を解く</div>
         </div>
         <div class="panel-body form-inline">
-          <p>部屋名を入力して入室</p>
+          <label>部屋名を入力して入室</label>
           <div class="input-append">
             <input type="text" placeholder="Room Name" class="form-control" ng-model="$ctrl.roomName">
             <a type="submit" class="btn btn-default form-control" ng-href="/mondai/{{$ctrl.roomName}}">入室</a>
