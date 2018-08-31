@@ -1,7 +1,7 @@
 /* global caches */
 // キャッシュにバージョンを付けておくと、古いキャッシュを消す時に便利
-var CACHE_STATIC_VERSION = 'static-v2.1.4';
-var CACHE_DYNAMIC_VERSION = 'dynamic-v2.1.4';
+var CACHE_STATIC_VERSION = 'static-v2.1.52';
+var CACHE_DYNAMIC_VERSION = 'dynamic-v2.1.52';
 
 // サービスワーカーのインストール
 self.addEventListener('install', function(event) {
@@ -19,6 +19,13 @@ self.addEventListener('install', function(event) {
           '/mondai_beta.html',
           '/lobby_chat.html',
           '/chat_box.html',
+          '/config.html',
+          '/link.html',
+          '/top_page.html',
+          '/privacy_policy.html',
+          '/css/animate.min.css',
+          '/css/bootstrap.min.css',
+          '/img/top.jpg',
         ]);
       })
   );
