@@ -146,7 +146,15 @@ module.exports = function(socket) {
     socket.emit('chatMessage', obj);
     socket.broadcast.to(obj.room).emit('chatMessage', obj);
   });
-  socket.on('removeMondaiChat', function(data) {});
+  socket.on('removeMondaiChat', function(data) {
+    client.hdel(chatKey, data.id);
+    for(var key in chatMessages){
+      if(chatMessages[key].id == data.id)
+        delete chatMessages[key];
+    }
+    socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
+    socket.broadcast.to('LobbyChat').emit('loadChat', msgInRoom(socket.room, chatMessages));
+  });
 
   socket.on('mondaiMessage', function(msg) {
     if (mondai[socket.room])

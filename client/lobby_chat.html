@@ -11,7 +11,7 @@
           <!-- チャット -->
           <div class="chat-area" style="width: 100%;">
             <div class= "chat-row" ng-repeat="msg in $ctrl.messages">
-              <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg"></chatbox>
+              <chatbox ng-if = "msg" parent = "$ctrl" msg = "msg" editable=true></chatbox>
             </div>
           </div>
           <!-- ページネーション -->

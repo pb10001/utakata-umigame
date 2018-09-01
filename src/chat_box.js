@@ -2,7 +2,8 @@ module.exports = {
   templateUrl: 'chat_box.html',
   bindings: {
     msg: '<',
-    parent: '<'
+    parent: '<',
+    editable: '<'
   },
   controller: function(socket, userService) {
     this.$onInit = function() {};

@@ -237,6 +237,12 @@ nav.navbar {
 .form-control {
   border-radius: 1px;
 }
+.btn.btn-danger {
+  letter-spacing: 0.1em;
+  border-radius: 0;
+  font-family: 'Noto Sans Japanese', sans-serif;
+  font-weight: lighter;
+}
 .btn.btn-default {
   background: #fff;
   border: solid #665e51 1px;
@@ -273,6 +279,7 @@ a.btn.btn-white:hover {
 }
 .icon-button {
   color: #aaa;
+  margin: auto 5px;
 }
 .icon-button:hover {
   color: #d9534f;
