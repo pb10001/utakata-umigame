@@ -1,6 +1,6 @@
 /* global caches */
 // キャッシュにバージョンを付けておくと、古いキャッシュを消す時に便利
-var version = '2.1.11';
+var version = '2.1.12';
 var CACHE_STATIC_VERSION = 'static-v'+version;
 var CACHE_DYNAMIC_VERSION = 'dynamic-v'+version;
 
