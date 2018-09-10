@@ -2,6 +2,9 @@
 .panel {
   @include SawarabiGothic;
   margin: 0 auto !important;
+  .noto-serif{
+    @include NotoSerif;
+  }
   .panel-heading {
     background: #ffffff;
     border-radius: 1px;

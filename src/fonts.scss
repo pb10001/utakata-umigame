@@ -4,11 +4,14 @@
 @mixin SawarabiMincho {
   font-family: 'Sawarabi Mincho', serif;
 }
-@mixin Hannari{
+@mixin Hannari {
   font-family: 'Hannari', cursive;
 }
-@mixin Bellefair{
+@mixin Bellefair {
   font-family: 'Bellefair', serif;
+}
+@mixin NotoSerif {
+ font-family: 'Noto Serif JP', sans-serif;
 }
 .text-white{
   color:#FFF;
