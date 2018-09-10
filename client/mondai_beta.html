@@ -10,9 +10,9 @@
             <p id="mondai-text" class="pre-line primary-text">{{$ctrl.mondai.content}}</p>
           </div>
           <div class="panel-footer">
-            <a href='/edit_mondai' ng-click="$ctrl.setContent($ctrl.mondai.content)"><i class="fas fa-edit icon-button"></i></a>
-            <a ng-click="$ctrl.addLink()"><i title="ロビーにリンクを貼る" class="fas fa-bell icon-button"></i></a>
-            <a ng-click="$ctrl.clearAll()"><i title="削除" class="fas fa-trash icon-button"></i></a>
+            <a href='/edit_mondai'><i class="fas fa-edit icon-button"></i></a>
+            <span ng-click="$ctrl.addLink()"><i title="ロビーにリンクを貼る" class="fas fa-bell icon-button"></i></span>
+            <span ng-click="$ctrl.clearAll()"><i title="削除" class="fas fa-trash icon-button"></i></span>
             <span data-toggle="collapse" id="sender-text" class="">出題者:{{$ctrl.mondai.sender}} </span>
             <span data-toggle="collapse" id="sender-text" class="">出題日:{{$ctrl.mondai.created_month}}月{{$ctrl.mondai.created_date}}日</span>
           </div>
@@ -26,7 +26,7 @@
           <div id="question-area" class ="chat-area">
             <div class= "row chat-row" ng-repeat="msg in $ctrl.messages">
               <div class="col-xs-12">
-              <a class="" name= "{{msg.id}}" ng-click="$ctrl.ques(msg.text)" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">No. {{msg.questionNum}}</a>
+              <a class="cinzel" name= "{{msg.id}}" ng-click="$ctrl.ques(msg.text)" onClick="document.getElementById('id_input').textContent='回答先: '+this.textContent; document.getElementById('ques_id_input').value = this.name; document.answerForm.answerBox.focus();">No. {{msg.questionNum}}</a>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="chat-box">
@@ -93,7 +93,7 @@
             <p id="trueAns-text" class="pre-line primary-text" ng-bind="$ctrl.trueAns"></p>
           </div>
           <div class="panel-footer">
-            <a ng-href="/edit_answer" ng-click="$ctrl.setContent($ctrl.mondai.trueAns)"><i class="fas fa-edit icon-button"></i></a>
+            <a ng-href="/edit_answer"><i class="fas fa-edit icon-button"></i></a>
           </div>
         </div>
       </div>
@@ -158,7 +158,7 @@
               </div>
               <div id="private-chat-area">
                 <div class="row chat-row" ng-repeat="msg in $ctrl.privateMessages">
-                  <chatbox parent="$ctrl" msg="msg" editable=false></chatbox>
+                  <chatbox parent="$ctrl" msg="msg"></chatbox>
                 </div>
               </div>
             </div>

@@ -5,6 +5,7 @@
 @import url('https://fonts.googleapis.com/earlyaccess/sawarabimincho.css');
 @import url('https://fonts.googleapis.com/earlyaccess/sawarabigothic.css');
 @import url('https://fonts.googleapis.com/css?family=Bellefair');
+@import url('https://fonts.googleapis.com/css?family=Aldrich|Cabin+Sketch|Cinzel|Nixie+One|Nosifer|Poiret+One');
 
 html {
   width: 100%;
@@ -63,6 +64,10 @@ ul {
 .contents {
   height: 100%;
   margin-top: 100%;
+}
+.cinzel{
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
 }
 links {
   text-align: center;
