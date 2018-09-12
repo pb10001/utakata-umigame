@@ -1,4 +1,4 @@
-# utakata-umigame
+# Utakata-Umigame
 [![David](https://david-dm.org/pb10001/utakata-umigame.svg)](https://david-dm.org/pb10001/utakata-umigame)
 [![wercker status](https://app.wercker.com/status/5af6aa54224f279105a935d2e00cc359/s/master "wercker status")](https://app.wercker.com/project/byKey/5af6aa54224f279105a935d2e00cc359)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b8e7049d29f238961f9a/maintainability)](https://codeclimate.com/github/pb10001/utakata-umigame/maintainability)
