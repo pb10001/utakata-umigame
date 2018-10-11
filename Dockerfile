@@ -6,4 +6,4 @@ COPY . /app
 RUN npm install --unsafe-perm
 
 CMD ["npm", "start"]
-EXPOSE 3000
+EXPOSE 5000
