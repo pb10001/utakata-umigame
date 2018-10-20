@@ -1,6 +1,34 @@
-<h1>{{title}}</h1>
-<nav>
-  <a routerLink="/lobby">ロビー</a>
-  <a routerLink="/mondai">問題</a>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarEexample7" aria-controls="navbarEexample7" aria-expanded="false" aria-label="">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand hannari text-accent" onClick="location.href = '/';" style="filter: drop-shadow(1px 1px 1px rgba(128,128,128,0.5));">
+        <span>
+          <img alt="U" src="favicon.ico">
+        </span>
+        <span>
+          うたかたウミガメ
+        </span>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarEexample7">
+      <ul class="nav mr-auto mt-2 mt-lg-0">
+        <li><a class="item" routerLink="/lobby">ロビー</a></li>
+        <li><a class="item" routerLink="/mondai">問題</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle item" data-toggle="dropdown" role="button">その他<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a class="item" routerLink="/privacy_policy">プライバシーポリシー</a></li>
+                <li><a class="item" routerLink="/link">リンク</a></li>
+                <li><a class="item" target="_blank" rel="noopener" href="https://github.com/pb10001/utakata-umigame/wiki">遊び方 <small><i class="fas fa-external-link-alt"></i></small></a></li>
+                <li><a class="item" target="_blank" rel="noopener" href="https://github.com/pb10001/utakata-umigame">GitHub <small><i class="fas fa-external-link-alt"></i></small></a></li>
+              </ul>
+          </li>
+      </ul>
+    </div>
+  </div>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet class="container-fluid"></router-outlet>

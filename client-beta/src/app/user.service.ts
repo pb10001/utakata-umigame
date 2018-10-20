@@ -18,4 +18,16 @@ export class UserService {
   getRemovePass () {
     return this.storage.removePass;
   }
+  setRoom (value) {
+    this.storage.room = value;
+  }
+  getRoom () {
+    return this.storage.room;
+  }
+  setCurrentContent (value) {
+    this.storage.currentContent = value;
+  }
+  getCurrentContent () {
+    return this.storage.currentContent;
+  }
 }
