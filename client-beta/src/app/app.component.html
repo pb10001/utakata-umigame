@@ -1,34 +1,32 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarEexample7" aria-controls="navbarEexample7" aria-expanded="false" aria-label="">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand hannari text-accent" onClick="location.href = '/';" style="filter: drop-shadow(1px 1px 1px rgba(128,128,128,0.5));">
-        <span>
-          <img alt="U" src="favicon.ico">
-        </span>
-        <span>
-          うたかたウミガメ
-        </span>
-      </a>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarEexample7">
-      <ul class="nav mr-auto mt-2 mt-lg-0">
-        <li><a class="item" routerLink="/lobby">ロビー</a></li>
-        <li><a class="item" routerLink="/mondai">問題</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle item" data-toggle="dropdown" role="button">その他<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a class="item" routerLink="/privacy_policy">プライバシーポリシー</a></li>
-                <li><a class="item" routerLink="/link">リンク</a></li>
-                <li><a class="item" target="_blank" rel="noopener" href="https://github.com/pb10001/utakata-umigame/wiki">遊び方 <small><i class="fas fa-external-link-alt"></i></small></a></li>
-                <li><a class="item" target="_blank" rel="noopener" href="https://github.com/pb10001/utakata-umigame">GitHub <small><i class="fas fa-external-link-alt"></i></small></a></li>
-              </ul>
-          </li>
-      </ul>
-    </div>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand hannari text-accent" href="#">
+    <span>
+      <img alt="U" src="favicon.ico">
+    </span>
+    <span>
+      うたかたウミガメ
+    </span></a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#Navber" aria-controls="Navber" aria-expanded="false" aria-label="ナビゲーションの切替">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="Navber">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><a class="nav-link" routerLink="/lobby">ロビー</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/mondai">問題</a></li>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          その他
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/privacy_policy">プライバシーポリシー</a>
+          <a class="dropdown-item" routerLink="/link">リンク</a>
+          <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/pb10001/utakata-umigame/wiki">遊び方 <small><i class="fas fa-external-link-alt"></i></small></a>
+          <a class="dropdown-item" target="_blank" rel="noopener" href="https://github.com/pb10001/utakata-umigame">GitHub <small><i class="fas fa-external-link-alt"></i></small></a>
+        </div>
+      </li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
 </nav>
-<router-outlet class="container-fluid"></router-outlet>
+<div class="container-fluid">
+  <router-outlet class="container-fluid"></router-outlet>
+</div>

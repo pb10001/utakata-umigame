@@ -10,6 +10,7 @@ import { MondaiComponent } from './mondai/mondai.component';
 import { ConfigComponent } from './config/config.component';
 import { EditorComponent } from './editor/editor.component';
 import { MondaiEditorComponent } from './mondai-editor/mondai-editor.component';
+import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { MondaiEditorComponent } from './mondai-editor/mondai-editor.component';
     MondaiComponent,
     ConfigComponent,
     EditorComponent,
-    MondaiEditorComponent
+    MondaiEditorComponent,
+    AnswerEditorComponent
   ],
   imports: [
     BrowserModule,
