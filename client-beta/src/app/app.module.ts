@@ -11,6 +11,8 @@ import { ConfigComponent } from './config/config.component';
 import { EditorComponent } from './editor/editor.component';
 import { MondaiEditorComponent } from './mondai-editor/mondai-editor.component';
 import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
