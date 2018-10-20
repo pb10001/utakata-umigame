@@ -8,13 +8,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MondaiComponent } from './mondai/mondai.component';
 import { ConfigComponent } from './config/config.component';
+import { EditorComponent } from './editor/editor.component';
+import { MondaiEditorComponent } from './mondai-editor/mondai-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
     LobbyChatComponent,
     LobbyComponent,
     MondaiComponent,
-    ConfigComponent
+    ConfigComponent,
+    EditorComponent,
+    MondaiEditorComponent
   ],
   imports: [
     BrowserModule,

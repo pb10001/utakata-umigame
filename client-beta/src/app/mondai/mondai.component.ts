@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SocketService }       from '../socket.service';
+import { SocketService }     from '../socket.service';
 import { UserService }       from '../user.service';
 
 @Component({
@@ -49,14 +49,21 @@ export class MondaiComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit () {
-    this.currentRoom = this.route.snapshot.paramMap.get('id');;
-    this.socketService.connect()
+    this.currentRoom = this.route.snapshot.paramMap.get('id');
+    this.socketService.emit('join', this.currentRoom);
+    this.name = this.userService.getName();
+    this.removePass = this.userService.getRemovePass();
+    this.userService.setRoom(this.currentRoom);
+    this.setName();
+    this.subscribe( 'connect', () => {
+      this.socketService.emit( 'join', this.currentRoom );
+      this.status = '通信中';
+    })
     this.subscribe( 'mondai',  data => {
       this.mondai = data;
     });
     this.subscribe( 'join', data => {
       this.mondai.room = data;
-      this.status = '通信中';
     });
     this.subscribe( 'trueAns', data => {
       this.trueAns = data || '解説';
@@ -100,11 +107,6 @@ export class MondaiComponent implements OnInit, OnDestroy {
       this.status = '再接続';
     });
 
-    this.socketService.emit('join', this.currentRoom);
-    this.name = this.userService.getName();
-    this.removePass = this.userService.getRemovePass();
-    this.userService.setRoom('a');
-    this.setName();
   }
 
   subscribe ( name, callback ) {
@@ -167,16 +169,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
   }
 
   setName () {
-    // let doc = this.name.split('#');
     let txt = this.name;
-    /* if (doc.length == 2) {
-      let sha1 = crypto.createHash('sha1');
-      sha1.update(doc[1]);
-      var hash = sha1.digest('hex');
-      let txt = doc[0] + '◆' + window.btoa(hash).substr(1, 10);
-    } else {
-      let txt = doc[0];
-    } */
     this.userService.setName(txt);
     this.socketService.emit('identify', txt);
   }

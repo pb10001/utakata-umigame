@@ -3,13 +3,13 @@
     <div class= "col-xs-12">
       <div class="card">
         <div class="card-header">
-          <span><i class="fas fa-door-closed"></i>{{mondai.room}}</span>
+          <span><i class="fas fa-door-closed"></i>{{currentRoom}}</span>
         </div>
         <div class="card-body">
           <p id="mondai-text" class="pre-line primary-text">{{mondai.content}}</p>
         </div>
         <div class="card-footer">
-          <a href='/edit_mondai'><i title="問題文を編集" class="fas fa-edit icon-button"></i></a>
+          <a routerLink='/edit_mondai'><i title="問題文を編集" class="fas fa-edit icon-button"></i></a>
           <a (click)="addLink()"><i title="ロビーにリンクを貼る" class="fas fa-bell icon-button"></i></a>
           <a (click)="clearAll()"><i title="削除" class="fas fa-trash icon-button"></i></a>
           <span data-toggle="collapse" id="sender-text" class="">出題者:{{mondai.sender}} </span>

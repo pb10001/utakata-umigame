@@ -157,6 +157,7 @@ module.exports = function(socket) {
   });
 
   socket.on('mondaiMessage', function(msg) {
+    console.log(socket.room);
     if (mondai[socket.room])
       if (mondai[socket.room].removePass !== msg.removePass) {
         console.log('Invalid removepass');

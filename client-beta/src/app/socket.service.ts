@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class SocketService {
 
-  constructor() { }
+  constructor() {
+    this.connect();
+  }
 
   private url = 'http://localhost:5000';
   private socket;
