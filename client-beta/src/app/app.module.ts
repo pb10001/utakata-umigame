@@ -13,6 +13,8 @@ import { MondaiEditorComponent } from './mondai-editor/mondai-editor.component';
 import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { LobbyEditorComponent } from './lobby-editor/lobby-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,9 @@ import { environment } from '../environments/environment';
     ConfigComponent,
     EditorComponent,
     MondaiEditorComponent,
-    AnswerEditorComponent
+    AnswerEditorComponent,
+    ChatBoxComponent,
+    LobbyEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,8 @@ export class UserService {
         name: '',
         room: '',
         removePass: '',
-        currentContent: ''
+        currentContent: '',
+        perPage: 5
       };
       this.save();
     }
@@ -48,13 +49,22 @@ export class UserService {
     this.storage.currentContent = value;
     this.save();
   }
+  getCurrentContent () {
+    this.load();
+    return this.storage.currentContent;
+  }
+  setPerPage (value) {
+    this.storage.perPage = value;
+    this.save();
+  }
+  getPerPage () {
+    this.load();
+    return this.storage.perPage;
+  }
   load () {
     this.storage = JSON.parse(localStorage.user);
   }
   save () {
      localStorage.user = JSON.stringify(this.storage);
-  }
-  getCurrentContent () {
-    return this.storage.currentContent;
   }
 }

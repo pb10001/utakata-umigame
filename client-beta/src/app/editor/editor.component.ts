@@ -13,8 +13,13 @@ export class EditorComponent implements OnInit {
    set subject(subject: string) {
      if (subject === 'mondai') {
        this._subject = '問題文';
+       this.callback = '/mondai/' + this.userService.getRoom();
      } else if (subject === 'trueAns') {
        this._subject = '解説'
+       this.callback = '/mondai/' + this.userService.getRoom();
+     } else if (subject === 'lobby') {
+       this._subject = 'ロビーチャット'
+       this.callback = '/lobby';
      }
    }
    get subject(): string { return this._subject; }
@@ -31,7 +36,6 @@ export class EditorComponent implements OnInit {
     this.socketService.emit( 'join', this.userService.getRoom());
     this.socketService.emit('identify', this.userService.getName());
     this.content = this.userService.getCurrentContent();
-    this.callback = '/mondai/' + this.userService.getRoom();
   }
 
   send() {
@@ -58,6 +62,8 @@ export class EditorComponent implements OnInit {
       } else {
         window.alert('キャンセルしました。');
       }
+    } else if (this.subject === 'ロビーチャット') {
+
     }
   }
 

@@ -3,6 +3,7 @@ export class User {
   removePass: string;
   room: string;
   currentContent: string;
+  perPage: number;
 
   constructor () {}
 }

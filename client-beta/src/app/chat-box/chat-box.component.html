@@ -1,0 +1,12 @@
+<div class="chat-box">
+  <div class="chat-content">
+    <small class="secondary-text">{{msg.name}}</small>
+    <span class="primary-text message-text">{{msg.content}}</span>
+    <a *ngIf="msg.link" routerLink="/mondai/{{msg.link}}">{{msg.link}}</a><br>
+  </div>
+  <div class="chat-footer">
+    <a *ngIf="editable" routerLink="/lobby/edit" (click)="setId(msg.id)"><i title="編集" class="fas fa-edit icon-button"></i></a>
+    <a (click)="parent.removeChat(msg.id)"><i title="削除" class="fas fa-trash icon-button"></i></a>
+    <span>{{msg.date}}</span>
+  </div>
+</div>
