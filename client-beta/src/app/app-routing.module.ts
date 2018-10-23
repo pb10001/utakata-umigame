@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'mondai', component: ConfigComponent },
   { path: 'mondai/:id', component: MondaiComponent },
   { path: 'edit_mondai', component: MondaiEditorComponent },
+  { path: 'edit_answer', component: AnswerEditorComponent },
   { path: 'lobby/edit', component: LobbyEditorComponent }
 ];
 
