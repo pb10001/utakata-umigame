@@ -26,7 +26,7 @@ export class LobbyChatComponent implements OnInit, OnDestroy {
   connections = [];
   status: string = '再接続';
   page: number = 0;
-  perPage:number;
+  perPage:number = 5;
   perPages = [5, 10, 20, 50, 100, 200, 500, 1000];
   constructor(
     private socketService: SocketService,

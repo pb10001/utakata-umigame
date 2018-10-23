@@ -4,26 +4,25 @@
       <div class="" style="margin-top:20px;">
         <div class="">
           <button class="btn btn-default" ng-click="reload()" style="">{{status}}</button>
-          <form class="form-inline" style="display: inline;">
+          <form>
             <label>表示数: {{perPage}}</label>
             <select class="form-control" [(ngModel)]="perPage" name="perPage" (change) = "onPerPageChanged(page)" >
                <option *ngFor = "let p of perPages">{{p}}</option>
              </select>
           </form>
           <!-- チャット -->
-          <div class="chat-area" style="width: 100%;">
+          <div class="chat-area">
             <div class= "chat-row" *ngFor="let msg of messages">
-              <!--<chatbox ng-if = "msg" parent = "$ctrl" msg = "msg" editable=true></chatbox>-->
               <app-chat-box [parent]="self" [msg]="msg" [removePass]="removePass" [editable]="true"></app-chat-box>
             </div>
           </div>
           <!-- ページネーション -->
           <div class="row">
             <ul class="pagination" style="display: table; margin: 0 auto;">
-              <li (click)="zeroPage()"><a class="item-edge font-light"><<</a></li>
-              <li (click)="prevPage()"><a class="font-light">Prev</a></li>
-              <li><span class="font-light" >ページ: {{page}}</span></li>
-              <li (click)="nextPage()"><a class="item-edge font-light">Next</a></li>
+              <li class="btn btn-default" (click)="zeroPage()"><a class="item-edge font-light"><<</a></li>
+              <li class="btn btn-default" (click)="prevPage()"><a class="font-light">Prev</a></li>
+              <li class="btn"><span class="font-light" >ページ: {{page}}</span></li>
+              <li class="btn btn-default" (click)="nextPage()"><a class="item-edge font-light">Next</a></li>
             </ul>
           </div>
           <p style="text-align: center;"><i class="fas fa-exclamation-triangle"></i>ログは7日で消えます。</p>
@@ -31,38 +30,38 @@
       </div>
     </div>
     <div class="col-xs-12 col-md-3">
-      <div class="panel">
-        <div class="panel-heading">
+      <div class="card">
+        <div class="card-header">
           <div class="panel-text">
             <i class="fas fa-user"></i>ユーザー
           </div>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <div class="select-row">
             <p><b>名前</b></p>
             <p>{{name}}</p>
             <p><b>削除用パス</b></p>
             <p>{{removePass}}</p>
-            <div class="form-inline">
+            <div class="form">
               <a class="btn btn-default form-control" routerLink="/mondai">変更</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="panel">
-        <div class="panel-heading">
+      <div class="card">
+        <div class="card-header">
           <div class="panel-text"><i class="fas fa-door-open"></i>問題を解く</div>
         </div>
-        <div class="panel-body form-inline">
+        <div class="card-body">
           <label>部屋名を入力して入室</label>
-          <div class="input-append">
+          <form class="input-append">
             <input type="text" placeholder="Room Name" class="form-control" [(ngModel)]="roomName" name="roomName">
             <a class="btn btn-default form-control" routerLink="/mondai/{{roomName}}">入室</a>
-          </div>
+          </form>
         </div>
       </div>
-      <div class="panel user-list">
-        <div class="panel-heading">
+      <div class="card user-list">
+        <div class="card-header">
           <div class="panel-text">
           <i class="fas fa-users"></i>
           ユーザー一覧
@@ -71,8 +70,8 @@
         <div class="panel-body">
           <ul>
             <li style="list-style:none;" *ngFor="let user of roster">
-              <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;document.getElementById('toIdLabel').textContent= this.name;">
-              <span ng-bind="user.name"></span>
+              <button *ngIf="user.name" class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onclick="document.getElementById('toIdLabel').value= this.value;document.getElementById('toIdLabel').textContent= this.name;">
+              <span>{{user.name}}</span>
               </button>
             </li>
           </ul>
