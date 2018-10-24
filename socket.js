@@ -26,7 +26,6 @@ module.exports = function(socket) {
     //入室
     socket.room = roomId;
     socket.join(roomId);
-    //console.log(io.sockets.manager.rooms);
     client.hgetall(roomId, function(err, doc) {
       socket.emit('mondai', doc);
       if (doc != null) socket.emit('trueAns', doc.trueAns);
@@ -71,8 +70,8 @@ module.exports = function(socket) {
     updateRoster();
   });
   socket.on('refresh', function() {
-    //socket.emit('mondai', mondai[socket.room]);
-    //socket.emit('trueAns', trueAns[socket.room]);
+    socket.emit('mondai', mondai[socket.room]);
+    socket.emit('trueAns', trueAns[socket.room]);
     socket.emit('refreshMessage', msgInRoom(socket.room, messages));
     socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
     updateRoster();
