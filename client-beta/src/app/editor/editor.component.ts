@@ -33,7 +33,8 @@ export class EditorComponent implements OnInit {
    ) { }
 
   ngOnInit() {
-    // this.socketService.emit('identify', this.userService.getName());
+    this.socketService.emit('join', this.userService.getRoom());
+    this.socketService.emit('identify', this.userService.getName());
     this.content = this.userService.getCurrentContent();
   }
 
