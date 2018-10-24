@@ -836,6 +836,8 @@ var EditorComponent = /** @class */ (function () {
             if (window.confirm('問題文が変更されます。続行しますか？')) {
                 var data = {
                     type: 'mondai',
+                    name: this.userService.getName(),
+                    room: this.userService.getRoom(),
                     removePass: this.userService.getRemovePass() || '',
                     content: this.content || '',
                     created_month: new Date().getMonth() + 1,

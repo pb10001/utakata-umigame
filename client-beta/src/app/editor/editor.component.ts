@@ -47,6 +47,8 @@ export class EditorComponent implements OnInit {
       if (window.confirm('問題文が変更されます。続行しますか？')) {
         let data = {
           type: 'mondai',
+          name: this.userService.getName(),
+          room: this.userService.getRoom(),
           removePass: this.userService.getRemovePass() || '',
           content: this.content || '',
           created_month: new Date().getMonth() + 1,

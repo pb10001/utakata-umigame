@@ -1,10 +1,9 @@
+"use strict";
+
 var async = require('async');
 var client = require('./redis_client');
 var moment = require('moment');
-var mondai = {};
-var trueAns = {};
 var messages = {};
-var questions = [];
 var chatMessages = [];
 var lobbyChats = [];
 var sockets = [];
@@ -70,8 +69,6 @@ module.exports = function(socket) {
     updateRoster();
   });
   socket.on('refresh', function() {
-    // socket.emit('mondai', mondai[socket.room]);
-    socket.emit('trueAns', trueAns[socket.room]);
     socket.emit('refreshMessage', msgInRoom(socket.room, messages));
     socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
     updateRoster();
@@ -155,40 +152,43 @@ module.exports = function(socket) {
     socket.broadcast.to('LobbyChat').emit('loadChat', msgInRoom(socket.room, chatMessages));
   });
 
-  socket.on('mondaiMessage', (msg) => {
+  socket.on('mondaiMessage', msg => {
     client.hgetall(socket.room, (err, doc) => {
-      console.log(doc);
       if (doc) {
         if (doc.removePass !== msg.removePass) {
           return;
         }
-        var data = {
-          room: socket.room,
-          sender: socket.name,
-          removePass: msg.removePass,
-          content: String(msg.content || '問題文'),
-          trueAns: String(trueAns[socket.room] || '解説'),
-          created_month: msg.created_month.toString(),
-          created_date: msg.created_date.toString()
-        };
-        client.hmset(socket.room, data);
-        console.log('room', socket.room);
-        socket.emit('mondai', data);
-        socket.broadcast.to(socket.room).emit('mondai', data);
       }
-    })
+      if (!msg.room) {
+        console.log('no matching room');
+        return;
+      }
+      let data = {
+        room: msg.room,
+        sender: msg.name || 'Anonymous',
+        removePass: msg.removePass,
+        content: String(msg.content || '問題文'),
+        trueAns: String(msg.trueAns || '解説'),
+        created_month: msg.created_month.toString(),
+        created_date: msg.created_date.toString()
+      };
+      client.hmset(msg.room, data);
+      console.log('added', data);
+      socket.emit('mondai', data);
+      socket.broadcast.to(msg.room).emit('mondai', data);
+    });
   });
   socket.on('trueAnsMessage', function(msg) {
-    trueAns[socket.room] = String(msg.content || 'クリックして解説を入力');
-    socket.emit('trueAns', trueAns[socket.room]);
+    // trueAns[socket.room] = String(msg.content || 'クリックして解説を入力');
     client.hgetall(socket.room, function(err, doc) {
       if (doc == null) {
       } else {
         doc.trueAns = msg.content;
         client.hmset(socket.room, doc);
+        socket.emit('trueAns', doc);
+        socket.broadcast.to(socket.room).emit('trueAns', doc);
       }
     });
-    socket.broadcast.to(socket.room).emit('trueAns', trueAns[socket.room]);
   });
   socket.on('questionMessage', function(msg) {
     var id = maxId(messages) + 1;
@@ -296,26 +296,23 @@ module.exports = function(socket) {
   });
   socket.on('clear', function(removePass) {
     var room = socket.room;
-    if (!mondai[room]) {
-      console.log('no room');
-      return;
-    } else if (mondai[room].removePass !== removePass) {
-      console.log('invalid removepass');
-      return;
-    }
-    mondai[room] = null;
-    trueAns[room] = null;
-    client.del(room);
-    deleteMessages(room, messages, questionKey);
-    deleteMessages(room, chatMessages, chatKey);
-    socket.emit('mondai', mondai[room]);
-    socket.emit('trueAns', trueAns[room]);
-    socket.emit('message', []);
-    socket.emit('clearChat');
-    socket.broadcast.to(socket.room).emit('mondai', mondai[room]);
-    socket.broadcast.to(socket.room).emit('trueAns', trueAns[room]);
-    socket.broadcast.to(socket.room).emit('message', []);
-    socket.broadcast.to(socket.room).emit('clearChat');
+    client.hgetall(room, (err, doc) => {
+      if (doc.removePass !== removePass) {
+        console.log('invalid removepass');
+        return;
+      }
+      client.del(room);
+      deleteMessages(room, messages, questionKey);
+      deleteMessages(room, chatMessages, chatKey);
+      socket.emit('mondai', {});
+      socket.emit('trueAns', '');
+      socket.emit('message', []);
+      socket.emit('clearChat');
+      socket.broadcast.to(socket.room).emit('mondai', {});
+      socket.broadcast.to(socket.room).emit('trueAns', "");
+      socket.broadcast.to(socket.room).emit('message', []);
+      socket.broadcast.to(socket.room).emit('clearChat');
+    });
   });
   socket.on('identify', function(name) {
     socket.name = String(name || 'Anonymous');
