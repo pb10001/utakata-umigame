@@ -33,7 +33,7 @@ export class EditorComponent implements OnInit {
    ) { }
 
   ngOnInit() {
-    if (this.subject === 'lobby') {
+    if (this.subject === 'ロビーチャット') {
       this.socketService.emit('join', 'LobbyChat');
     } else {
       this.socketService.emit('join', this.userService.getRoom());
