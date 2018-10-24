@@ -12,11 +12,10 @@ export class SocketService {
     this.connect();
   }
 
-  private url = 'http://localhost:5000';
   private socket;
 
   connect () {
-    this.socket = io(this.url);
+    this.socket = io();
   }
 
   emit ( emitName: string, data? ) {
