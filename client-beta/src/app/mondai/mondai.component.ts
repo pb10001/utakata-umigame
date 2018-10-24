@@ -38,6 +38,8 @@ export class MondaiComponent implements OnInit, OnDestroy {
   ques: String;
   quesId: String;
   quesMsg: String;
+  isChatVisible: Boolean = false;
+  isRosterVisible: Boolean = false;
 
   constructor(
     private socketService: SocketService,

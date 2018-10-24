@@ -361,7 +361,6 @@ a.btn.btn-white:hover {
 }
 .drag-and-drop{
   position: absolute;
-  visibility: hidden;
 }
 .dialog{
 position:absolute;

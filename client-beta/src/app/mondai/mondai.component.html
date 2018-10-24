@@ -18,8 +18,8 @@
     <div>
       <div>
         <button class="btn btn-default" (click)="fetchData()">{{status}}</button>
-        <button id="openChat" class="btn btn-default" style="position:fixed; right: 10px; bottom: 10px; z-index: 200;"><i class="fas fa-comment" style="font-size: 2em;"></i></button>
-        <button id="openUser" class="btn btn-default"><i class="fas fa-users"></i>ユーザー一覧</button>
+        <button id="openChat" class="btn btn-default" style="position:fixed; right: 10px; bottom: 10px; z-index: 200;" (click) = "isChatVisible = true"><i class="fas fa-comment" style="font-size: 2em;"></i></button>
+        <button id="openUser" class="btn btn-default" (click)="isRosterVisible = true"><i class="fas fa-users"></i>ユーザー一覧</button>
         <div id="question-area" class ="chat-area">
           <div class= "chat-row" *ngFor="let msg of messages">
             <div class="col col-12">
@@ -91,37 +91,15 @@
       </div>
     </div>
     <div>
-        <div class="drag-and-drop">
-          <div id="settingDialog" class="panel dialog">
-            <div class="card-header drag-header">
-              <div class="panel-text">
-              <i class="fas fa-user-cog"></i>設定
-              <button id="closeSetting" class="btn btn-danger close-button" style="padding:1px;">×</button>
-              </div>
-            </div>
-            <div class="panel-body">
-              <div class="row select-row">
-                <p>名前を変更</p>
-                <form ng-submit="void(0)">
-                  <div class="row control-row">
-                    <input id="name-box" type="text" class="form-control" [(ngModel)]="name" name="name" (change)="setName()" placeholder="Your Name">
-                  </div>
-                </form>
-                <input id="pass-box" type="text" class="form-control" [(ngModel)]="removePass" name="removePass" (change)="setRemovePass()" placeholder="Remove Pass">
-
-              </div>
-            </div>
-          </div>
-          </div>
-          <div class="drag-and-drop">
-            <div class="panel dialog user-list" id="userDialog">
-              <div class="panel-heading drag-header">
+          <div class="drag-and-drop" *ngIf = "isRosterVisible">
+            <div class="card dialog user-list" id="userDialog">
+              <div class="card-header drag-header">
                 <div class="panel-text">
                 <i class="fas fa-users"></i>ユーザー一覧
-                <button id="closeUser" class="btn btn-danger close-button" style="padding:1px;">×</button>
+                <button class="btn btn-danger close-button" style="padding:1px;" (click)="isRosterVisible = false">×</button>
                 </div>
               </div>
-              <div class="panel-body">
+              <div class="card-body">
                 <ul>
                   <li style="list-style:none;" *ngFor="let user of roster">
                     <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onClick="document.getElementById('toIdLabel').value= this.value; document.getElementById('toIdLabel').textContent= this.name;">
@@ -133,15 +111,15 @@
             </div>
           </div>
         </div>
-        <div class="drag-and-drop">
-          <div class="panel dialog" id="chatDialog">
-            <div class= "panel-heading drag-header">
+        <div class="drag-and-drop" style="position: fixed;" *ngIf = "isChatVisible">
+          <div class="card" id="chatDialog">
+            <div class= "card-header drag-header">
               <div class="panel-text">
               <i class="fas fa-comments"></i>チャット
-              <button id="closeChat" class="btn btn-danger close-button" style="padding:1px;">×</button>
+              <button (click)="isChatVisible = false" class="btn btn-danger close-button" style="padding:1px;">×</button>
               </div>
             </div>
-            <div class= "panel-body">
+            <div class= "card-body">
               <div class="row chat-row input-append">
                 <form (submit)="sendPublicMessage()">
                   <input type="text" class="form-control" [(ngModel)]="publicText" name="publicText" placeholder="Send message to all">
@@ -177,106 +155,3 @@
     </div>
   </div>
 </div>
-<script defer>
-(function() {
-  var openChatButton = document.getElementById('openChat');
-  var openUserButton = document.getElementById('openUser');
-
-  var closeChatButton = document.getElementById('closeChat');
-  var closeUserButton = document.getElementById('closeUser');
-
-  var chatDialog = document.getElementById('chatDialog');
-  var userDialog = document.getElementById('userDialog');
-
-  openChatButton.addEventListener('click', function() {
-    chatDialog.style.visibility = 'visible';
-  });
-  openUserButton.addEventListener('click', function() {
-    userDialog.style.visibility = 'visible';
-  });
-  closeChatButton.addEventListener('click', function() {
-    chatDialog.style.visibility = 'hidden';
-    chatDialog.classList.remove("drag");
-  });
-  closeUserButton.addEventListener('click', function() {
-    userDialog.style.visibility = 'hidden';
-    userDialog.classList.remove("drag");
-  });
-
-    //参考URL:https://q-az.net/elements-drag-and-drop/
-    //要素の取得
-    var elements = document.getElementsByClassName("drag-and-drop");
-    var headers = document.getElementsByClassName("drag-header");
-    //要素内のクリックされた位置を取得するグローバル（のような）変数
-    var x;
-    var y;
-
-    //マウスが要素内で押されたとき、又はタッチされたとき発火
-    for(var i = 0; i < elements.length; i++) {
-        headers[i].addEventListener("mousedown", mdown, false);
-        headers[i].addEventListener("touchstart", mdown, false);
-        headers[i].element = elements[i];
-    }
-
-    //マウスが押された際の関数
-    function mdown(e) {
-        this.element.classList.add("drag");
-
-        //タッチデイベントとマウスのイベントの差異を吸収
-        if(e.type === "mousedown") {
-            var event = e;
-        } else {
-            var event = e.changedTouches[0];
-        }
-
-        //要素内の相対座標を取得
-        x = event.pageX - this.element.offsetLeft;
-        y = event.pageY - this.element.offsetTop;
-        //ムーブイベントにコールバック
-        document.body.addEventListener("mousemove", mmove, false);
-        document.body.addEventListener("touchmove", mmove, false);
-    }
-
-    //マウスカーソルが動いたときに発火
-    function mmove(e) {
-
-        //ドラッグしている要素を取得
-        var drag = document.getElementsByClassName("drag")[0];
-        if(drag == null) return;
-        //同様にマウスとタッチの差異を吸収
-        if(e.type === "mousemove") {
-            var event = e;
-        } else {
-            var event = e.changedTouches[0];
-        }
-
-        //フリックしたときに画面を動かさないようにデフォルト動作を抑制
-        e.preventDefault();
-
-        //マウスが動いた場所に要素を動かす
-        drag.style.left = event.pageX - x + "px";
-        drag.style.top = event.pageY - y + "px";
-        //マウスボタンが離されたとき、またはカーソルが外れたとき発火
-        drag.addEventListener("mouseup", mup, false);
-        document.body.addEventListener("mouseleave", mup, false);
-        drag.addEventListener("touchend", mup, false);
-        document.body.addEventListener("touchleave", mup, false);
-
-    }
-
-    //マウスボタンが上がったら発火
-    function mup(e) {
-        var drag = document.getElementsByClassName("drag")[0];
-        if(drag == null) return;
-        //ムーブベントハンドラの消去
-        document.body.removeEventListener("mousemove", mmove, false);
-        drag.removeEventListener("mouseup", mup, false);
-        document.body.removeEventListener("touchmove", mmove, false);
-        drag.removeEventListener("touchend", mup, false);
-
-        //クラス名 .drag も消す
-        drag.classList.remove("drag");
-    }
-
-})();
-</script>
