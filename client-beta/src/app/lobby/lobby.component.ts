@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lobby.component.css']
 })
 export class LobbyComponent implements OnInit {
-  title = 'ああ';
+  title = '';
   constructor() { }
 
   ngOnInit() {

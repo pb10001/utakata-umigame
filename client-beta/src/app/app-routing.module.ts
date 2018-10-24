@@ -7,6 +7,8 @@ import { MondaiComponent} from './mondai/mondai.component';
 import { MondaiEditorComponent } from './mondai-editor/mondai-editor.component';
 import { AnswerEditorComponent } from './answer-editor/answer-editor.component';
 import { LobbyEditorComponent } from './lobby-editor/lobby-editor.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { LinkComponent } from './link/link.component';
 
 const routes: Routes = [
   { path: '', component: LobbyChatComponent },
@@ -15,7 +17,9 @@ const routes: Routes = [
   { path: 'mondai/:id', component: MondaiComponent },
   { path: 'edit_mondai', component: MondaiEditorComponent },
   { path: 'edit_answer', component: AnswerEditorComponent },
-  { path: 'lobby/edit', component: LobbyEditorComponent }
+  { path: 'lobby/edit', component: LobbyEditorComponent },
+  { path: 'privacy_policy', component: PrivacyPolicyComponent },
+  { path: 'link', component: LinkComponent }
 ];
 
 @NgModule({

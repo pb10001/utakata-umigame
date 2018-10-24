@@ -15,6 +15,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { LobbyEditorComponent } from './lobby-editor/lobby-editor.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { LinkComponent } from './link/link.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,9 @@ import { LobbyEditorComponent } from './lobby-editor/lobby-editor.component';
     MondaiEditorComponent,
     AnswerEditorComponent,
     ChatBoxComponent,
-    LobbyEditorComponent
+    LobbyEditorComponent,
+    PrivacyPolicyComponent,
+    LinkComponent
   ],
   imports: [
     BrowserModule,

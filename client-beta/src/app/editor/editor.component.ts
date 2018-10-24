@@ -33,8 +33,7 @@ export class EditorComponent implements OnInit {
    ) { }
 
   ngOnInit() {
-    this.socketService.emit( 'join', this.userService.getRoom());
-    this.socketService.emit('identify', this.userService.getName());
+    // this.socketService.emit('identify', this.userService.getName());
     this.content = this.userService.getCurrentContent();
   }
 
@@ -63,7 +62,12 @@ export class EditorComponent implements OnInit {
         window.alert('キャンセルしました。');
       }
     } else if (this.subject === 'ロビーチャット') {
-
+        let data = {
+          id: this.userService.getId(),
+          content: this.content,
+          removePass: this.userService.getRemovePass()
+        };
+        this.socketService.emit('editLobby', data);
     }
   }
 

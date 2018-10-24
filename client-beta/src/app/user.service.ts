@@ -16,7 +16,8 @@ export class UserService {
         room: '',
         removePass: '',
         currentContent: '',
-        perPage: 5
+        perPage: 5,
+        id: 0
       };
       this.save();
     }
@@ -60,6 +61,14 @@ export class UserService {
   getPerPage () {
     this.load();
     return this.storage.perPage;
+  }
+  setId (value) {
+    this.storage.id = value;
+    this.save();
+  }
+  getId () {
+    this.load();
+    return this.storage.id;
   }
   load () {
     this.storage = JSON.parse(localStorage.user);
