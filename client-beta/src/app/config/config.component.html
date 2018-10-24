@@ -13,7 +13,7 @@
       <form class="form">
         <div class="input-append">
           <input class="form-control" type="text" placeholder="Room" [(ngModel)]="room" name="room">
-          <a class="btn btn-default form-control" routerLink="/mondai/{{room}}">入室</a>
+          <a class="btn btn-default form-control" (click)="setRoom()" routerLink="/mondai/{{room}}">入室</a>
         </div>
       </form>
     </div>

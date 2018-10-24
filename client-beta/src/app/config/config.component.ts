@@ -24,6 +24,10 @@ export class ConfigComponent implements OnInit {
     this.userService.setName(this.name);
   }
 
+  setRoom () {
+    this.userService.setRoom(this.room);
+  }
+
   setRemovePass () {
     this.userService.setRemovePass(this.removePass);
   }
