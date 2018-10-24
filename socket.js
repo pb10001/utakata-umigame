@@ -70,7 +70,7 @@ module.exports = function(socket) {
     updateRoster();
   });
   socket.on('refresh', function() {
-    socket.emit('mondai', mondai[socket.room]);
+    // socket.emit('mondai', mondai[socket.room]);
     socket.emit('trueAns', trueAns[socket.room]);
     socket.emit('refreshMessage', msgInRoom(socket.room, messages));
     socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
@@ -155,27 +155,28 @@ module.exports = function(socket) {
     socket.broadcast.to('LobbyChat').emit('loadChat', msgInRoom(socket.room, chatMessages));
   });
 
-  socket.on('mondaiMessage', function(msg) {
-    console.log(socket.room);
-    if (mondai[socket.room])
-      if (mondai[socket.room].removePass !== msg.removePass) {
-        console.log('Invalid removepass');
-        return;
+  socket.on('mondaiMessage', (msg) => {
+    client.hgetall(socket.room, (err, doc) => {
+      console.log(doc);
+      if (doc) {
+        if (doc.removePass !== msg.removePass) {
+          return;
+        }
+        var data = {
+          room: socket.room,
+          sender: socket.name,
+          removePass: msg.removePass,
+          content: String(msg.content || '問題文'),
+          trueAns: String(trueAns[socket.room] || '解説'),
+          created_month: msg.created_month.toString(),
+          created_date: msg.created_date.toString()
+        };
+        client.hmset(socket.room, data);
+        console.log('room', socket.room);
+        socket.emit('mondai', data);
+        socket.broadcast.to(socket.room).emit('mondai', data);
       }
-    var doc = {
-      room: socket.room,
-      sender: socket.name,
-      removePass: msg.removePass,
-      content: String(msg.content || '問題文'),
-      trueAns: String(trueAns[socket.room] || '解説'),
-      created_month: msg.created_month.toString(),
-      created_date: msg.created_date.toString()
-    };
-    client.hmset(socket.room, doc);
-    mondai[socket.room] = doc;
-    console.log('room', socket.room);
-    socket.emit('mondai', mondai[socket.room]);
-    socket.broadcast.to(socket.room).emit('mondai', mondai[socket.room]);
+    })
   });
   socket.on('trueAnsMessage', function(msg) {
     trueAns[socket.room] = String(msg.content || 'クリックして解説を入力');
