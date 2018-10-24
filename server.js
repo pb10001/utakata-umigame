@@ -1,3 +1,4 @@
+'use strict';
 var http = require('http');
 var path = require('path');
 
@@ -22,40 +23,11 @@ router.use(
   })
 );
 
-router.use(express.static(path.resolve(__dirname, 'client')));
-router.use(express.static(path.resolve(__dirname, 'client/js')));
-router.use(express.static(path.resolve(__dirname, 'client/css')));
+router.use(express.static(path.resolve(__dirname, 'client-beta/dist/client-beta')));
 router.use('/puzzles', apis);
-router.get('/', function(req, res) {
-  res.sendFile(__dirname + '/client/top_page.html');
+router.get('/*', (req,res) => {
+  res.sendFile(path.resolve(__dirname, 'client-beta/dist/client-beta/index.html'));
 });
-router.get('/mondai', function(req, res) {
-  res.sendFile(__dirname + '/client/template.html');
-});
-router.get('/mondai/:room', function(req, res) {
-  res.sendFile(__dirname + '/client/template.html');
-});
-router.get('/privacy_policy', function(req, res) {
-  res.sendFile(__dirname + '/client/template.html');
-});
-router.get('/link', function(req, res) {
-  res.sendFile(__dirname + '/client/template.html');
-});
-router.get('/lobby', function(req, res) {
-  res.sendFile(__dirname + '/client/template.html');
-});
-router.get('/config', function(req, res) {
-  res.sendFile(__dirname + '/client/template.html');
-});
-var sendFile = function(url, path){
-  router.get(url, function(req,res){
-    res.sendFile(__dirname + path);
-  });
-};
-
-sendFile('/edit_mondai', '/client/template.html');
-sendFile('/edit_answer', '/client/template.html');
-sendFile('/lobby/edit', '/client/template.html');
 //Socket.io
 io.on('connection', socket);
 

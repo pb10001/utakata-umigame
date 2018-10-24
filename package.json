@@ -12,7 +12,7 @@
     "watch_main": "watchify src/main.js -t babelify -t scssify -o client/js/bundle.min.js",
     "watch_top": "watchify src/top.js -t babelify -t scssify -o client/js/top.min.js",
     "watch": "npm-run-all watch_main watch_top",
-    "postinstall": "npm-run-all browserify uglify_bundle uglify_top",
+    "postinstall": "cd client-beta && npm run build",
     "dev": "node-dev server.js",
     "lint": "eslint *.js --fix && eslint */*.js --fix"
   },
