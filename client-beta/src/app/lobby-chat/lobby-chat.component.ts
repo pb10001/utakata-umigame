@@ -36,8 +36,8 @@ export class LobbyChatComponent implements OnInit, OnDestroy {
     this.socketService.emit('join', 'LobbyChat');
     this.name = this.userService.getName();
     this.removePass = this.userService.getRemovePass();
+    this.currentRoom = this.userService.getRoom();
     this.perPage = this.userService.getPerPage();
-    this.userService.setRoom(this.currentRoom);
     this.setName();
     this.subscribe('connect', () => {
       this.socketService.emit('join', 'LobbyChat');
