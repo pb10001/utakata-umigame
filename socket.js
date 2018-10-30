@@ -175,7 +175,7 @@ module.exports = function(socket) {
       client.hmset(msg.room, data);
       console.log('added', data);
       socket.emit('mondai', data);
-      socket.broadcast.to(msg.room).emit('mondai', data);
+      to(msg.room, 'mondai', data);
     });
   });
   socket.on('trueAnsMessage', function(msg) {
@@ -186,7 +186,7 @@ module.exports = function(socket) {
         doc.trueAns = msg.content;
         client.hmset(socket.room, doc);
         socket.emit('trueAns', doc);
-        socket.broadcast.to(socket.room).emit('trueAns', doc);
+        to(socket.room, 'trueAns', doc);
       }
     });
   });
@@ -293,9 +293,7 @@ module.exports = function(socket) {
         lobbyChats.push(msg);
       }
       socket.emit('lobbyChat', reverseById(lobbyChats));
-      socket.broadcast
-        .to('LobbyChat')
-        .emit('lobbyChat', reverseById(lobbyChats));
+      to('LobbyChat', 'lobbyChat', reverseById(lobbyChats));
     });
   });
   socket.on('clear', function(removePass) {
@@ -312,10 +310,10 @@ module.exports = function(socket) {
       socket.emit('trueAns', '');
       socket.emit('message', []);
       socket.emit('clearChat');
-      socket.broadcast.to(socket.room).emit('mondai', {});
-      socket.broadcast.to(socket.room).emit('trueAns', "");
-      socket.broadcast.to(socket.room).emit('message', []);
-      socket.broadcast.to(socket.room).emit('clearChat');
+      to(socket.room,'mondai', {});
+      to(socket.room, 'trueAns', "");
+      to(socket.room,'message', []);
+      to(socket.room,'clearChat', {});
     });
   });
   socket.on('identify', function(name) {
@@ -347,6 +345,13 @@ module.exports = function(socket) {
     sockets.forEach(function(socket) {
       socket.emit(event, data);
     });
+  }
+  function to(room, msg, data) {
+    sockets.forEach(socket => {
+      if(socket.room == room) {
+        socket.emit(msg, data);
+      }
+    })
   }
   function msgInRoom(room, messages) {
     //部屋を指定して質問の配列を取り出す
@@ -393,6 +398,6 @@ module.exports = function(socket) {
     client.hset(chatKey, data.id, JSON.stringify(data));
     chatMessages.push(data);
     socket.emit('chatMessage', data);
-    socket.broadcast.to(socket.room).emit('chatMessage', data);
+    to(socket.room, 'chatMessage', data);
   }
 };
