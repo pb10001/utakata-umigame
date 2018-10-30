@@ -213,9 +213,11 @@ module.exports = function(socket) {
     messages[id] = data;
     client.hset('questions', data.id, JSON.stringify(data));
     socket.emit('message', msgInRoom(socket.room, messages));
-    socket.broadcast
-      .to(socket.room)
-      .emit('message', msgInRoom(socket.room, messages));
+    sockets.forEach(sock => {
+      if (sock.room == socket.room) {
+        sock.emit('message', msgInRoom(socket.room, messages));
+      }
+    });
   });
   socket.on('answerMessage', function(msg) {
     console.log('answer: ', msg);
@@ -225,10 +227,12 @@ module.exports = function(socket) {
       messages[id].answerer = msg.answerer;
       messages[id].isGood = msg.isGood;
       messages[id].isTrueAns = msg.isTrueAns;
-      socket.emit('message', msgInRoom(socket.room, messages));
-      socket.broadcast
-        .to(socket.room)
-        .emit('message', msgInRoom(socket.room, messages));
+      //socket.emit('message', msgInRoom(socket.room, messages));
+      sockets.forEach(sock => {
+        if (sock.room == socket.room) {
+          sock.emit('message', msgInRoom(socket.room, messages));
+        }
+      });
       var data = messages[id];
       client.hset(questionKey, id, JSON.stringify(data));
     }
