@@ -184,7 +184,7 @@ module.exports = function(socket) {
         doc.trueAns = msg.content;
         client.hmset(socket.room, doc);
         // socket.emit('trueAns', doc);
-        to(socket.room, 'trueAns', doc);
+        to(socket.room, 'trueAns', doc.trueAns);
       }
     });
   });
