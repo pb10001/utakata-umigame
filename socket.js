@@ -306,10 +306,10 @@ module.exports = function(socket) {
       client.del(room);
       deleteMessages(room, messages, questionKey);
       deleteMessages(room, chatMessages, chatKey);
-      socket.emit('mondai', {});
+      /* socket.emit('mondai', {});
       socket.emit('trueAns', '');
       socket.emit('message', []);
-      socket.emit('clearChat');
+      socket.emit('clearChat'); */
       to(socket.room,'mondai', {});
       to(socket.room, 'trueAns', "");
       to(socket.room,'message', []);
