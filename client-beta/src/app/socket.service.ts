@@ -16,12 +16,7 @@ export class SocketService {
   private socket;
 
   connect () {
-    if (environment.socketUrl) {
-      this.socket = io(environment.socketUrl);
-    }
-    else {
-      this.socket = io();
-    }
+    this.socket = io();
   }
 
   emit ( emitName: string, data? ) {
