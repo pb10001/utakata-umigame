@@ -137,7 +137,7 @@ module.exports = function(socket) {
         chatMessages[key] = obj;
       }
     }
-    socket.emit('chatMessage', obj);
+    // socket.emit('chatMessage', obj);
     to(obj.room, 'chatMessage', obj);
   });
   socket.on('removeMondaiChat', function(data) {
@@ -397,7 +397,7 @@ module.exports = function(socket) {
     };
     client.hset(chatKey, data.id, JSON.stringify(data));
     chatMessages.push(data);
-    socket.emit('chatMessage', data);
+    // socket.emit('chatMessage', data);
     to(socket.room, 'chatMessage', data);
   }
 };
