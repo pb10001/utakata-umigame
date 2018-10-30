@@ -109,10 +109,8 @@ module.exports = function(socket) {
           }
           lobbyChats = tmp;
           console.log(lobbyChats);
-          socket.emit('lobbyChat', reverseById(lobbyChats));
-          socket.broadcast
-            .to('LobbyChat')
-            .emit('lobbyChat', reverseById(lobbyChats));
+          // socket.emit('lobbyChat', reverseById(lobbyChats));
+          to('LobbyChat', 'lobbyChat', reverseById(lobbyChats));
         }
       }
     });
@@ -128,7 +126,7 @@ module.exports = function(socket) {
       }
     }
     socket.emit('lobbyChat', reverseById(lobbyChats));
-    socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
+    to('LobbyChat', 'lobbyChat', reverseById(lobbyChats));
   });
   socket.on('editMondaiChat', function(data) {
     for (var key in chatMessages) {
@@ -140,7 +138,7 @@ module.exports = function(socket) {
       }
     }
     socket.emit('chatMessage', obj);
-    socket.broadcast.to(obj.room).emit('chatMessage', obj);
+    to(obj.room, 'chatMessage', obj);
   });
   socket.on('removeMondaiChat', function(data) {
     client.hdel(chatKey, data.id);
@@ -148,8 +146,8 @@ module.exports = function(socket) {
       if(chatMessages[key].id == data.id)
         delete chatMessages[key];
     }
-    socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
-    socket.broadcast.to('LobbyChat').emit('loadChat', msgInRoom(socket.room, chatMessages));
+    // socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
+    to('LobbyChat', 'loadChat', msgInRoom(socket.room, chatMessages));
   });
 
   socket.on('mondaiMessage', msg => {
@@ -174,7 +172,7 @@ module.exports = function(socket) {
       };
       client.hmset(msg.room, data);
       console.log('added', data);
-      socket.emit('mondai', data);
+      // socket.emit('mondai', data);
       to(msg.room, 'mondai', data);
     });
   });
@@ -185,7 +183,7 @@ module.exports = function(socket) {
       } else {
         doc.trueAns = msg.content;
         client.hmset(socket.room, doc);
-        socket.emit('trueAns', doc);
+        // socket.emit('trueAns', doc);
         to(socket.room, 'trueAns', doc);
       }
     });
@@ -212,12 +210,13 @@ module.exports = function(socket) {
     };
     messages[id] = data;
     client.hset('questions', data.id, JSON.stringify(data));
-    socket.emit('message', msgInRoom(socket.room, messages));
-    sockets.forEach(sock => {
+    // socket.emit('message', msgInRoom(socket.room, messages));
+    to(socket.room, 'message', msgInRoom(socket.room, messages));
+    /* sockets.forEach(sock => {
       if (sock.room == socket.room) {
         sock.emit('message', msgInRoom(socket.room, messages));
       }
-    });
+    }); */
   });
   socket.on('answerMessage', function(msg) {
     console.log('answer: ', msg);
@@ -228,11 +227,12 @@ module.exports = function(socket) {
       messages[id].isGood = msg.isGood;
       messages[id].isTrueAns = msg.isTrueAns;
       //socket.emit('message', msgInRoom(socket.room, messages));
-      sockets.forEach(sock => {
+      to(socket.room, 'message', msgInRoom(socket.room, messages));
+      /* sockets.forEach(sock => {
         if (sock.room == socket.room) {
           sock.emit('message', msgInRoom(socket.room, messages));
         }
-      });
+      }); */
       var data = messages[id];
       client.hset(questionKey, id, JSON.stringify(data));
     }
