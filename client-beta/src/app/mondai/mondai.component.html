@@ -91,53 +91,53 @@
       </div>
     </div>
     <div>
-          <div class="drag-and-drop" *ngIf = "isRosterVisible">
-            <div class="card dialog user-list" id="userDialog">
-              <div class="card-header drag-header">
-                <div class="panel-text">
-                <i class="fas fa-users"></i>ユーザー一覧
-                <button class="btn btn-danger close-button" style="padding:1px;" (click)="isRosterVisible = false">×</button>
-                </div>
-              </div>
-              <div class="card-body">
-                <ul>
-                  <li style="list-style:none;" *ngFor="let user of roster">
-                    <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onClick="document.getElementById('toIdLabel').value= this.value; document.getElementById('toIdLabel').textContent= this.name;">
-                    <span>{{user.name}}</span>
-                    </button>
-                  </li>
-                </ul>
+      <div class="drag-and-drop" *ngIf = "isRosterVisible">
+        <div class="card dialog user-list" id="userDialog">
+          <div class="card-header drag-header">
+            <div class="panel-text">
+            <i class="fas fa-users"></i>ユーザー一覧
+            <button class="btn btn-danger close-button" style="padding:1px;" (click)="isRosterVisible = false">×</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li style="list-style:none;" *ngFor="let user of roster">
+                <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onClick="document.getElementById('toIdLabel').value= this.value; document.getElementById('toIdLabel').textContent= this.name;">
+                <span>{{user.name}}</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="drag-and-drop" *ngIf = "isChatVisible">
+      <div class="card" id="chatDialog">
+        <div class= "card-header drag-header">
+          <div class="panel-text">
+          <i class="fas fa-comments"></i>チャット
+          <button (click)="isChatVisible = false" class="btn btn-danger close-button" style="padding:1px;">×</button>
+          </div>
+        </div>
+        <div class= "card-body">
+          <div class="row chat-row input-append">
+            <form (submit)="sendPublicMessage()">
+              <input type="text" class="form-control" [(ngModel)]="publicText" name="publicText" placeholder="Send message to all">
+              <input type="submit" class="btn btn-default" value="送信する">
+            </form>
+          </div>
+          <div id="private-chat-area">
+            <div class="row chat-row" *ngFor="let msg of privateMessages">
+              <div class="chat-content">
+                <small class="secondary-text">{{msg.name}}</small>
+                <span class="primary-text message-text">{{msg.content}}</span>
+                <a *ngIf="msg.link" routerLink="/mondai/{{msg.link}}">{{msg.link}}</a><br>
               </div>
             </div>
           </div>
         </div>
-        <div class="drag-and-drop" *ngIf = "isChatVisible">
-          <div class="card" id="chatDialog">
-            <div class= "card-header drag-header">
-              <div class="panel-text">
-              <i class="fas fa-comments"></i>チャット
-              <button (click)="isChatVisible = false" class="btn btn-danger close-button" style="padding:1px;">×</button>
-              </div>
-            </div>
-            <div class= "card-body">
-              <div class="row chat-row input-append">
-                <form (submit)="sendPublicMessage()">
-                  <input type="text" class="form-control" [(ngModel)]="publicText" name="publicText" placeholder="Send message to all">
-                  <input type="submit" class="btn btn-default" value="送信する">
-                </form>
-              </div>
-              <div id="private-chat-area">
-                <div class="row chat-row" *ngFor="let msg of privateMessages">
-                  <div class="chat-content">
-                    <small class="secondary-text">{{msg.name}}</small>
-                    <span class="primary-text message-text">{{msg.content}}</span>
-                    <a *ngIf="msg.link" routerLink="/mondai/{{msg.link}}">{{msg.link}}</a><br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
   </div>
   <!--モーダルダイアログ-->
   <div class="modal fade" id="sampleModal" tabindex="-1">
