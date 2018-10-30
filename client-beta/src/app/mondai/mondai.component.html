@@ -128,8 +128,11 @@
               </div>
               <div id="private-chat-area">
                 <div class="row chat-row" *ngFor="let msg of privateMessages">
-                  <p>{{msg}}</p>
-                  <!--<chatbox parent="$ctrl" msg="msg"></chatbox>-->
+                  <div class="chat-content">
+                    <small class="secondary-text">{{msg.name}}</small>
+                    <span class="primary-text message-text">{{msg.content}}</span>
+                    <a *ngIf="msg.link" routerLink="/mondai/{{msg.link}}">{{msg.link}}</a><br>
+                  </div>
                 </div>
               </div>
             </div>

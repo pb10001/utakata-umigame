@@ -13,6 +13,7 @@ import { UserService }       from '../user.service';
 })
 export class MondaiComponent implements OnInit, OnDestroy {
 
+  self = this;
   connections = [];
   mondai = {
     sender : '',
