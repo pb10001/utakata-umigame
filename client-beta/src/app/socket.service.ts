@@ -17,6 +17,7 @@ export class SocketService {
 
   connect () {
     this.socket = io();
+    console.log('Connected');
   }
 
   emit ( emitName: string, data? ) {

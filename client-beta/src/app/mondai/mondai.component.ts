@@ -66,7 +66,8 @@ export class MondaiComponent implements OnInit, OnDestroy {
       if (data) this.mondai = data;
     });
     this.subscribe( 'join', data => {
-      this.mondai.room = data;
+      // this.mondai.room = data;
+      this.status = '通信中';
     });
     this.subscribe( 'trueAns', data => {
       this.trueAns = data || '解説';
@@ -108,6 +109,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
     this.subscribe( 'disconnect', () => {
       console.log('WTF the connection was aborted');
       this.status = '再接続';
+      this.quit();
     });
 
   }
