@@ -6,6 +6,7 @@
   "repository": "https://github.com/pb10001/utakata-umigame.git",
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "scripts": {
+    "start": "node server-legacy.js",
     "postinstall": "cd client-beta && npm install",
     "dev": "node-dev server.js",
     "lint": "eslint *.js --fix && eslint */*.js --fix"

@@ -23,7 +23,7 @@ router.use(
   })
 );
 
-router.use(express.static(path.resolve(__dirname, 'client-beta/dist/client')));
+router.use(express.static(path.resolve(__dirname, 'client-beta/dist/client-beta')));
 router.use('/puzzles', apis);
 router.get('/*', (req,res) => {
   res.sendFile(path.resolve(__dirname, 'client-beta/dist/client-beta/index.html'));
