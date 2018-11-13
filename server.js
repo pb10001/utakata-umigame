@@ -23,12 +23,10 @@ router.use(
   })
 );
 
-router.use(express.static(path.resolve(__dirname, 'client')));
-router.use(express.static(path.resolve(__dirname, 'client/css')));
-router.use(express.static(path.resolve(__dirname, 'client/js')));
+router.use(express.static(path.resolve(__dirname, 'client-beta/dist/client')));
 router.use('/puzzles', apis);
 router.get('/*', (req,res) => {
-  res.sendFile(path.resolve(__dirname, 'client/template.html'));
+  res.sendFile(path.resolve(__dirname, 'client-beta/dist/client-beta/index.html'));
 });
 //Socket.io
 io.on('connection', socket);
