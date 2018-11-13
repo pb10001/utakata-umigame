@@ -107,8 +107,9 @@
             <ul>
               <li style="list-style:none;" *ngFor="let user of roster">
                 <button class="btn transparent" value="{{user.id}}" name="{{user.name}}" data-toggle="modal" data-target="#sampleModal" onClick="document.getElementById('toIdLabel').value= this.value; document.getElementById('toIdLabel').textContent= this.name;">
-                <span>{{user.name}}</span>
+                  <span>{{user.name}}</span>
                 </button>
+                <span>{{user.room}}</span>
               </li>
             </ul>
           </div>

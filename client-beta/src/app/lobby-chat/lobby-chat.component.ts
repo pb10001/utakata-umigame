@@ -62,6 +62,7 @@ export class LobbyChatComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.connections.forEach(x => x.unsubscribe());
+    this.socketService.emit('disconnect');
   }
 
   subscribe ( name, callback ) {
