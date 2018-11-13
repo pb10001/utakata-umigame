@@ -1400,7 +1400,22 @@ var MondaiComponent = /** @class */ (function () {
         this.messages = [];
         this.privateMessages = [];
         this.roster = [];
+        this.currentRoom = '';
+        this.name = '';
+        this.removePass = '';
+        this.trueAns = '';
+        this.status = '再接続';
+        this.text = '';
+        this.publicText = '';
+        this.answer = '';
         this.mode = 'ques';
+        this.refresh = 0;
+        this.currentId = 0;
+        this.isGood = false;
+        this.isTrueAns = false;
+        this.ques = '';
+        this.quesId = '';
+        this.quesMsg = '';
         this.isChatVisible = false;
         this.isRosterVisible = false;
     }
@@ -1409,8 +1424,7 @@ var MondaiComponent = /** @class */ (function () {
     MondaiComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.currentRoom = this.route.snapshot.paramMap.get('id');
-        console.log('Room', this.currentRoom);
-        this.socketService.emit('join', this.currentRoom);
+        //this.socketService.emit('join', this.currentRoom);
         this.name = this.userService.getName();
         this.removePass = this.userService.getRemovePass();
         this.userService.setRoom(this.currentRoom);
@@ -1420,6 +1434,7 @@ var MondaiComponent = /** @class */ (function () {
             _this.socketService.emit('join', _this.currentRoom);
             _this.setName();
             _this.setRoom();
+            console.log('回っているよ');
             _this.status = '通信中';
         });
         this.subscribe('mondai', function (data) {
@@ -1442,7 +1457,8 @@ var MondaiComponent = /** @class */ (function () {
         this.subscribe('refreshMessage', function (data) {
             _this.messages = data;
             var elem = document.getElementById('question-area');
-            elem.scrollTop = elem.scrollHeight;
+            if (elem)
+                elem.scrollTop = elem.scrollHeight;
             _this.refresh = 0;
         });
         this.subscribe('roster', function (data) {
@@ -1477,6 +1493,7 @@ var MondaiComponent = /** @class */ (function () {
                 _this.socketService.emit('join', _this.currentRoom);
                 _this.setName();
                 _this.setRoom();
+                _this.status = '通信中';
             }, 5000);
         });
     };

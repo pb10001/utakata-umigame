@@ -23,22 +23,22 @@ export class MondaiComponent implements OnInit, OnDestroy {
   messages = [];
   privateMessages = [];
   roster = [];
-  currentRoom:String;
-  name: String;
-  removePass: String;
-  trueAns: String;
-  status: String;
-  text: String;
-  publicText: String;
-  answer: String;
+  currentRoom:string = '';
+  name: string = '';
+  removePass: string = '';
+  trueAns: string = '';
+  status: string = '再接続';
+  text: string = '';
+  publicText: string = '';
+  answer: string = '';
   mode = 'ques';
-  refresh: number;
-  currentId: number;
-  isGood: Boolean;
-  isTrueAns: Boolean;
-  ques: String;
-  quesId: String;
-  quesMsg: String;
+  refresh: number = 0;
+  currentId: number = 0;
+  isGood = false;
+  isTrueAns = false;
+  ques: string = '';
+  quesId: string = '';
+  quesMsg: string = '';
   isChatVisible: Boolean = false;
   isRosterVisible: Boolean = false;
 
@@ -53,8 +53,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
     this.currentRoom = this.route.snapshot.paramMap.get('id');
-    console.log('Room', this.currentRoom);
-    this.socketService.emit('join', this.currentRoom);
+    //this.socketService.emit('join', this.currentRoom);
     this.name = this.userService.getName();
     this.removePass = this.userService.getRemovePass();
     this.userService.setRoom(this.currentRoom);
@@ -64,6 +63,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
       this.socketService.emit( 'join', this.currentRoom );
       this.setName();
       this.setRoom();
+      console.log('回っているよ');
       this.status = '通信中';
     })
     this.subscribe( 'mondai',  data => {
@@ -85,7 +85,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
     this.subscribe( 'refreshMessage', data => {
       this.messages = data;
       let elem = document.getElementById('question-area');
-      elem.scrollTop = elem.scrollHeight;
+      if (elem) elem.scrollTop = elem.scrollHeight;
       this.refresh = 0;
     });
     this.subscribe( 'roster', data => {
@@ -120,6 +120,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
         this.socketService.emit('join', this.currentRoom);
         this.setName();
         this.setRoom();
+        this.status = '通信中';
       }, 5000);
     });
 

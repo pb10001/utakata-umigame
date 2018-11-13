@@ -7,7 +7,7 @@ var socketio = require('socket.io');
 var express = require('express');
 
 var apis = require('./apis');
-var socket = require('./socket');
+var socket = require('./socket-legacy');
 
 var router = express();
 var server = http.createServer(router);
