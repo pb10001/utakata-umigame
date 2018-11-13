@@ -63,7 +63,6 @@ export class MondaiComponent implements OnInit, OnDestroy {
       this.socketService.emit( 'join', this.currentRoom );
       this.setName();
       this.setRoom();
-      console.log('回っているよ');
       this.status = '通信中';
     })
     this.subscribe( 'mondai',  data => {

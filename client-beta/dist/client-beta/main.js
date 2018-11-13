@@ -1434,7 +1434,6 @@ var MondaiComponent = /** @class */ (function () {
             _this.socketService.emit('join', _this.currentRoom);
             _this.setName();
             _this.setRoom();
-            console.log('回っているよ');
             _this.status = '通信中';
         });
         this.subscribe('mondai', function (data) {
