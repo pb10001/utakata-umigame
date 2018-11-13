@@ -2,7 +2,7 @@
   "name": "utakata-umigame",
   "version": "2.1.13",
   "description": "Q&A-based web chat application by node.js",
-  "main": "server.js",
+  "main": "server-legacy.js",
   "repository": "https://github.com/pb10001/utakata-umigame.git",
   "author": "pb10001 <atihsa.mihs.ne.ho.da@gmail.com>",
   "scripts": {
