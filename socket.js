@@ -26,6 +26,7 @@ module.exports = function(socket) {
     socket.room = roomId;
     socket.join(roomId);
     client.hgetall(roomId, function(err, doc) {
+      console.log(doc);
       socket.emit('mondai', doc);
       if (doc != null) socket.emit('trueAns', doc.trueAns);
       else socket.emit('trueAns', null);
@@ -60,10 +61,12 @@ module.exports = function(socket) {
         })
       );
     });
+    console.log('Connected', roomName);
     socket.emit('join', roomId);
     updateRoster();
   });
   socket.on('disconnect', function() {
+    console.log('disconnect', socket.name);
     sockets.splice(sockets.indexOf(socket), 1);
     socket.leave(socket.currentRoom);
     updateRoster();
@@ -210,13 +213,7 @@ module.exports = function(socket) {
     };
     messages[id] = data;
     client.hset('questions', data.id, JSON.stringify(data));
-    // socket.emit('message', msgInRoom(socket.room, messages));
     to(socket.room, 'message', msgInRoom(socket.room, messages));
-    /* sockets.forEach(sock => {
-      if (sock.room == socket.room) {
-        sock.emit('message', msgInRoom(socket.room, messages));
-      }
-    }); */
   });
   socket.on('answerMessage', function(msg) {
     console.log('answer: ', msg);
@@ -226,13 +223,7 @@ module.exports = function(socket) {
       messages[id].answerer = msg.answerer;
       messages[id].isGood = msg.isGood;
       messages[id].isTrueAns = msg.isTrueAns;
-      //socket.emit('message', msgInRoom(socket.room, messages));
       to(socket.room, 'message', msgInRoom(socket.room, messages));
-      /* sockets.forEach(sock => {
-        if (sock.room == socket.room) {
-          sock.emit('message', msgInRoom(socket.room, messages));
-        }
-      }); */
       var data = messages[id];
       client.hset(questionKey, id, JSON.stringify(data));
     }

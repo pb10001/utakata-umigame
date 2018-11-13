@@ -53,7 +53,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
     this.currentRoom = this.route.snapshot.paramMap.get('id');
-    this.socketService.emit('join', this.currentRoom);
+    //this.socketService.emit('join', this.currentRoom);
     this.name = this.userService.getName();
     this.removePass = this.userService.getRemovePass();
     this.userService.setRoom(this.currentRoom);
@@ -66,7 +66,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
       if (data) this.mondai = data;
     });
     this.subscribe( 'join', data => {
-      // this.mondai.room = data;
+      this.mondai.room = data;
       this.status = '通信中';
     });
     this.subscribe( 'trueAns', data => {
@@ -110,6 +110,10 @@ export class MondaiComponent implements OnInit, OnDestroy {
       console.log('WTF the connection was aborted');
       this.status = '再接続';
       this.quit();
+      setTimeout(()=> {
+        console.log('Retry');
+        this.socketService.connect();
+      }, 5000);
     });
 
   }

@@ -1409,7 +1409,7 @@ var MondaiComponent = /** @class */ (function () {
     MondaiComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.currentRoom = this.route.snapshot.paramMap.get('id');
-        this.socketService.emit('join', this.currentRoom);
+        //this.socketService.emit('join', this.currentRoom);
         this.name = this.userService.getName();
         this.removePass = this.userService.getRemovePass();
         this.userService.setRoom(this.currentRoom);
@@ -1423,7 +1423,7 @@ var MondaiComponent = /** @class */ (function () {
                 _this.mondai = data;
         });
         this.subscribe('join', function (data) {
-            // this.mondai.room = data;
+            _this.mondai.room = data;
             _this.status = '通信中';
         });
         this.subscribe('trueAns', function (data) {
@@ -1467,6 +1467,10 @@ var MondaiComponent = /** @class */ (function () {
             console.log('WTF the connection was aborted');
             _this.status = '再接続';
             _this.quit();
+            setTimeout(function () {
+                console.log('Retry');
+                _this.socketService.connect();
+            }, 5000);
         });
     };
     MondaiComponent.prototype.subscribe = function (name, callback) {
