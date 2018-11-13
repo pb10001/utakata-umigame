@@ -53,13 +53,17 @@ export class MondaiComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
     this.currentRoom = this.route.snapshot.paramMap.get('id');
-    //this.socketService.emit('join', this.currentRoom);
+    console.log('Room', this.currentRoom);
+    this.socketService.emit('join', this.currentRoom);
     this.name = this.userService.getName();
     this.removePass = this.userService.getRemovePass();
     this.userService.setRoom(this.currentRoom);
     this.setName();
+    this.setRoom();
     this.subscribe( 'connect', () => {
       this.socketService.emit( 'join', this.currentRoom );
+      this.setName();
+      this.setRoom();
       this.status = '通信中';
     })
     this.subscribe( 'mondai',  data => {
@@ -67,6 +71,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
     });
     this.subscribe( 'join', data => {
       this.mondai.room = data;
+      this.fetchData();
       this.status = '通信中';
     });
     this.subscribe( 'trueAns', data => {
@@ -109,10 +114,12 @@ export class MondaiComponent implements OnInit, OnDestroy {
     this.subscribe( 'disconnect', () => {
       console.log('WTF the connection was aborted');
       this.status = '再接続';
-      this.quit();
       setTimeout(()=> {
         console.log('Retry');
         this.socketService.connect();
+        this.socketService.emit('join', this.currentRoom);
+        this.setName();
+        this.setRoom();
       }, 5000);
     });
 
@@ -181,6 +188,10 @@ export class MondaiComponent implements OnInit, OnDestroy {
     let txt = this.name;
     this.userService.setName(txt);
     this.socketService.emit('identify', txt);
+  }
+
+  setRoom () {
+    this.socketService.emit('identiryRoom', this.currentRoom);
   }
 
   setRemovePass () {

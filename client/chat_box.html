@@ -1,0 +1,13 @@
+
+<div class="chat-box">
+  <div class="chat-content">
+    <small class="secondary-text" ng-bind="$ctrl.msg.name"></small>
+    <span class="primary-text message-text" ng-bind="$ctrl.msg.content"></span>
+    <a ng-if="$ctrl.msg.link" ng-href="/mondai/{{$ctrl.msg.link}}">{{$ctrl.msg.link}}</a><br>
+  </div>
+  <div class="chat-footer">
+    <a ng-if="$ctrl.editable" ng-href="/lobby/edit" ng-click="$ctrl.setId($ctrl.msg.id)"><i title="編集" class="fas fa-edit icon-button"></i></a>
+    <a ng-click="$ctrl.remove($ctrl.msg.id)"><i title="削除" class="fas fa-trash icon-button" ></i></a>
+    <span ng-bind="$ctrl.msg.date"></span>
+  </div>
+</div>

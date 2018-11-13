@@ -26,7 +26,6 @@ module.exports = function(socket) {
     socket.room = roomId;
     socket.join(roomId);
     client.hgetall(roomId, function(err, doc) {
-      console.log(doc);
       socket.emit('mondai', doc);
       if (doc != null) socket.emit('trueAns', doc.trueAns);
       else socket.emit('trueAns', null);
@@ -290,6 +289,7 @@ module.exports = function(socket) {
   socket.on('clear', function(removePass) {
     var room = socket.room;
     client.hgetall(room, (err, doc) => {
+      if (!doc) return;
       if (doc.removePass !== removePass) {
         console.log('invalid removepass');
         return;
@@ -311,6 +311,11 @@ module.exports = function(socket) {
     socket.name = String(name || 'Anonymous');
     updateRoster();
   });
+  socket.on('identifyRoom', function(room) {
+    socket.room = room;
+    console.log(room);
+    updateRoster();
+  })
 
   /* utility functions */
   function updateRoster() {
@@ -339,7 +344,8 @@ module.exports = function(socket) {
   }
   function to(room, msg, data) {
     sockets.forEach(socket => {
-      if(socket.room == room) {
+      console.log(socket.name, socket.room);
+      if(socket.room === room) {
         socket.emit(msg, data);
       }
     })

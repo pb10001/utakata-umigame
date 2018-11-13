@@ -1409,13 +1409,17 @@ var MondaiComponent = /** @class */ (function () {
     MondaiComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.currentRoom = this.route.snapshot.paramMap.get('id');
-        //this.socketService.emit('join', this.currentRoom);
+        console.log('Room', this.currentRoom);
+        this.socketService.emit('join', this.currentRoom);
         this.name = this.userService.getName();
         this.removePass = this.userService.getRemovePass();
         this.userService.setRoom(this.currentRoom);
         this.setName();
+        this.setRoom();
         this.subscribe('connect', function () {
             _this.socketService.emit('join', _this.currentRoom);
+            _this.setName();
+            _this.setRoom();
             _this.status = '通信中';
         });
         this.subscribe('mondai', function (data) {
@@ -1424,6 +1428,7 @@ var MondaiComponent = /** @class */ (function () {
         });
         this.subscribe('join', function (data) {
             _this.mondai.room = data;
+            _this.fetchData();
             _this.status = '通信中';
         });
         this.subscribe('trueAns', function (data) {
@@ -1466,10 +1471,12 @@ var MondaiComponent = /** @class */ (function () {
         this.subscribe('disconnect', function () {
             console.log('WTF the connection was aborted');
             _this.status = '再接続';
-            _this.quit();
             setTimeout(function () {
                 console.log('Retry');
                 _this.socketService.connect();
+                _this.socketService.emit('join', _this.currentRoom);
+                _this.setName();
+                _this.setRoom();
             }, 5000);
         });
     };
@@ -1530,6 +1537,9 @@ var MondaiComponent = /** @class */ (function () {
         var txt = this.name;
         this.userService.setName(txt);
         this.socketService.emit('identify', txt);
+    };
+    MondaiComponent.prototype.setRoom = function () {
+        this.socketService.emit('identiryRoom', this.currentRoom);
     };
     MondaiComponent.prototype.setRemovePass = function () {
         this.userService.setRemovePass(this.removePass);
