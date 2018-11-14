@@ -16,7 +16,7 @@ export class SocketService {
   private socket;
 
   connect () {
-    this.socket = io();
+    this.socket = io(environment.socketUrl);
     console.log('Connected');
   }
 

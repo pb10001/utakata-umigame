@@ -26,6 +26,7 @@ export class EditorComponent implements OnInit {
   _subject: string;
   callback: string;
   content: string;
+  room: string;
 
   constructor(
     private socketService: SocketService,
@@ -40,6 +41,7 @@ export class EditorComponent implements OnInit {
     }
     this.socketService.emit('identify', this.userService.getName());
     this.content = this.userService.getCurrentContent();
+    this.room = this.userService.getRoom();
   }
 
   send() {

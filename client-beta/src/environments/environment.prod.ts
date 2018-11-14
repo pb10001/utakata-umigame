@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  socketUrl: ''
+  socketUrl: 'https://utakata-umigame.com'
 };

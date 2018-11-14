@@ -307,11 +307,15 @@ module.exports = function(socket) {
     client.del(room);
     deleteMessages(room, messages, questionKey);
     deleteMessages(room, chatMessages, chatKey);
-    socket.emit('mondai', mondai[room]);
+    socket.emit('mondai', {
+      content: ''
+    });
     socket.emit('trueAns', trueAns[room]);
     socket.emit('message', []);
     socket.emit('clearChat');
-    socket.broadcast.to(socket.room).emit('mondai', mondai[room]);
+    socket.broadcast.to(socket.room).emit('mondai', {
+      content: ''
+    });
     socket.broadcast.to(socket.room).emit('trueAns', trueAns[room]);
     socket.broadcast.to(socket.room).emit('message', []);
     socket.broadcast.to(socket.room).emit('clearChat');

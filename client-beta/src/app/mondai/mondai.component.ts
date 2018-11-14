@@ -30,6 +30,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
   status: string = '再接続';
   text: string = '';
   publicText: string = '';
+  privateText: string = '';
   answer: string = '';
   mode = 'ques';
   refresh: number = 0;
@@ -41,6 +42,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
   quesMsg: string = '';
   isChatVisible: Boolean = false;
   isRosterVisible: Boolean = false;
+  toId: number = 0;
 
   constructor(
     private socketService: SocketService,
