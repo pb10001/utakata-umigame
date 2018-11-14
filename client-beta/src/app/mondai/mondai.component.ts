@@ -239,8 +239,8 @@ export class MondaiComponent implements OnInit, OnDestroy {
     this.quesMsg = msg.text
   }
 
-  setContent (content) {
-    this.userService.setCurrentContent(content);
+  setContent () {
+    this.userService.setCurrentContent(this.mondai.content);
   }
 
   ngOnDestroy() {

@@ -12,7 +12,7 @@
         <p id="mondai-text" class="pre-line primary-text">{{mondai.content}}</p>
       </div>
       <div class="card-footer">
-        <a routerLink='/edit_mondai'><i title="問題文を編集" class="fas fa-edit icon-button"></i></a>
+        <a routerLink='/edit_mondai' (click)="setContent()"><i title="問題文を編集" class="fas fa-edit icon-button"></i></a>
         <a *ngIf="mondai" (click)="addLink()"><i title="ロビーにリンクを貼る" class="fas fa-bell icon-button"></i></a>
         <a *ngIf="mondai" (click)="clearAll()"><i title="削除" class="fas fa-trash icon-button"></i></a>
         <span data-toggle="collapse" id="sender-text">出題者:{{mondai.sender}} </span>
