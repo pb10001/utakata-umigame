@@ -67,7 +67,7 @@ module.exports = function(socket) {
   socket.on('disconnect', function() {
     console.log('disconnect', socket.name);
     sockets.splice(sockets.indexOf(socket), 1);
-    socket.leave(socket.currentRoom);
+    socket.leave(socket.room);
     updateRoster();
   });
   socket.on('refresh', function() {

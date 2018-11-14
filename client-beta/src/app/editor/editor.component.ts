@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { UserService } from '../user.service';
 import { SocketService } from '../socket.service';
 
@@ -8,7 +8,7 @@ import { SocketService } from '../socket.service';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.css']
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements OnInit, OnDestroy {
   @Input()
    set subject(subject: string) {
      if (subject === 'mondai') {
@@ -42,6 +42,10 @@ export class EditorComponent implements OnInit {
     this.socketService.emit('identify', this.userService.getName());
     this.content = this.userService.getCurrentContent();
     this.room = this.userService.getRoom();
+  }
+
+  ngOnDestroy() {
+    this.socketService.emit('disconnect');
   }
 
   send() {

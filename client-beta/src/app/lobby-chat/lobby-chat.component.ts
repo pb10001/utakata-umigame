@@ -33,6 +33,7 @@ export class LobbyChatComponent implements OnInit, OnDestroy {
     private userService: UserService ) { }
 
   ngOnInit() {
+    if (this.status === '通信中') return;
     this.socketService.emit('join', 'LobbyChat');
     this.name = this.userService.getName();
     this.removePass = this.userService.getRemovePass();
@@ -40,7 +41,7 @@ export class LobbyChatComponent implements OnInit, OnDestroy {
     this.perPage = this.userService.getPerPage();
     this.setName();
     this.subscribe('connect', () => {
-      this.socketService.emit('join', 'LobbyChat');
+      // this.socketService.emit('join', 'LobbyChat');
       this.status = '通信中';
     });
     this.subscribe('join', () => {

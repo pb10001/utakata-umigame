@@ -67,7 +67,7 @@ module.exports = function(socket) {
   });
   socket.on('disconnect', function() {
     sockets.splice(sockets.indexOf(socket), 1);
-    socket.leave(socket.currentRoom);
+    socket.leave(socket.room);
     updateRoster();
   });
   socket.on('refresh', function() {
@@ -327,7 +327,15 @@ module.exports = function(socket) {
 
   /* utility functions */
   function updateRoster() {
-    async.map(
+    var list = sockets.map(x=>{
+      return {
+        id: x.user_id,
+        name: x.name
+      };
+    });
+    console.log('updateRoster', list);
+    broadcast('roster', list);
+    /* async.map(
       sockets,
       function(socket, callback) {
         callback(null, { id: socket.user_id, name: socket.name });
@@ -335,7 +343,7 @@ module.exports = function(socket) {
       function(err, names) {
         broadcast('roster', names);
       }
-    );
+    ); */
   }
   function deleteMessages(room, messages, type) {
     for (var key in messages) {
