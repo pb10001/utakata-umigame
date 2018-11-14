@@ -9,7 +9,8 @@
     "start": "node server-legacy.js",
     "postinstall": "cd client-beta && npm install",
     "dev": "node-dev server.js",
-    "lint": "eslint *.js --fix && eslint */*.js --fix"
+    "lint": "eslint *.js --fix && eslint */*.js --fix",
+    "build": "cd client-beta && npm run build"
   },
   "dependencies": {
     "angular": "^1.6.8",
