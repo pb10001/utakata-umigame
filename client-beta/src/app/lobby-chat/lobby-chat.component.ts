@@ -41,7 +41,7 @@ export class LobbyChatComponent implements OnInit, OnDestroy {
     this.perPage = this.userService.getPerPage();
     this.setName();
     this.subscribe('connect', () => {
-      // this.socketService.emit('join', 'LobbyChat');
+      this.socketService.emit('join', 'LobbyChat');
       this.status = '通信中';
     });
     this.subscribe('join', () => {
