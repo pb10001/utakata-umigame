@@ -81,7 +81,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
     this.subscribe( 'message', () => {
       this.refresh++;
       let elem = document.getElementById('question-area');
-      elem.scrollTop = elem.scrollHeight;
+      if (elem) elem.scrollTop = elem.scrollHeight;
     });
     this.subscribe( 'refreshMessage', data => {
       this.messages = data;
@@ -95,7 +95,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
     this.subscribe( 'chatMessage', data => {
       this.privateMessages.push(data);
       let elem = document.getElementById('private-chat-area');
-      elem.scrollTop = elem.scrollHeight;
+      if (elem) elem.scrollTop = elem.scrollHeight;
     });
     this.subscribe( 'clearChat', () => {
       let privates = this.privateMessages.filter(x => x.private);

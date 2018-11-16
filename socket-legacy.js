@@ -77,6 +77,7 @@ module.exports = function(socket) {
     socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
     updateRoster();
   });
+  /* ロビー */
   socket.on('fetchLobby', function() {
     client.hgetall('lobbyChats', function(err, docs) {
       lobbyChats = [];
@@ -113,10 +114,11 @@ module.exports = function(socket) {
           }
           lobbyChats = tmp;
           console.log(lobbyChats);
-          socket.emit('lobbyChat', reverseById(lobbyChats));
-          socket.broadcast
+          broadcast('lobbyChat', reverseById(lobbyChats));
+          // socket.emit('lobbyChat', reverseById(lobbyChats));
+          /* socket.broadcast
             .to('LobbyChat')
-            .emit('lobbyChat', reverseById(lobbyChats));
+            .emit('lobbyChat', reverseById(lobbyChats)); */
         }
       }
     });
@@ -131,9 +133,11 @@ module.exports = function(socket) {
         client.hset('lobbyChats', data.id, JSON.stringify(lobbyChats[key]));
       }
     }
-    socket.emit('lobbyChat', reverseById(lobbyChats));
-    socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
+    broadcast('lobbyChat', reverseById(lobbyChats));
+    // socket.emit('lobbyChat', reverseById(lobbyChats));
+    // socket.broadcast.to('LobbyChat').emit('lobbyChat', reverseById(lobbyChats));
   });
+
   socket.on('editMondaiChat', function(data) {
     for (var key in chatMessages) {
       var obj = chatMessages[key];
@@ -143,8 +147,9 @@ module.exports = function(socket) {
         chatMessages[key] = obj;
       }
     }
-    socket.emit('chatMessage', obj);
-    socket.broadcast.to(obj.room).emit('chatMessage', obj);
+    broadcastRoom('chatMessage', obj.room, obj);
+    // socket.emit('chatMessage', obj);
+    // socket.broadcast.to(obj.room).emit('chatMessage', obj);
   });
   socket.on('removeMondaiChat', function(data) {
     client.hdel(chatKey, data.id);
@@ -152,8 +157,9 @@ module.exports = function(socket) {
       if(chatMessages[key].id == data.id)
         delete chatMessages[key];
     }
-    socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
-    socket.broadcast.to('LobbyChat').emit('loadChat', msgInRoom(socket.room, chatMessages));
+    broadcastRoom('loadChat', socket.room, msgInRoom(socket.room, chatMessages));
+    // socket.emit('loadChat', msgInRoom(socket.room, chatMessages));
+    // socket.broadcast.to('LobbyChat').emit('loadChat', msgInRoom(socket.room, chatMessages));
   });
 
   socket.on('mondaiMessage', function(msg) {
@@ -173,9 +179,9 @@ module.exports = function(socket) {
     };
     client.hmset(socket.room, doc);
     mondai[socket.room] = doc;
-    console.log('room', socket.room);
-    socket.emit('mondai', mondai[socket.room]);
-    socket.broadcast.to(socket.room).emit('mondai', mondai[socket.room]);
+    broadcastRoom('mondai', socket.room, doc);
+    // socket.emit('mondai', mondai[socket.room]);
+    // socket.broadcast.to(socket.room).emit('mondai', mondai[socket.room]);
   });
   socket.on('trueAnsMessage', function(msg) {
     trueAns[socket.room] = String(msg.content || 'クリックして解説を入力');
@@ -187,7 +193,8 @@ module.exports = function(socket) {
         client.hmset(socket.room, doc);
       }
     });
-    socket.broadcast.to(socket.room).emit('trueAns', trueAns[socket.room]);
+    broadcastRoom('trueAns', socket.room, msg.content);
+    // socket.broadcast.to(socket.room).emit('trueAns', trueAns[socket.room]);
   });
   socket.on('questionMessage', function(msg) {
     var id = maxId(messages) + 1;
@@ -211,10 +218,11 @@ module.exports = function(socket) {
     };
     messages[id] = data;
     client.hset('questions', data.id, JSON.stringify(data));
-    socket.emit('message', msgInRoom(socket.room, messages));
-    socket.broadcast
+    broadcastRoom('message', socket.room, msgInRoom(socket.room, messages));
+    // socket.emit('message', msgInRoom(socket.room, messages));
+    /* socket.broadcast
       .to(socket.room)
-      .emit('message', msgInRoom(socket.room, messages));
+      .emit('message', msgInRoom(socket.room, messages)); */
   });
   socket.on('answerMessage', function(msg) {
     console.log('answer: ', msg);
@@ -224,10 +232,11 @@ module.exports = function(socket) {
       messages[id].answerer = msg.answerer;
       messages[id].isGood = msg.isGood;
       messages[id].isTrueAns = msg.isTrueAns;
-      socket.emit('message', msgInRoom(socket.room, messages));
-      socket.broadcast
+      broadcastRoom('message', socket.room, msgInRoom(socket.room, messages));
+      // socket.emit('message', msgInRoom(socket.room, messages));
+      /* socket.broadcast
         .to(socket.room)
-        .emit('message', msgInRoom(socket.room, messages));
+        .emit('message', msgInRoom(socket.room, messages)); */
       var data = messages[id];
       client.hset(questionKey, id, JSON.stringify(data));
     }
@@ -287,10 +296,11 @@ module.exports = function(socket) {
         var msg = JSON.parse(docs[key]);
         lobbyChats.push(msg);
       }
-      socket.emit('lobbyChat', reverseById(lobbyChats));
-      socket.broadcast
+      broadcast('lobbyChat', reverseById(lobbyChats));
+      // socket.emit('lobbyChat', reverseById(lobbyChats));
+      /* socket.broadcast
         .to('LobbyChat')
-        .emit('lobbyChat', reverseById(lobbyChats));
+        .emit('lobbyChat', reverseById(lobbyChats)); */
     });
   });
   socket.on('clear', function(removePass) {
@@ -307,18 +317,22 @@ module.exports = function(socket) {
     client.del(room);
     deleteMessages(room, messages, questionKey);
     deleteMessages(room, chatMessages, chatKey);
-    socket.emit('mondai', {
+    broadcastRoom('mondai', socket.room, {content: ''});
+    broadcastRoom('trueAns', socket.room, '');
+    broadcastRoom('message', socket.room, []);
+    broadcastRoom('clearChat', socket.room, null);
+    /* socket.emit('mondai', {
       content: ''
-    });
-    socket.emit('trueAns', trueAns[room]);
+    }); */
+    /* socket.emit('trueAns', trueAns[room]);
     socket.emit('message', []);
-    socket.emit('clearChat');
-    socket.broadcast.to(socket.room).emit('mondai', {
+    socket.emit('clearChat'); */
+    /* socket.broadcast.to(socket.room).emit('mondai', {
       content: ''
     });
     socket.broadcast.to(socket.room).emit('trueAns', trueAns[room]);
     socket.broadcast.to(socket.room).emit('message', []);
-    socket.broadcast.to(socket.room).emit('clearChat');
+    socket.broadcast.to(socket.room).emit('clearChat'); */
   });
   socket.on('identify', function(name) {
     socket.name = String(name || 'Anonymous');
@@ -356,6 +370,12 @@ module.exports = function(socket) {
   function broadcast(event, data) {
     sockets.forEach(function(socket) {
       socket.emit(event, data);
+    });
+  }
+  function broadcastRoom(event, room, data) {
+    sockets.forEach(function(socket) {
+      if (socket.room === room)
+        socket.emit(event, data);
     });
   }
   function msgInRoom(room, messages) {
@@ -402,7 +422,8 @@ module.exports = function(socket) {
     };
     client.hset(chatKey, data.id, JSON.stringify(data));
     chatMessages.push(data);
-    socket.emit('chatMessage', data);
-    socket.broadcast.to(socket.room).emit('chatMessage', data);
+    broadcastRoom('chatMessage', socket.room, data);
+    // socket.emit('chatMessage', data);
+    // socket.broadcast.to(socket.room).emit('chatMessage', data);
   }
 };
