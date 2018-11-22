@@ -8,3 +8,12 @@
   max-width: 300px;
   overflow-y: scroll;
 }
+.chat-box {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.mb {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

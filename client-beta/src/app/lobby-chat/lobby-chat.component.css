@@ -1,3 +1,7 @@
 .chat-form {
   margin: 0 auto;
 }
+.chat-row {
+  padding: 10px;
+  border-radius: 5px;
+}

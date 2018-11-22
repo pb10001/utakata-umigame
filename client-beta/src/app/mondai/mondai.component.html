@@ -27,35 +27,39 @@
         <div id="question-area" class ="chat-area">
           <div class= "chat-row" *ngFor="let msg of messages">
             <div class="col col-12">
-              <a class="btn btn-white" (click)="setQues(msg)" onClick="document.answerForm.answerBox.focus();"><span class="cinzel">No. {{msg.questionNum}}</span></a>
+              <a class="btn btn-default mb" (click)="setQues(msg)" onClick="document.answerForm.answerBox.focus();"><span class="cinzel">No. {{msg.questionNum}}</span></a>
             </div>
             <div class="row">
-              <div class="col col-12 col-md-6">
-                <div class="chat-box">
+              <div class="col col-12 col-md-10">
+                <div class="chat-box shadow-sm">
                   <!--質問-->
                   <small class="secondary-text">{{msg.name}}</small><br>
                   <span class="primary-text message-text">{{msg.text}} <span class="badge badge-info" *ngIf="msg.isGood">良い質問</span> <span class="badge badge-success" *ngIf="msg.isTrueAns">正解</span></span>
                 </div>
               </div>
-              <div class="col col-12 col-md-6">
+            </div>
+            <div class="row" *ngIf="msg.answerer !== '-'">
+              <div class="col col-12 col-md-10 offset-md-2">
                 <!--回答-->
-                <div class="chat-box">
+                <div class="chat-box shadow-sm bg-light">
                   <small class="secondary-text">{{msg.answerer}}</small><br>
                   <span class="primary-text message-text">{{msg.answer}}</span>
                 </div>
               </div>
             </div>
           </div>
-          <div>
-            <button class="btn btn-default" (click)="fetchData()" style="width: 100%; margin: 10px auto;" id="refreshButton" *ngIf="refresh > 0">{{refresh}}件の更新</button>
-          </div>
+       </div>
+       <div>
+         <button class="btn btn-default" (click)="fetchData()" style="width: 100%; margin: 10px auto;" id="refreshButton" *ngIf="refresh > 0">{{refresh}}件の更新</button>
        </div>
       </div>
     </div>
     <div>
       <div class="controls">
-        <button class="btn btn-default" (click) ="mode='ques'">質問</button>
-        <button class="btn btn-default" (click) ="mode='ans'">回答</button>
+        <div class="col-2 offset-5">
+          <button class="btn btn-default col-6" (click) ="mode='ques'">質問</button>
+          <button class="btn btn-default col-6" (click) ="mode='ans'">回答</button>
+        </div>
         <div>
           <!-- 質問フォーム -->
           <div id="question" class="control-row active" *ngIf="mode==='ques'">

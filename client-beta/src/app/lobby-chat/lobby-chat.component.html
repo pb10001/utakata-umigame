@@ -12,7 +12,7 @@
           </form>
           <!-- チャット -->
           <div class="chat-area">
-            <div class= "chat-row" *ngFor="let msg of messages">
+            <div class= "chat-row shadow-sm" *ngFor="let msg of messages">
               <app-chat-box [parent]="self" [msg]="msg" [removePass]="removePass" [editable]="true"></app-chat-box>
             </div>
           </div>

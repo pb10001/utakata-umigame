@@ -284,7 +284,7 @@ nav.navbar {
 .btn.btn-default:hover {
   background: #665e51;
   border: solid #665e51 1px;
-  color: #fff;
+  color: #ffffff !important;
 }
 a.btn.btn-white {
   background: transparent;
@@ -296,6 +296,7 @@ a.btn.btn-white {
   font-weight: lighter;
 }
 a.btn.btn-white:hover {
+  background: white;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
