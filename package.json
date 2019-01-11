@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node server-legacy.js",
     "postinstall": "cd client-beta && npm install",
-    "dev": "node-dev server.js",
+    "dev": "node-dev server-legacy.js",
     "lint": "eslint *.js --fix && eslint */*.js --fix",
     "build": "cd client-beta && npm run build"
   },
