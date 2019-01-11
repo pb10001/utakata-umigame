@@ -55,7 +55,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
     this.currentRoom = this.route.snapshot.paramMap.get('id');
-    this.socketService.emit('join', this.currentRoom);
+    // this.socketService.emit('join', this.currentRoom);
     this.name = this.userService.getName();
     this.removePass = this.userService.getRemovePass();
     this.userService.setRoom(this.currentRoom);
