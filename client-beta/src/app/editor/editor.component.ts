@@ -45,7 +45,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.socketService.emit('disconnect');
+    this.socketService.disconnect();
   }
 
   send() {

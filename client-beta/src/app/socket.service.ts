@@ -19,6 +19,10 @@ export class SocketService {
     this.socket = io(environment.socketUrl);
     console.log('Connected');
   }
+  
+  disconnect () {
+    this.socket.close();
+  }
 
   emit ( emitName: string, data? ) {
     this.socket.emit( emitName, data );

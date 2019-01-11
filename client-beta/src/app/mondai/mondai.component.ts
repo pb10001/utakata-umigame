@@ -219,7 +219,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
 
   addLink () {
     if (window.confirm('ルーム名が公開されます。リンクを貼りますか？')) {
-      var data = {
+      const data = {
         type: 'lobbyChat',
         name: this.name,
         content: '【出題中】',
@@ -245,7 +245,7 @@ export class MondaiComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.connections.forEach(x => x.unsubscribe());
-    this.socketService.emit('disconnect');
+    this.socketService.disconnect();
   }
 
 }
