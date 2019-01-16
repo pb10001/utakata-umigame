@@ -349,7 +349,7 @@ module.exports = function(socket) {
       };
     });
     console.log('updateRoster', list);
-    broadcast('roster', list);
+    broadcast('roster', list.filter((player) => player.name));
     /* async.map(
       sockets,
       function(socket, callback) {
