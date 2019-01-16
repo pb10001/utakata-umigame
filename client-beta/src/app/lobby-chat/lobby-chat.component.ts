@@ -34,14 +34,14 @@ export class LobbyChatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.status === '通信中') return;
-    this.socketService.emit('join', 'LobbyChat');
+    // this.socketService.emit('join', 'LobbyChat');
     this.name = this.userService.getName();
     this.removePass = this.userService.getRemovePass();
     this.currentRoom = this.userService.getRoom();
     this.perPage = this.userService.getPerPage();
-    this.setName();
     this.subscribe('connect', () => {
       this.socketService.emit('join', 'LobbyChat');
+      this.setName();
       this.status = '通信中';
     });
     this.subscribe('join', () => {
